@@ -6,6 +6,31 @@ KEEL keeps AI agents (Claude Code, Codex, Cursor, etc.) honest while they work o
 
 No cloud. No MCP runtime dependency. Just YAML artifacts in `.keel/` and a CLI.
 
+## The Companion — Why KEEL Exists
+
+The companion is what makes KEEL fundamentally different from a linter or a one-shot audit tool. It's a **persistent, real-time awareness loop** that runs alongside your AI agent and catches drift *as it happens*, not after.
+
+AI agents don't self-correct. They commit to a plan, then silently wander. By the time a human reviews the PR, the damage is done — wrong files touched, scope ballooned, the "done" claim doesn't match the goal. The companion closes that feedback loop in real-time. The agent gets a drift warning *while it's still in the session*, early enough to course-correct.
+
+**What it does:**
+- Polls the repo every 2 seconds in the background
+- On every file change: re-runs validation, drift detection, traceability, and cluster analysis
+- Updates the current brief, alert feed, and heartbeat in real-time
+- Pushes drift notifications into the agent's status line and hooks — the agent sees drift *during* the tool call that caused it, not 10 minutes later
+- Writes a heartbeat so the status line, hooks, and other tools can verify the companion is alive and fresh
+
+**Resilience:**
+- Per-cycle error handling with exponential backoff — a single bad awareness pass doesn't kill the companion
+- Logs exit reason on any shutdown (crash, signal, error cascade)
+- Detects dead processes and writes truthful state — no stale "running: true" lies
+- Heartbeat staleness detection tells you if the companion is alive but stuck vs. actually dead
+
+```bash
+keel companion status   # check if alive, fresh, and token-matched
+keel companion start    # start if not running
+keel companion stop     # stop gracefully
+```
+
 ## Why
 
 AI coding agents are powerful but forgetful. They lose track of goals mid-session, silently change scope, present heuristics as proof, and declare "done" before the work actually matches the plan. KEEL is the guardrail layer — it watches the repo, detects drift in real-time, and keeps the agent (and you) aligned.
@@ -80,32 +105,6 @@ KEEL layers multiple drift signals:
 - **Cluster detection** — repeated weak signals rolled up into probable drift
 
 Each signal carries a confidence level (`deterministic`, `inferred-high`, `inferred-medium`, `heuristic-low`) so you know what's proven vs. what's a guess.
-
-## The Companion — KEEL's Core Strength
-
-The companion is what makes KEEL fundamentally different from a linter or a one-shot audit tool. It's a **persistent, real-time awareness loop** that runs alongside your AI agent and catches drift *as it happens*, not after.
-
-**What it does:**
-- Polls the repo every 2 seconds in the background
-- On every file change: re-runs validation, drift detection, traceability, and cluster analysis
-- Updates the current brief, alert feed, and heartbeat in real-time
-- Pushes drift notifications into the agent's status line and hooks — the agent sees drift *during* the tool call that caused it, not 10 minutes later
-- Writes a heartbeat to `.keel/session/companion-heartbeat.yaml` so the status line, hooks, and other tools can verify the companion is alive and fresh
-
-**Why this matters:**
-AI agents don't self-correct. They commit to a plan, then silently wander. By the time a human reviews the PR, the damage is done — wrong files touched, scope ballooned, the "done" claim doesn't match the goal. The companion closes that feedback loop in real-time. The agent gets a drift warning *while it's still in the session*, early enough to course-correct.
-
-**Resilience:**
-- Per-cycle error handling with exponential backoff — a single bad awareness pass doesn't kill the companion
-- Logs exit reason on any shutdown (crash, signal, error cascade) to `.keel/session/companion.log`
-- `companion_status()` detects dead processes and writes truthful state — no stale "running: true" lies
-- Heartbeat staleness detection tells you if the companion is alive but stuck vs. actually dead
-
-```bash
-keel companion status   # check if alive, fresh, and token-matched
-keel companion start    # start if not running
-keel companion stop     # stop gracefully
-```
 
 ## Claude Code Integration
 
