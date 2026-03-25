@@ -51,7 +51,7 @@ KEEL is being built to create **hard stops** that prevent AI agents from causing
 - **Auto-replan detection** — the companion watches for accumulating drift warnings and suggests `keel replan` when the plan no longer matches reality
 
 **WIP — building toward hard stops:**
-- **Pre-edit blocking** — intercept the agent *before* it writes to a file outside the active plan step (not just warn after)
+- **Pre-edit blocking** — DONE. A `PreToolUse` hook intercepts Write/Edit *before* they execute. If the target file is outside the active plan step and no delta covers it, the edit is blocked. The agent must run `keel delta`, `keel replan`, or `keel advance` to proceed.
 - **Automatic session pause** — when drift severity hits a threshold, force the agent to stop and get human confirmation before continuing
 - **Scope lock enforcement** — reject file changes that don't map to the active goal, plan step, or recorded delta
 - **Budget/token guardrails** — detect when an agent is churning (lots of edits, no progress) and interrupt the loop
