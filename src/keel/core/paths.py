@@ -103,6 +103,10 @@ class KeelPaths:
         return self.session_dir / "pending-notification.yaml"
 
     @property
+    def drift_notification_state_file(self) -> Path:
+        return self.session_dir / "drift-notification-state.yaml"
+
+    @property
     def artifact_root(self) -> Path:
         return self.root / "keel"
 

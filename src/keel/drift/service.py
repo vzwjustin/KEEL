@@ -593,6 +593,18 @@ def detect_drift(
     now = datetime.now().astimezone()
     findings: list[DriftFinding] = []
     deltas = deltas or []
+
+    # No active goal → nothing to drift FROM. Return an empty clean artifact.
+    if session.active_goal_id is None:
+        return DriftArtifact(
+            artifact_id=f"drift-{now.strftime('%Y%m%d-%H%M%S')}",
+            created_at=now,
+            repo_root=".",
+            mode=mode,
+            status="clean",
+            findings=[],
+            clusters=[],
+        )
     effective_mode = mode
     if mode == "auto":
         if load_yaml(paths.config_file).get("strictness") in {"strict", "paranoid"}:

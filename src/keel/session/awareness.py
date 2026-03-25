@@ -146,15 +146,39 @@ def _write_drift_notification(
     replan_suggested: bool = False,
     replan_reason: str = "",
 ) -> None:
-    """Write a one-shot notification file when new drift findings appear."""
-    if not hasattr(drift, "findings") or not drift.findings:
+    """Write a one-shot notification file only when new drift codes appear (state transition)."""
+    # No findings → reset state and stay silent.
+    current_codes: list[str] = []
+    if hasattr(drift, "findings") and drift.findings:
+        current_codes = sorted({f.code for f in drift.findings})
+
+    # Load the last-emitted code set for transition comparison.
+    from keel.core.artifacts import load_yaml as _load_yaml
+    prev_state = _load_yaml(paths.drift_notification_state_file) or {}
+    prev_codes: list[str] = prev_state.get("codes", [])
+
+    # Persist current state regardless (clears stale prev state when drift resolves).
+    save_yaml(paths.drift_notification_state_file, {
+        "codes": current_codes,
+        "updated_at": now_iso(),
+    })
+
+    if not current_codes:
         return
+
+    # Only notify on TRANSITION: new codes that weren't in the previous set.
+    new_codes = set(current_codes) - set(prev_codes)
+    if not new_codes:
+        return
+
     drift_alerts = [a for a in alerts if a.get("source") == "drift"]
     if not drift_alerts:
         return
-    # Only write if file doesn't already exist (consumed by hook on next tool use)
+
+    # Pending notification already queued for the hook — don't double-write.
     if paths.pending_notification_file.exists():
         return
+
     from keel.session.ui import _vibe
     top = drift_alerts[0]
     message = _vibe(top.get("summary", "drifting"))
@@ -166,6 +190,7 @@ def _write_drift_notification(
         "created_at": now_iso(),
         "alert_count": len(drift_alerts),
         "replan_suggested": replan_suggested,
+        "new_codes": sorted(new_codes),
     })
 
 
