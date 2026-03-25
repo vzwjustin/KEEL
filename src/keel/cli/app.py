@@ -357,7 +357,7 @@ def goal(
         and session.active_goal_id
     )
     if only_questions:
-        existing = load_model_by_artifact_id(paths.goals_dir, session.active_goal_id)
+        existing = load_model_by_artifact_id(paths.goals_dir, session.active_goal_id, GoalArtifact)
         if existing:
             # Append questions to the existing goal instead of replacing it
             updated_questions = list(existing.unresolved_questions or []) + list(_split(unresolved_question) or [])
@@ -383,6 +383,15 @@ def goal(
             svc.save(s)
             _refresh_brief(paths)
             return
+
+    # REQ-101: If an active goal exists and no --goal-statement was given,
+    # inherit the existing goal_statement rather than silently applying a default.
+    if goal_statement is None and session.active_goal_id:
+        _existing_for_stmt = load_model_by_artifact_id(
+            paths.goals_dir, session.active_goal_id, GoalArtifact
+        )
+        if _existing_for_stmt:
+            goal_statement = _existing_for_stmt.goal_statement
 
     # If no goal statement given, try to pull from the active GSD phase
     if goal_statement is None:
