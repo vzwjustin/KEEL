@@ -81,14 +81,28 @@ KEEL layers multiple drift signals:
 
 Each signal carries a confidence level (`deterministic`, `inferred-high`, `inferred-medium`, `heuristic-low`) so you know what's proven vs. what's a guess.
 
-## Companion Process
+## The Companion — KEEL's Core Strength
 
-The companion runs `keel watch` in the background, polling the repo every 2 seconds. When files change, it re-runs validation, drift detection, and traceability — then updates the current brief and alert feed.
+The companion is what makes KEEL fundamentally different from a linter or a one-shot audit tool. It's a **persistent, real-time awareness loop** that runs alongside your AI agent and catches drift *as it happens*, not after.
 
-The companion writes a heartbeat to `.keel/session/companion-heartbeat.yaml` so the status line and hooks can tell if it's alive and fresh.
+**What it does:**
+- Polls the repo every 2 seconds in the background
+- On every file change: re-runs validation, drift detection, traceability, and cluster analysis
+- Updates the current brief, alert feed, and heartbeat in real-time
+- Pushes drift notifications into the agent's status line and hooks — the agent sees drift *during* the tool call that caused it, not 10 minutes later
+- Writes a heartbeat to `.keel/session/companion-heartbeat.yaml` so the status line, hooks, and other tools can verify the companion is alive and fresh
+
+**Why this matters:**
+AI agents don't self-correct. They commit to a plan, then silently wander. By the time a human reviews the PR, the damage is done — wrong files touched, scope ballooned, the "done" claim doesn't match the goal. The companion closes that feedback loop in real-time. The agent gets a drift warning *while it's still in the session*, early enough to course-correct.
+
+**Resilience:**
+- Per-cycle error handling with exponential backoff — a single bad awareness pass doesn't kill the companion
+- Logs exit reason on any shutdown (crash, signal, error cascade) to `.keel/session/companion.log`
+- `companion_status()` detects dead processes and writes truthful state — no stale "running: true" lies
+- Heartbeat staleness detection tells you if the companion is alive but stuck vs. actually dead
 
 ```bash
-keel companion status   # check if alive
+keel companion status   # check if alive, fresh, and token-matched
 keel companion start    # start if not running
 keel companion stop     # stop gracefully
 ```
