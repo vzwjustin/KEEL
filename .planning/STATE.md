@@ -9,18 +9,18 @@ progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
 
 ## Current Position
 
-Phase: 1 (Fix Friction Points) — EXECUTING
-Plan: 2 of 2
+Phase: 1 (Fix Friction Points) — COMPLETE
+Plan: 2 of 2 (all plans complete)
 
 - **Phase:** 1 — Fix Friction Points
-- **Status:** Executing Phase 1
+- **Status:** Phase 1 Complete
 - **Last Activity:** 2026-03-25
 
 ## Decisions
@@ -32,6 +32,9 @@ Plan: 2 of 2
 - Notifications fire only on state transitions
 - Suppress only KEE-DRF-001 pre-checkpoint (not full early return) — goal-mode alerts stay active
 - Inherit existing goal_statement when session.active_goal_id is set and goal_statement is None
+- Goal-scope scoring: +2 scope match, +1 git-hot, +1 keyword stem — backward compatible fast path when no goal/root
+- Bridge warnings use sys.stderr print (no logging framework) — consistent with bridge module architecture
+- GSD plan takes precedence over KEEL stale session state when drift guard conflicts with planned changes
 
 ## Blockers
 
@@ -42,15 +45,19 @@ None
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 01 | 01 | 13m | 2/2 | 4 |
+| 01 | 02 | 20m | 2/2 | 4 |
 
 ## Context
 
 - 359 tests passing (up from 343 baseline; 1 pre-existing companion test flaky)
 - REQ-101 (goal TypeError + partial-flag reset) — FIXED
+- REQ-102 (_related_paths() goal-scope + git-hot scoring) — FIXED
 - REQ-103 (KEE-DRF-001 pre-checkpoint suppression) — FIXED
+- REQ-104 (GSD bridge parse warnings) — FIXED
+- tests/test_bridge.py created with 8 tests (bridge had 0 coverage before)
 - Codebase mapped (TECH.md, ARCH.md, QUALITY.md, CONCERNS.md)
 - 6 friction points documented from real kernel monorepo session
 
 ## Stopped At
 
-Completed 01-01-PLAN.md — Plan 1 of Phase 1 complete
+Completed 01-02-PLAN.md — Phase 1 complete (both plans done)
