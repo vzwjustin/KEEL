@@ -49,11 +49,10 @@ KEEL is being built to create **hard stops** that prevent AI agents from causing
 - **Repo-aware planning** — `keel plan` generates steps specific to your actual codebase: real file paths, real unknowns, real entrypoints — not a generic template
 - **Step advancement** — `keel advance` marks the current step done, auto-checkpoints, and advances to the next step in the plan
 - **Auto-replan detection** — the companion watches for accumulating drift warnings and suggests `keel replan` when the plan no longer matches reality
+- **Pre-edit hard stop** — a `PreToolUse` hook intercepts Write/Edit *before* they execute. If the target file is outside the active plan step and no delta covers it, the edit is blocked. The agent must `keel delta`, `keel replan`, or `keel advance` to proceed. Managed paths (`.keel/`, `.claude/`, `.codex/`) are always allowed.
 
-**WIP — building toward hard stops:**
-- **Pre-edit blocking** — DONE. A `PreToolUse` hook intercepts Write/Edit *before* they execute. If the target file is outside the active plan step and no delta covers it, the edit is blocked. The agent must run `keel delta`, `keel replan`, or `keel advance` to proceed.
+**WIP — building toward more hard stops:**
 - **Automatic session pause** — when drift severity hits a threshold, force the agent to stop and get human confirmation before continuing
-- **Scope lock enforcement** — reject file changes that don't map to the active goal, plan step, or recorded delta
 - **Budget/token guardrails** — detect when an agent is churning (lots of edits, no progress) and interrupt the loop
 - **Cross-agent consistency** — if Claude Code and Codex both touch the same repo, detect conflicting intent
 
