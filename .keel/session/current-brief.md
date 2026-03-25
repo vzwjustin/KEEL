@@ -3,7 +3,7 @@
 - Current goal: Build a usable local-first KEEL MVP CLI
 - Current phase: Lock Reality
 - Next step: Confirm the current source of truth
-- Blockers: KEE-DRF-001, KEE-DRF-009, KEE-DRF-019
+- Blockers: KEE-DRF-001, KEE-DRF-014, KEE-DRF-009
 - Must not change: local-first terminal CLI only, no MCP dependency in runtime
 - Constraints: local-first terminal CLI only, no MCP dependency in runtime
 - Unresolved questions: none recorded
