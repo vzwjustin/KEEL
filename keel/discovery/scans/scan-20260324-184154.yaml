@@ -1,7 +1,7 @@
 artifact_id: scan-20260324-184154
 artifact_type: scan
 created_at: '2026-03-24T18:41:54.467232-05:00'
-repo_root: /Users/justinadams/Documents/Keel
+repo_root: .
 stats:
   file_count: 122
   text_file_count: 111

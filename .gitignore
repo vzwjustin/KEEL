@@ -12,3 +12,7 @@ build/
 venv/
 .env
 .DS_Store
+
+# KEEL auto-generated runtime artifacts
+.keel/reports/
+.keel/session/

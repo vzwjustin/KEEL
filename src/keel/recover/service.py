@@ -231,7 +231,7 @@ def build_recovery(
     return RecoveryArtifact(
         artifact_id=f"recovery-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=str(paths.root),
+        repo_root=".",
         divergence_at=divergence_at,
         divergence_reason=divergence_reason,
         intent_replay={

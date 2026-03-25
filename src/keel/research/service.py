@@ -50,7 +50,7 @@ def run_research(
         return ResearchArtifact(
             artifact_id=f"research-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
             created_at=datetime.now().astimezone(),
-            repo_root=repo_root,
+            repo_root=".",
             enabled=False,
             query=query,
             findings=[],
@@ -126,7 +126,7 @@ def run_research(
     return ResearchArtifact(
         artifact_id=f"research-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         enabled=enabled,
         query=query,
         findings=findings,

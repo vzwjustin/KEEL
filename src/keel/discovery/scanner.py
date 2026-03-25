@@ -420,7 +420,7 @@ def scan_repository(root: Path, config: KeelConfig) -> ScanArtifact:
     return ScanArtifact(
         artifact_id=f"scan-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=str(root),
+        repo_root=".",
         stats=stats,
         languages=language_items,
         build_systems=build_markers,

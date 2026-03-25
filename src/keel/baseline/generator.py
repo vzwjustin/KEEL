@@ -130,7 +130,7 @@ def build_baseline(scan: ScanArtifact) -> BaselineArtifact:
     return BaselineArtifact(
         artifact_id=f"baseline-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=scan.repo_root,
+        repo_root=".",
         source_scan_id=scan.artifact_id,
         exists_today=exists_today,
         authoritative=authoritative,

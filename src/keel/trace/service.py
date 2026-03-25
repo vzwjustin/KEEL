@@ -34,6 +34,6 @@ def build_trace(
     return TraceArtifact(
         artifact_id=f"trace-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         rows=rows,
     )

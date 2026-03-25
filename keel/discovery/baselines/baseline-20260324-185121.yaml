@@ -1,7 +1,7 @@
 artifact_id: baseline-20260324-185121
 artifact_type: baseline
 created_at: '2026-03-24T18:51:21.586631-05:00'
-repo_root: /Users/justinadams/Documents/Keel
+repo_root: .
 source_scan_id: scan-20260324-185121
 exists_today:
 - conclusion_id: BAS-EXI-001

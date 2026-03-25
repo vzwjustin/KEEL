@@ -1,7 +1,7 @@
 artifact_id: goal-20260324-184934
 artifact_type: goal
 created_at: '2026-03-24T18:49:34.845101-05:00'
-repo_root: /Users/justinadams/Documents/Keel
+repo_root: .
 mode: ship-mvp
 goal_statement: Build a usable local-first KEEL MVP CLI
 scope:

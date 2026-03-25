@@ -1009,7 +1009,7 @@ def detect_drift(
     return DriftArtifact(
         artifact_id=f"drift-{now.strftime('%Y%m%d-%H%M%S')}",
         created_at=now,
-        repo_root=str(paths.root),
+        repo_root=".",
         mode=effective_mode,
         findings=findings,
         clusters=clusters,

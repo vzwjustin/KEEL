@@ -1,0 +1,13 @@
+artifact_id: delta-ignore-keel-runtime-artifacts
+artifact_type: delta
+created_at: '2026-03-25T00:00:00.000000-05:00'
+repo_root: .
+summary: Untrack and gitignore KEEL auto-generated session and report files
+impacted_paths:
+- .gitignore
+- .keel/reports/
+- .keel/session/
+acceptance_criteria:
+- .keel/reports/ and .keel/session/ are listed in .gitignore
+- No report or session files are tracked by git
+validation_mapping: []

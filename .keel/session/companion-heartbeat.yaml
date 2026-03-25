@@ -1,9 +1,0 @@
-token: de42f37867974bba8f350b4cd98a3509
-updated_at: '2026-03-24T22:21:38.432764-05:00'
-status: warning
-validation_status: ok
-drift_status: warning
-current_next_step: Confirm the current source of truth
-active_goal_id: goal-20260324-184154
-repo_fingerprint: 43f313fa6ce9ba9d8fcce0b805a30498ec9b407e
-latest_repo_change_at: '2026-03-24T22:21:33.488055-05:00'
