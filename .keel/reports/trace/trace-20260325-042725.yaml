@@ -1,0 +1,30 @@
+artifact_id: trace-20260325-042725
+artifact_type: trace
+created_at: '2026-03-25T04:27:25.741542Z'
+repo_root: .
+rows:
+- row_id: TRC-001
+  goal_reference: keel start produces scan, baseline, questions, alignment, plan,
+    and current brief
+  validation_reference: ok
+  plan_step_ids:
+  - PH1-STEP1
+  - PH1-STEP2
+  - PH2-STEP1
+  status: linked
+- row_id: TRC-002
+  goal_reference: keel drift detects layered drift with severity and confidence
+  validation_reference: ok
+  plan_step_ids:
+  - PH1-STEP1
+  - PH1-STEP2
+  - PH2-STEP1
+  status: linked
+- row_id: TRC-003
+  goal_reference: pytest passes on the MVP suite
+  validation_reference: ok
+  plan_step_ids:
+  - PH1-STEP1
+  - PH1-STEP2
+  - PH2-STEP1
+  status: linked
