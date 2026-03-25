@@ -1,175 +1,176 @@
 # KEEL
 
-KEEL is a local-first CLI for discovery-first onboarding and anti-drift development in messy real-world repositories.
+**Local-first anti-drift companion for AI coding agents.**
 
-The current MVP foundation focuses on:
+KEEL keeps AI agents (Claude Code, Codex, Cursor, etc.) honest while they work on your codebase. It tracks what the agent said it would do, detects when work drifts from the plan, and blocks "done" until reality matches intent.
 
-- repository scanning with confidence labels
-- current-state baseline generation
-- goal capture
-- bounded research with honest offline handling
-- targeted question generation
-- alignment and phased planning
-- persistent session state and current brief generation
-- early anti-drift validation, traceability, and done checks
+No cloud. No MCP runtime dependency. Just YAML artifacts in `.keel/` and a CLI.
 
-Install locally with:
+## Why
+
+AI coding agents are powerful but forgetful. They lose track of goals mid-session, silently change scope, present heuristics as proof, and declare "done" before the work actually matches the plan. KEEL is the guardrail layer — it watches the repo, detects drift in real-time, and keeps the agent (and you) aligned.
+
+## Quick Start
 
 ```bash
-python3 -m pip install -e .
+# Install from source
+pip install -e .
+
+# Set up any repo
+cd your-project/
+keel install    # bootstraps .claude/, .codex/, hooks, companion
+keel start      # scan, goal, plan, baseline — one command
 ```
 
-Fastest setup for vibe coders:
+That's it. The companion is now watching your repo in the background.
 
-```bash
-python3 -m pip install -e .
-keel install
-```
+## What `keel install` Does
 
-That one command now:
+- Bootstraps `.claude/` and `.codex/` agent config files
+- Installs Claude Code skills and hooks
+- Installs Codex skills
+- Installs lightweight repo git hooks (preserves existing ones)
+- Starts a background companion process
+- Records its own bootstrap as a KEEL delta so it doesn't trigger false drift
 
-- bootstraps this repo's missing `.codex/` and `.claude/` companion files
-- installs Codex skills
-- installs Claude Code skills and hook
-- installs lightweight repo git hooks without clobbering existing ones
-- starts a local KEEL companion in the background for the current repo
-- refreshes KEEL awareness and, if it finds an older stale session, tells you to use `keel recover` or `keel replan`
-- records its own repo-local bootstrap as a KEEL-managed delta so install does not poison the first drift scan
+## What `keel start` Does
 
-Run the onboarding flow:
-
-```bash
-keel start --goal-mode understand
-```
-
-Run the explicit interactive first-run wizard:
-
-```bash
-keel wizard
-```
-
-Stay aware while coding:
-
-```bash
-keel watch
-```
-
-Or let the background companion stay on for you:
-
-```bash
-keel companion status
-```
-
-`keel companion status` now tells you whether the companion is running, whether its heartbeat is still fresh, and when it last saw repo activity.
+- Scans the repo (languages, entrypoints, structure)
+- Generates a current-state baseline
+- Captures a goal (what you're trying to do)
+- Generates targeted questions about unknowns
+- Aligns context and produces a phased plan
+- Writes a human-readable brief to `.keel/session/current-brief.md`
 
 ## Core Commands
 
-- `keel start`
-- `keel wizard`
-- `keel scan`
-- `keel baseline`
-- `keel goal`
-- `keel research`
-- `keel questions`
-- `keel align`
-- `keel plan`
-- `keel next`
-- `keel checkpoint`
-- `keel watch`
-- `keel companion start`
-- `keel companion stop`
-- `keel companion status`
-- `keel validate`
-- `keel trace`
-- `keel drift`
-- `keel recover`
-- `keel delta`
-- `keel done`
-- `keel status`
-- `keel check`
-- `keel install`
+| Command | What it does |
+|---------|-------------|
+| `keel start` | Full onboarding flow: scan → goal → plan |
+| `keel wizard` | Interactive first-run wizard |
+| `keel scan` | Discover repo structure and entrypoints |
+| `keel goal` | Capture or update the active goal |
+| `keel plan` | Generate or update the active plan |
+| `keel next` | Show the next step from the active plan |
+| `keel watch` | Continuous awareness loop (foreground) |
+| `keel companion start/stop/status` | Background companion process |
+| `keel validate` | Check goal/plan/question alignment |
+| `keel drift` | Detect drift between plan and reality |
+| `keel trace` | Map changed files to goals and plan steps |
+| `keel delta` | Record a behavior/contract/surface change |
+| `keel checkpoint` | Snapshot the current repo state |
+| `keel recover` | Turn drift into a recovery plan |
+| `keel done` | Gate: only passes when reality matches intent |
+| `keel check` | Quick health check of KEEL state |
+| `keel status` | Show current session state |
+| `keel install` | Bootstrap agent integrations + companion |
+| `keel doctor` | Diagnose KEEL installation issues |
+| `keel export` | Export session state as JSON |
 
-## Example Discovery Workflow
+## How Drift Detection Works
 
-```bash
-keel wizard
-```
+KEEL layers multiple drift signals:
 
-Or non-interactively from Codex/Claude Code:
+- **Session drift** — files changed after the latest scan/checkpoint
+- **Plan drift** — changed files outside the active plan step
+- **Goal drift** — work doesn't match the declared goal scope
+- **Scope expansion** — edits spanning more subsystems than planned
+- **Brief staleness** — the current brief is outdated
+- **Terminology drift** — competing terms for the same concept
+- **Cluster detection** — repeated weak signals rolled up into probable drift
 
-```bash
-keel start \
-  --goal-mode understand \
-  --success-criterion "Produce a reliable baseline"
-keel next
-keel questions
-keel align
-```
+Each signal carries a confidence level (`deterministic`, `inferred-high`, `inferred-medium`, `heuristic-low`) so you know what's proven vs. what's a guess.
 
-## Example Research Workflow
+## Companion Process
 
-```bash
-keel research --enabled --source ./notes/design.md
-keel align
-```
+The companion runs `keel watch` in the background, polling the repo every 2 seconds. When files change, it re-runs validation, drift detection, and traceability — then updates the current brief and alert feed.
 
-If research is disabled or offline, KEEL says so explicitly and stores the result as lower-confidence external guidance rather than repo fact.
-
-## Example Enforcement Workflow
+The companion writes a heartbeat to `.keel/session/companion-heartbeat.yaml` so the status line and hooks can tell if it's alive and fresh.
 
 ```bash
-keel delta "Add streaming ingest path" \
-  --impacted-path src/my_app \
-  --acceptance-criterion "New path handles backpressure"
-keel validate
-keel drift --mode auto
-keel done
+keel companion status   # check if alive
+keel companion start    # start if not running
+keel companion stop     # stop gracefully
 ```
-
-Or keep KEEL continuously aware in another terminal while you work:
-
-```bash
-keel watch --mode auto
-```
-
-If you already ran `keel install`, the repo-local companion should already be running:
-
-```bash
-keel companion status
-```
-
-When drift is real and you want the safest route back:
-
-```bash
-keel recover
-```
-
-If you have already acknowledged a stale repeated warning such as a drift cluster, you can temporarily dismiss it:
-
-```bash
-keel drift --dismiss KEE-DRF-021
-```
-
-If the repo does not have a local `.git/hooks` directory, KEEL now says so clearly and falls back to companion-only mode instead of pretending hooks were installed.
 
 ## Claude Code Integration
 
-- `keel install` is the default path. It bootstraps this repo's `.claude/settings.json`, Claude hooks, Claude skills, repo git hooks, and the background KEEL companion.
-- Repo-local Claude instructions live in [CLAUDE.md](/Users/justinadams/Documents/Keel/CLAUDE.md)
-- Claude UI settings live in [.claude/settings.json](/Users/justinadams/Documents/Keel/.claude/settings.json)
-- Recommended live awareness loop is automatic after `keel install`
-- The Claude status line now falls back through the KEEL CLI if direct Python imports are unavailable
-- The Claude plugin marketplace is an advanced distribution option, not the normal setup path
+After `keel install`, Claude Code gets:
+- **Status line** showing drift state, companion health, and current goal
+- **PostToolUse hook** that syncs real-time drift notifications
+- **Skills** for session alignment and drift recovery
+- **Preflight hook** that loads the current brief into context
 
 ## Codex Integration
 
-- `keel install` bootstraps this repo's [.codex/config.toml](/Users/justinadams/Documents/Keel/.codex/config.toml), installs Codex skills, and starts the KEEL companion
-- Repo-local Codex skills live under `.codex/skills/`
-- Recommended live awareness loop is automatic after `keel install`
+After `keel install`, Codex gets:
+- Skills for session alignment and drift recovery
+- Config in `.codex/config.toml`
 
-## Known Limitations
+## Architecture
 
-- Runtime path inference is heuristic-first and not yet language-parser-backed.
-- Research is intentionally conservative and does not assume a hidden web provider.
-- Drift detection is already layered, but some signals remain heuristic and should be treated as warnings to investigate, not proofs.
-- Repeated weak signals now roll up into drift clusters with a short timeline, but the clustering logic is still heuristic and should be treated as course-correction guidance rather than proof.
+```
+.keel/
+├── config.yaml              # KEEL configuration
+├── done-gate.yaml           # Done-gate rules
+├── glossary.yaml            # Canonical terms
+├── prompts/                 # Agent prompt templates
+├── reports/
+│   ├── drift/               # Timestamped drift reports
+│   ├── trace/               # Traceability reports
+│   └── validation/          # Validation reports
+├── session/
+│   ├── alerts.yaml          # Active alert feed
+│   ├── current.yaml         # Session state
+│   ├── current-brief.md     # Human-readable brief
+│   ├── companion.yaml       # Companion process state
+│   ├── companion-heartbeat.yaml
+│   ├── checkpoints.yaml     # Checkpoint history
+│   └── decisions.log        # Decision log
+└── templates/               # Artifact templates
+```
+
+Source code:
+```
+src/keel/
+├── cli/          # Typer CLI (app.py)
+├── session/      # Companion, awareness, alerts, UI
+├── drift/        # Layered drift detection engine
+├── discovery/    # Repo scanner
+├── models/       # Pydantic artifact models
+├── validators/   # Goal/plan/question validation
+├── trace/        # Changed-file → goal/plan mapping
+├── recover/      # Drift → recovery plan engine
+├── goal/         # Goal capture
+├── planner/      # Plan generation
+├── questions/    # Question generation
+├── align/        # Context alignment
+├── baseline/     # Baseline generation
+├── research/     # Bounded research service
+├── rules/        # Drift rule catalog
+└── utils/        # Agent install, statusline, text
+```
+
+## Known Issues
+
+See [GitHub Issues](https://github.com/vzwjustin/KEEL/issues) for the current list. Key ones:
+
+1. **Companion dies silently** (#1) — poll loop now has error resilience, but auto-restart not yet implemented
+2. **Fresh repo shows "drifting"** (#2) — `keel start` needs a post-bootstrap checkpoint
+3. **5 test failures from UX changes** (#3) — test assertions need updating for new status line wording
+4. **Cluster evidence leaks managed paths** (#4) — `.claude/` paths show up in drift cluster evidence
+
+## Design Principles
+
+- **Local-first**: Git and local files are the source of truth. No cloud, no accounts.
+- **Honest confidence**: Every signal is labeled `repo-fact`, `external-guidance`, `inferred`, or `unresolved`. KEEL never presents heuristics as proof.
+- **Vertical slices**: Small finished slices over broad scaffolding.
+- **Anti-drift as product behavior**: Drift detection is core, not an optional report.
+
+## Running Tests
+
+```bash
+python3 -m pytest -q
+```
+
+29 passing, 5 failing (see #3).
