@@ -10,8 +10,8 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T19:33:09.225167-05:00'
-  last_seen_at: '2026-03-25T04:08:40.359156+00:00'
-  count: 95
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 101
   evidence:
   - .gitignore
   - AGENTS.md
@@ -28,14 +28,14 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable plan drift cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T03:56:18.599540+00:00.
-    Latest related event: 2026-03-25T04:04:53.548552+00:00. Recent signals repeatedly
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
     touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T19:59:48.771032-05:00'
-  last_seen_at: '2026-03-25T04:04:53.683887+00:00'
-  count: 52
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 53
   evidence:
   - KEE-DRF-009
   - .gitignore
@@ -50,14 +50,14 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable session drift cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T03:56:18.599540+00:00.
-    Latest related event: 2026-03-25T04:04:53.548552+00:00. Recent signals repeatedly
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
     touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:18:17.312276-05:00'
-  last_seen_at: '2026-03-25T04:04:53.683887+00:00'
-  count: 131
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 132
   evidence:
   - KEE-DRF-001
   - KEE-DRF-002
@@ -74,14 +74,14 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable unknown-scope growth cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T03:56:18.599540+00:00.
-    Latest related event: 2026-03-25T04:04:53.548552+00:00. Recent signals repeatedly
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
     touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:18:17.312276-05:00'
-  last_seen_at: '2026-03-25T04:04:53.683887+00:00'
-  count: 62
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 63
   evidence:
   - KEE-DRF-019
   - .gitignore
@@ -101,8 +101,8 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-25T04:08:40.359156+00:00'
-  count: 106
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 112
   evidence:
   - .gitignore
   - AGENTS.md
@@ -124,8 +124,8 @@ alerts:
   severity: warning
   confidence: deterministic
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-25T04:08:40.359156+00:00'
-  count: 63
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 69
   evidence:
   - .keel/session/current-brief.md
   - .gitignore
@@ -170,8 +170,8 @@ alerts:
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T20:41:41.059048-05:00'
-  last_seen_at: '2026-03-25T04:08:40.359156+00:00'
-  count: 101
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 107
   evidence:
   - .gitignore
   - AGENTS.md
