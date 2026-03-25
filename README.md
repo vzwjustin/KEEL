@@ -43,7 +43,7 @@ KEEL is being built to create **hard stops** that prevent AI agents from causing
 - **Confidence labeling** — every signal says whether it's proven or a guess, so agents can't treat heuristics as facts
 - **Alert feed into agent context** — Claude Code sees drift warnings in its status line and hooks *during* the session, not after
 - **Cluster detection** — repeated weak signals roll up into a probable drift warning before they become a real problem
-- **Checkpoint/recover flow** — when drift is real, `keel recover` produces a concrete route back instead of letting the agent improvise
+- **Checkpoint/recover flow** — `keel recover` automatically creates a checkpoint the moment it detects drift, freezing the current state as a recovery anchor before producing a concrete route back — the agent can't lose the "last known good" point
 
 **WIP — building toward hard stops:**
 - **Pre-edit blocking** — intercept the agent *before* it writes to a file outside the active plan step (not just warn after)

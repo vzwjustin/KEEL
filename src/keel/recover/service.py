@@ -201,6 +201,13 @@ def build_recovery(
     drift: DriftArtifact,
     validation: Optional[ValidationArtifact],
 ) -> RecoveryArtifact:
+    # Freeze the current state as a checkpoint before recovery begins
+    SessionService(paths).add_checkpoint(
+        f"recovery: drift detected with {len(drift.findings)} findings",
+        session,
+        kind="recovery-anchor",
+    )
+
     modes = _recovery_modes(drift)
     recommended = _recommended_mode(modes)
     divergence_at, divergence_reason = _divergence_anchor(paths, drift)
