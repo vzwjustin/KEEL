@@ -433,3 +433,46 @@ class TestGoalGuard:
         updated_goal = self._load_active_goal(repo)
         assert updated_goal["goal_statement"] == "Brand new goal"
 
+
+# ---------------------------------------------------------------------------
+# TestRelatedPaths — unit tests for _related_paths() and _git_hot_files()
+# ---------------------------------------------------------------------------
+
+class TestRelatedPaths:
+    def test_goal_scope_path_ranked_first(self):
+        from keel.planner.service import _related_paths
+        scan = _scan(
+            entrypoints=[
+                ScanItem(name="main", detail="", paths=["src/main.py"], confidence=ConfidenceLevel.INFERRED_HIGH, evidence=[]),
+                ScanItem(name="important", detail="", paths=["src/important.py"], confidence=ConfidenceLevel.INFERRED_HIGH, evidence=[]),
+            ]
+        )
+        goal = _goal(scope=["src/important.py"])
+        result = _related_paths(scan, goal=goal)
+        assert result[0] == "src/important.py"
+
+    def test_no_goal_backward_compatible(self):
+        from keel.planner.service import _related_paths
+        scan = _scan()
+        result_with = _related_paths(scan, goal=None)
+        result_without = _related_paths(scan)
+        assert result_with == result_without
+
+    def test_keyword_match_scores_higher(self):
+        from keel.planner.service import _related_paths
+        scan = _scan(
+            entrypoints=[
+                ScanItem(name="other", detail="", paths=["src/other.py"], confidence=ConfidenceLevel.INFERRED_HIGH, evidence=[]),
+                ScanItem(name="parser", detail="", paths=["src/parser.py"], confidence=ConfidenceLevel.INFERRED_HIGH, evidence=[]),
+            ]
+        )
+        goal = _goal(goal_statement="fix the parser module", scope=[])
+        result = _related_paths(scan, goal=goal)
+        assert "src/parser.py" in result
+        assert result.index("src/parser.py") < result.index("src/other.py")
+
+    def test_git_hot_files_returns_list_in_non_git_dir(self, tmp_path):
+        from keel.planner.service import _git_hot_files
+        result = _git_hot_files(tmp_path)
+        assert isinstance(result, list)  # never raises, always returns list
+

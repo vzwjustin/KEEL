@@ -622,7 +622,7 @@ def detect_drift(
     entrypoint_candidates = [item.paths[0] for item in scan.entrypoints[:5]] if scan else []
     decision_log = paths.decisions_log_file.read_text(encoding="utf-8", errors="ignore").lower() if paths.decisions_log_file.exists() else ""
 
-    if changed_files:
+    if changed_files and checkpoint_time is not None:
         findings.append(
             DriftFinding(
                 code="KEE-DRF-001",

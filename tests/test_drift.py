@@ -22,7 +22,8 @@ def test_drift_flags_unmapped_changes_and_updates_brief(fixture_repo) -> None:
 
     drift = runner.invoke(app, ["--repo", str(repo), "--json", "drift", "--mode", "hard"])
     assert drift.exit_code == 0, drift.stdout
-    assert "KEE-DRF-001" in drift.stdout or "KEE-DRF-009" in drift.stdout or "KEE-DRF-019" in drift.stdout
+    # KEE-DRF-001 is suppressed before first checkpoint (REQ-103); KEE-DRF-014 fires instead
+    assert "KEE-DRF-014" in drift.stdout or "KEE-DRF-009" in drift.stdout or "KEE-DRF-019" in drift.stdout or "KEE-DRF-017" in drift.stdout
 
     brief = (repo / ".keel" / "session" / "current-brief.md").read_text(encoding="utf-8")
     assert "Blockers:" in brief
@@ -148,3 +149,31 @@ def test_drift_cluster_has_cooldown_and_does_not_reemit_immediately(fixture_repo
     repeat_payload = yaml.safe_load(repeat.stdout)
     assert all(finding["code"] != "KEE-DRF-021" for finding in repeat_payload["findings"])
     assert not repeat_payload["clusters"]
+
+
+def test_no_drf001_before_checkpoint(fixture_repo) -> None:
+    """REQ-103: KEE-DRF-001 must NOT fire when no checkpoint has been created yet."""
+    repo = fixture_repo("multi_entry_repo")
+    runner = CliRunner()
+    keel_bootstrap(repo, runner, goal_mode="understand", json=True)
+    # Modify a file — but take NO checkpoint
+    (repo / "docs" / "new.md").parent.mkdir(parents=True, exist_ok=True)
+    (repo / "docs" / "new.md").write_text("changed\n", encoding="utf-8")
+    drift = runner.invoke(app, ["--repo", str(repo), "--json", "drift"])
+    assert drift.exit_code == 0, drift.stdout
+    assert "KEE-DRF-001" not in drift.stdout
+
+
+def test_drf001_fires_after_checkpoint(fixture_repo) -> None:
+    """REQ-103: KEE-DRF-001 MUST fire after a checkpoint exists and files have changed."""
+    repo = fixture_repo("multi_entry_repo")
+    runner = CliRunner()
+    keel_bootstrap(repo, runner, goal_mode="understand", json=True)
+    ckpt = runner.invoke(app, ["--repo", str(repo), "checkpoint", "--note", "manual checkpoint"])
+    assert ckpt.exit_code == 0, ckpt.stdout
+    time.sleep(1)
+    (repo / "docs" / "post_ckpt.md").parent.mkdir(parents=True, exist_ok=True)
+    (repo / "docs" / "post_ckpt.md").write_text("after checkpoint\n", encoding="utf-8")
+    drift = runner.invoke(app, ["--repo", str(repo), "--json", "drift"])
+    assert drift.exit_code == 0, drift.stdout
+    assert "KEE-DRF-001" in drift.stdout
