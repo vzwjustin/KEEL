@@ -1,5 +1,5 @@
 """
-KEEL → GSD bridge.
+KEEL -> GSD bridge.
 
 Reads GSD's .planning/ artifacts so KEEL commands can stay aligned with
 the active GSD phase without requiring any changes to GSD itself.
@@ -7,8 +7,18 @@ the active GSD phase without requiring any changes to GSD itself.
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 from typing import Optional
+
+
+def _warn(msg: str) -> None:
+    """Write a diagnostic warning to stderr.
+
+    Used when GSD files exist but can't be parsed. Never warns when
+    .planning/ is absent (that simply means GSD is not in use).
+    """
+    print(f"[keel:bridge:gsd] WARNING: {msg}", file=sys.stderr)
 
 
 def _planning_dir(repo_root: Path) -> Optional[Path]:
@@ -33,6 +43,8 @@ def read_gsd_state(repo_root: Path) -> dict:
     m = re.search(r"[Cc]urrent [Pp]hase[:\s]+(\d[\d.]*)", text)
     if m:
         result["current_phase"] = m.group(1)
+    else:
+        _warn(f"STATE.md found but 'Current Phase' not parsed: {state_file}")
 
     # Extract current position / active plan
     m = re.search(r"[Cc]urrent [Pp]osition[:\s]+([^\n]+)", text)
@@ -70,6 +82,8 @@ def read_gsd_roadmap(repo_root: Path) -> dict:
         if phase_num not in phases:
             phases[phase_num] = m.group(2).strip()
 
+    if not phases:
+        _warn(f"ROADMAP.md found but no phase entries parsed: {roadmap_file}")
     return {"phases": phases}
 
 
@@ -85,7 +99,13 @@ def sync_goal_from_gsd(repo_root: Path) -> Optional[str]:
 
     roadmap = read_gsd_roadmap(repo_root)
     phases = roadmap.get("phases", {})
-    return phases.get(current_phase)
+    goal_text = phases.get(current_phase)
+    if goal_text is None:
+        _warn(
+            f"GSD phase '{current_phase}' found in STATE.md but not in ROADMAP.md "
+            f"(available phases: {list(phases.keys())})"
+        )
+    return goal_text
 
 
 def write_keel_brief_to_planning(repo_root: Path, brief_text: str) -> bool:

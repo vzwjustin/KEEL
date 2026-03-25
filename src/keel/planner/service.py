@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import subprocess
+from collections import Counter
 from datetime import datetime
+from pathlib import Path
 from typing import Optional
 
 from keel.models import (
@@ -16,15 +19,79 @@ from keel.models import (
 )
 
 
-def _related_paths(scan: Optional[ScanArtifact]) -> list[str]:
-    paths: list[str] = []
+def _git_hot_files(root: Path, n: int = 10) -> list[str]:
+    """Return the n most frequently changed files in recent git history.
+
+    Returns [] on any failure (non-git dir, OSError, empty log). Never raises.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "log", "--name-only", "--pretty=format:", "-20"],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        counts: Counter[str] = Counter()
+        for line in result.stdout.splitlines():
+            line = line.strip()
+            if line:
+                counts[line] += 1
+        return [path for path, _ in counts.most_common(n)]
+    except OSError:
+        return []
+
+
+def _related_paths(
+    scan: Optional[ScanArtifact],
+    goal: Optional[GoalArtifact] = None,
+    root: Optional[Path] = None,
+) -> list[str]:
+    """Return up to 6 paths relevant to the current goal from the scan artifact.
+
+    Scoring (applied when goal or root is provided):
+      +2  path appears in goal.scope (explicit user hint)
+      +1  path appears in git-hot list (recently changed)
+      +1  path stem keyword-matches a token in goal.goal_statement
+    When no goal and no root are given, falls back to scan order (backward
+    compatible with the old signature).
+    """
     if not scan:
-        return paths
+        return []
+    candidates: list[str] = []
     for item in scan.entrypoints[:2] + scan.modules[:3] + scan.configs[:2]:
         for path in item.paths:
-            if path not in paths:
-                paths.append(path)
-    return paths[:6]
+            if path not in candidates:
+                candidates.append(path)
+
+    # Backward-compatible fast path — no scoring inputs available
+    if not goal and not root:
+        return candidates[:6]
+
+    hot = set(_git_hot_files(root)) if root else set()
+    scope_set = set(goal.scope) if goal and goal.scope else set()
+    goal_tokens = set(
+        (goal.goal_statement or "").lower().split()
+    ) if goal else set()
+
+    def _score(path: str) -> int:
+        score = 0
+        if path in scope_set:
+            score += 2
+        if path in hot:
+            score += 1
+        stem = Path(path).stem.lower()
+        if any(tok in stem for tok in goal_tokens if len(tok) > 3):
+            score += 1
+        return score
+
+    # Add scope paths not already in candidates (ensure they are considered)
+    for path in (goal.scope if goal and goal.scope else []):
+        if path not in candidates:
+            candidates.append(path)
+
+    candidates.sort(key=_score, reverse=True)
+    return candidates[:6]
 
 
 # ---------------------------------------------------------------------------
@@ -370,7 +437,7 @@ def build_plan(
     questions: Optional[QuestionArtifact],
 ) -> PlanArtifact:
     goal_mode = goal.mode if goal else GoalMode.UNDERSTAND
-    related_paths = _related_paths(scan)
+    related_paths = _related_paths(scan, goal=goal, root=Path(repo_root) if repo_root else None)
 
     # Phase 1 — Lock Reality
     phase1_steps = _build_phase1_steps(scan, baseline, questions, related_paths)
