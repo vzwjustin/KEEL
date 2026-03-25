@@ -340,3 +340,96 @@ class TestBuildTrace:
 # Guide tests
 # ===================================================================
 
+
+# ===================================================================
+# Goal guard tests (REQ-101)
+# ===================================================================
+
+class TestGoalGuard:
+    """Tests for the goal() CLI command guard that prevents silent goal overwrites."""
+
+    @staticmethod
+    def _load_active_goal(repo):
+        """Helper: load the active goal yaml from disk given a repo path."""
+        import yaml as _yaml
+        session_file = repo / ".keel" / "session" / "current.yaml"
+        with open(session_file) as f:
+            session = _yaml.safe_load(f)
+        active_id = session["active_goal_id"]
+        # goals_dir = {root}/keel/discovery/goals per KeelPaths
+        # (artifact_root = root / "keel", not .keel / "keel")
+        goals_dir = repo / "keel" / "discovery" / "goals"
+        goal_file = goals_dir / f"{active_id}.yaml"
+        with open(goal_file) as f:
+            return _yaml.safe_load(f)
+
+    def test_unresolved_question_appends_without_overwriting_goal(self, fixture_repo) -> None:
+        """Test A: --unresolved-question appends to existing goal, does not raise TypeError."""
+        from typer.testing import CliRunner
+        from keel.cli.app import app
+        from tests.conftest import keel_bootstrap
+
+        repo = fixture_repo("multi_entry_repo")
+        runner = CliRunner()
+        keel_bootstrap(repo, runner, goal_mode="understand",
+                       goal_statement="Understand the codebase thoroughly", json=True)
+
+        original_goal = self._load_active_goal(repo)
+        original_statement = original_goal["goal_statement"]
+
+        # Invoke --unresolved-question (previously crashed with TypeError)
+        result = runner.invoke(app, [
+            "--repo", str(repo), "--json",
+            "goal", "--unresolved-question", "Why does X fail?"
+        ])
+        assert result.exit_code == 0, result.stdout
+
+        # Goal statement must be preserved
+        updated_goal = self._load_active_goal(repo)
+        assert updated_goal["goal_statement"] == original_statement
+
+    def test_partial_flag_inherits_existing_goal_statement(self, fixture_repo) -> None:
+        """Test B: --goal-mode fix without --goal-statement inherits existing goal_statement."""
+        from typer.testing import CliRunner
+        from keel.cli.app import app
+        from tests.conftest import keel_bootstrap
+
+        repo = fixture_repo("multi_entry_repo")
+        runner = CliRunner()
+        keel_bootstrap(repo, runner, goal_mode="understand",
+                       goal_statement="My specific goal statement", json=True)
+
+        # Invoke --goal-mode fix without --goal-statement
+        result = runner.invoke(app, [
+            "--repo", str(repo), "--json",
+            "goal", "--goal-mode", "fix"
+        ])
+        assert result.exit_code == 0, result.stdout
+
+        updated_goal = self._load_active_goal(repo)
+
+        # Must preserve the original goal_statement, NOT replace with FIX default
+        assert updated_goal["goal_statement"] == "My specific goal statement"
+        assert "Implement the next planned feature" not in updated_goal["goal_statement"]
+
+    def test_explicit_goal_statement_always_wins(self, fixture_repo) -> None:
+        """Test C: explicit --goal-statement creates new goal regardless of existing session."""
+        from typer.testing import CliRunner
+        from keel.cli.app import app
+        from tests.conftest import keel_bootstrap
+
+        repo = fixture_repo("multi_entry_repo")
+        runner = CliRunner()
+        keel_bootstrap(repo, runner, goal_mode="understand",
+                       goal_statement="Old goal statement", json=True)
+
+        # Invoke with explicit new goal statement
+        result = runner.invoke(app, [
+            "--repo", str(repo), "--json",
+            "goal", "--goal-statement", "Brand new goal"
+        ])
+        assert result.exit_code == 0, result.stdout
+
+        updated_goal = self._load_active_goal(repo)
+        assert updated_goal["goal_statement"] == "Brand new goal"
+
