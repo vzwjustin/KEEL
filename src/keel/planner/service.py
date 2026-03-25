@@ -423,7 +423,7 @@ def build_plan(
     return PlanArtifact(
         artifact_id=f"plan-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         focus_area=focus,
         phases=phases,
         current_next_step=current_next_step,

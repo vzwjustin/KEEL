@@ -194,7 +194,7 @@ def _record_install_bootstrap(paths, session: SessionState, changed_paths: list[
     artifact = DeltaArtifact(
         artifact_id=f"delta-install-bootstrap-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=str(paths.root),
+        repo_root=".",
         summary="Bootstrap KEEL companion assets for this repo",
         impacted_paths=changed_paths,
         acceptance_criteria=[
@@ -378,7 +378,7 @@ def _execute_start_flow(
     save_artifact(paths, paths.baselines_dir, "baseline", baseline_artifact)
 
     goal_artifact = build_goal(
-        repo_root=str(paths.root),
+        repo_root=".",
         mode=goal_mode,
         goal_statement=goal_statement,
         scope=_split(scope),
@@ -392,7 +392,7 @@ def _execute_start_flow(
     save_artifact(paths, paths.goals_dir, "goal", goal_artifact)
 
     research_artifact = run_research(
-        repo_root=str(paths.root),
+        repo_root=".",
         config=config,
         enabled=allow_research and config.research_enabled,
         query=research_query,
@@ -401,7 +401,7 @@ def _execute_start_flow(
     save_artifact(paths, paths.research_artifacts_dir, "research", research_artifact)
 
     question_artifact = generate_questions(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,
@@ -410,7 +410,7 @@ def _execute_start_flow(
     save_artifact(paths, paths.questions_dir, "questions", question_artifact)
 
     alignment_artifact = align_context(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,
@@ -420,7 +420,7 @@ def _execute_start_flow(
     save_artifact(paths, paths.alignments_dir, "alignment", alignment_artifact)
 
     plan_artifact = build_plan(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,
@@ -572,7 +572,7 @@ def goal(
     state = _ctx(ctx)
     paths, _, _ = ensure_project(state.repo)
     artifact = build_goal(
-        repo_root=str(paths.root),
+        repo_root=".",
         mode=goal_mode,
         goal_statement=goal_statement,
         scope=_split(scope),
@@ -614,7 +614,7 @@ def research(
     state = _ctx(ctx)
     paths, config, _ = ensure_project(state.repo)
     artifact = run_research(
-        repo_root=str(paths.root),
+        repo_root=".",
         config=config,
         enabled=enabled and config.research_enabled,
         query=query,
@@ -640,7 +640,7 @@ def questions(ctx: typer.Context) -> None:
     paths, _, session = ensure_project(state.repo)
     bundle = _latest_bundle(paths)
     artifact = generate_questions(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=bundle["scan"],
         baseline=bundle["baseline"],
         goal=bundle["goal"],
@@ -667,7 +667,7 @@ def align(ctx: typer.Context) -> None:
     paths, _, _ = ensure_project(state.repo)
     bundle = _latest_bundle(paths)
     artifact = align_context(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=bundle["scan"],
         baseline=bundle["baseline"],
         goal=bundle["goal"],
@@ -694,7 +694,7 @@ def plan(ctx: typer.Context) -> None:
     paths, _, _ = ensure_project(state.repo)
     bundle = _latest_bundle(paths)
     artifact = build_plan(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=bundle["scan"],
         baseline=bundle["baseline"],
         goal=bundle["goal"],
@@ -867,7 +867,7 @@ def trace(
     paths, _, session = ensure_project(state.repo)
     bundle = _latest_bundle(paths)
     artifact = build_trace(
-        repo_root=str(paths.root),
+        repo_root=".",
         goal=bundle["goal"],
         plan=bundle["plan"],
         validation=bundle["validation"],
@@ -960,7 +960,7 @@ def delta(
     artifact = DeltaArtifact(
         artifact_id=f"delta-{Path(paths.root).name}-{resolved_summary.lower().replace(' ', '-')[:24]}",
         created_at=__import__("datetime").datetime.now().astimezone(),
-        repo_root=str(paths.root),
+        repo_root=".",
         summary=resolved_summary,
         impacted_paths=_split(impacted_path),
         acceptance_criteria=_split(acceptance_criterion),
@@ -1666,7 +1666,7 @@ def start(
     save_artifact(paths, paths.baselines_dir, "baseline", baseline_artifact)
 
     goal_artifact = build_goal(
-        repo_root=str(paths.root),
+        repo_root=".",
         mode=goal_mode,
         goal_statement=goal_statement,
         scope=_split(scope),
@@ -1680,7 +1680,7 @@ def start(
     save_artifact(paths, paths.goals_dir, "goal", goal_artifact)
 
     research_artifact = run_research(
-        repo_root=str(paths.root),
+        repo_root=".",
         config=config,
         enabled=allow_research and config.research_enabled,
         query=research_query,
@@ -1689,7 +1689,7 @@ def start(
     save_artifact(paths, paths.research_artifacts_dir, "research", research_artifact)
 
     question_artifact = generate_questions(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,
@@ -1698,7 +1698,7 @@ def start(
     save_artifact(paths, paths.questions_dir, "questions", question_artifact)
 
     alignment_artifact = align_context(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,
@@ -1708,7 +1708,7 @@ def start(
     save_artifact(paths, paths.alignments_dir, "alignment", alignment_artifact)
 
     plan_artifact = build_plan(
-        repo_root=str(paths.root),
+        repo_root=".",
         scan=scan_artifact,
         baseline=baseline_artifact,
         goal=goal_artifact,

@@ -129,6 +129,6 @@ def generate_questions(
     return QuestionArtifact(
         artifact_id=f"questions-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         questions=questions,
     )

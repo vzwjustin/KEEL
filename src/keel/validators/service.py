@@ -98,7 +98,7 @@ def run_validation(
     return ValidationArtifact(
         artifact_id=f"validation-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=str(paths.root),
+        repo_root=".",
         findings=findings,
         status=status,
     )

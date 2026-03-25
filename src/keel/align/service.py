@@ -107,7 +107,7 @@ def align_context(
     return AlignmentArtifact(
         artifact_id=f"alignment-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         mismatches=mismatches,
         assumptions=assumptions,
         unresolved_decisions=unresolved_decisions,

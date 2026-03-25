@@ -1,7 +1,7 @@
 artifact_id: delta-implement-todo-split-commands
 artifact_type: delta
 created_at: '2026-03-25T00:00:00.000000-05:00'
-repo_root: /home/user/KEEL
+repo_root: .
 summary: Implement TODO in messy_repo fixture — split main() into smaller commands
 impacted_paths:
 - tests/fixtures/messy_repo/src/messy_app/main.py

@@ -35,7 +35,7 @@ def build_goal(
     return GoalArtifact(
         artifact_id=f"goal-{datetime.now().astimezone().strftime('%Y%m%d-%H%M%S')}",
         created_at=datetime.now().astimezone(),
-        repo_root=repo_root,
+        repo_root=".",
         mode=mode,
         goal_statement=statement,
         scope=scope or [],

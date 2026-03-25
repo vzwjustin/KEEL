@@ -219,7 +219,7 @@ def run_awareness_pass(
     validation_path = save_artifact(paths, paths.reports_dir / "validation", "validation", validation)
 
     trace = build_trace(
-        repo_root=str(paths.root),
+        repo_root=".",
         goal=goal,
         plan=plan,
         validation=validation,
