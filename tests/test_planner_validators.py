@@ -212,7 +212,7 @@ class TestBuildPlanOutputStructure:
         assert isinstance(plan, PlanArtifact)
         assert plan.artifact_type == "plan"
         assert plan.artifact_id.startswith("plan-")
-        assert plan.repo_root == _REPO
+        assert plan.repo_root == "."
         assert len(plan.phases) == 4
         for phase in plan.phases:
             assert len(phase.steps) >= 1, f"Phase {phase.phase_id} has no steps"
@@ -1002,7 +1002,7 @@ class TestValidationEdgeCases:
         )
         assert result.artifact_id.startswith("validation-")
         assert result.artifact_type == "validation"
-        assert result.repo_root == str(paths.root)
+        assert result.repo_root == "."
 
     def test_deltas_none_treated_same_as_empty_list(self, tmp_path: Path) -> None:
         paths = _paths(tmp_path)
