@@ -4,7 +4,7 @@ token: de42f37867974bba8f350b4cd98a3509
 mode: auto
 interval_seconds: 2.0
 started_at: '2026-03-24T19:49:45.769464-05:00'
-repo_root: /Users/justinadams/Documents/Keel
+repo_root: .
 log_path: /Users/justinadams/Documents/Keel/.keel/session/companion.log
 command:
 - /Applications/Xcode.app/Contents/Developer/usr/bin/python3
