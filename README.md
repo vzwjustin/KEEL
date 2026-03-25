@@ -215,4 +215,4 @@ See [GitHub Issues](https://github.com/vzwjustin/KEEL/issues) for the current li
 python3 -m pytest -q
 ```
 
-29 passing, 5 failing (see #3).
+34 passing, 0 failing.
