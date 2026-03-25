@@ -45,3 +45,9 @@ Before substantial edits, read:
 4. drift, traceability, and done-gate enforcement
 5. research trust and approval guards
 6. stronger fixture coverage and e2e verification
+
+## KEEL Drift Interaction
+
+When KEEL injects a drift notification via hooks, always present it to the user
+using the `AskUserQuestion` tool with the options KEEL suggests. Never dump raw
+KEEL messages as plain text. The user should always get interactive choices.

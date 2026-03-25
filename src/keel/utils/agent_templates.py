@@ -135,7 +135,15 @@ def main() -> int:
         except Exception:
             return 0
     msg = data.get("message", "drifting")
-    payload = {"systemMessage": f"KEEL — you're {msg}, heads up"}
+    payload = {
+        "systemMessage": (
+            f"KEEL — {msg}. "
+            "Present this to the user with AskUserQuestion. Options: "
+            "1) 'Acknowledge' — record as intentional with keel delta, "
+            "2) 'Replan' — update the plan with keel replan, "
+            "3) 'Ignore' — continue working, dismiss this warning."
+        )
+    }
     print(json.dumps(payload))
     return 0
 

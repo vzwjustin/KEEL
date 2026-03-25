@@ -181,9 +181,11 @@ def main() -> int:
     result = {
         "decision": "block",
         "reason": (
-            f"KEEL scope guard: '{rel_path}' is outside the active plan step ({step_label}). "
-            f"Run `keel delta` to record this as an intentional change, "
-            f"`keel replan` to update the plan, or `keel advance` to move to the next step."
+            f"KEEL — '{rel_path}' is outside the active plan step ({step_label}). "
+            "Use AskUserQuestion to ask the user: "
+            "1) 'Allow this edit' — record as intentional change, "
+            "2) 'Update plan' — replan to include this file, "
+            "3) 'Switch step' — advance to a different plan step."
         ),
     }
     print(json.dumps(result))

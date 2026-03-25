@@ -1,0 +1,335 @@
+artifact_id: scan-20260325-093620
+artifact_type: scan
+created_at: '2026-03-25T09:36:20.201346-05:00'
+repo_root: .
+stats:
+  file_count: 463
+  text_file_count: 448
+  total_bytes: 3228805
+languages:
+- name: JSON
+  detail: 5 matching files detected
+  confidence: deterministic
+  evidence:
+  - 5 files
+  paths: []
+- name: Markdown
+  detail: 29 matching files detected
+  confidence: deterministic
+  evidence:
+  - 29 files
+  paths: []
+- name: Python
+  detail: 70 matching files detected
+  confidence: deterministic
+  evidence:
+  - 70 files
+  paths: []
+- name: TOML
+  detail: 4 matching files detected
+  confidence: deterministic
+  evidence:
+  - 4 files
+  paths: []
+- name: YAML
+  detail: 334 matching files detected
+  confidence: deterministic
+  evidence:
+  - 334 files
+  paths: []
+build_systems:
+- name: Make
+  detail: Detected via Makefile
+  confidence: deterministic
+  evidence:
+  - Makefile
+  paths:
+  - Makefile
+- name: Python packaging
+  detail: Detected via pyproject.toml
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+runtime_surfaces:
+- name: CLI
+  detail: Directory structure suggests a command-line surface
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/__init__.py
+  paths:
+  - src/keel/cli/__init__.py
+- name: API/Server
+  detail: Directory or file naming suggests an API or server surface
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/app.py
+  paths:
+  - src/keel/cli/app.py
+entrypoints:
+- name: __main__.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/__main__.py
+  paths:
+  - src/keel/__main__.py
+- name: app.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/app.py
+  paths:
+  - src/keel/cli/app.py
+- name: main.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/main.py
+  paths:
+  - src/keel/cli/main.py
+modules:
+- name: keel
+  detail: Module boundary inferred from top-level directory under src
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel
+  paths:
+  - src/keel
+- name: keel_cli.egg-info
+  detail: Module boundary inferred from top-level directory under src
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel_cli.egg-info
+  paths:
+  - src/keel_cli.egg-info
+- name: .claude
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .claude
+  paths:
+  - .claude
+- name: .claude-plugin
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .claude-plugin
+  paths:
+  - .claude-plugin
+- name: .codex
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .codex
+  paths:
+  - .codex
+- name: .serena
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .serena
+  paths:
+  - .serena
+- name: scripts
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - scripts
+  paths:
+  - scripts
+tests:
+- name: conftest.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/conftest.py
+  paths:
+  - tests/conftest.py
+- name: test_claude_plugin.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_claude_plugin.py
+  paths:
+  - tests/test_claude_plugin.py
+- name: test_installer.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_installer.py
+  paths:
+  - tests/test_installer.py
+- name: test_session.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_session.py
+  paths:
+  - tests/test_session.py
+- name: test_watch.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_watch.py
+  paths:
+  - tests/test_watch.py
+- name: test_services.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_services.py
+  paths:
+  - tests/test_services.py
+- name: test_core.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_core.py
+  paths:
+  - tests/test_core.py
+- name: test_drift_dismiss.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_drift_dismiss.py
+  paths:
+  - tests/test_drift_dismiss.py
+- name: test_scan.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_scan.py
+  paths:
+  - tests/test_scan.py
+- name: test_planner_validators.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_planner_validators.py
+  paths:
+  - tests/test_planner_validators.py
+- name: test_companion.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_companion.py
+  paths:
+  - tests/test_companion.py
+- name: test_install_agents_cli.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_install_agents_cli.py
+  paths:
+  - tests/test_install_agents_cli.py
+- name: test_claude_ui.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_claude_ui.py
+  paths:
+  - tests/test_claude_ui.py
+- name: test_recover.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_recover.py
+  paths:
+  - tests/test_recover.py
+- name: test_drift.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_drift.py
+  paths:
+  - tests/test_drift.py
+configs:
+- name: Makefile
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - Makefile
+  paths:
+  - Makefile
+- name: pyproject.toml
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+- name: config.yaml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .keel/config.yaml
+  paths:
+  - .keel/config.yaml
+- name: settings.json
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .claude/settings.json
+  paths:
+  - .claude/settings.json
+- name: settings.local.json
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .claude/settings.local.json
+  paths:
+  - .claude/settings.local.json
+- name: config.toml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .codex/config.toml
+  paths:
+  - .codex/config.toml
+contracts: []
+findings:
+- finding_id: SCN-002
+  category: build-system
+  title: Multiple build systems detected
+  detail: The repository contains more than one build or packaging marker and may
+    need a declared source of truth.
+  confidence: inferred-medium-confidence
+  severity: warning
+  evidence:
+  - Make
+  - Python packaging
+  paths:
+  - Makefile
+  - pyproject.toml
+- finding_id: SCN-004
+  category: partial-feature
+  title: TODO/FIXME/HACK markers present
+  detail: Found 3 files with implementation debt markers, which may indicate partial
+    or unstable flows.
+  confidence: deterministic
+  severity: info
+  evidence:
+  - tests/test_scan.py
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  - .keel/specs/deltas/delta-implement-todo-split-commands.yaml
+  paths:
+  - tests/test_scan.py
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  - .keel/specs/deltas/delta-implement-todo-split-commands.yaml
+- finding_id: SCN-006
+  category: partial-feature
+  title: Partial-looking file names detected
+  detail: File names such as draft, wip, todo, or temp suggest incomplete implementation
+    areas.
+  confidence: heuristic-low-confidence
+  severity: info
+  evidence:
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  - .keel/specs/deltas/delta-implement-todo-split-commands.yaml
+  - src/keel/utils/agent_templates.py
+  paths:
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  - .keel/specs/deltas/delta-implement-todo-split-commands.yaml
+  - src/keel/utils/agent_templates.py
