@@ -33,6 +33,27 @@ keel companion start    # start if not running
 keel companion stop     # stop gracefully
 ```
 
+## Guardrails — What's Working Now, What's WIP
+
+KEEL is being built to create **hard stops** that prevent AI agents from causing further damage once drift is detected. Some guardrails are already in place. Others are work in progress.
+
+**Working now:**
+- **Real-time drift detection** — the companion catches scope creep, plan drift, and goal drift as files change
+- **Done-gate blocking** — `keel done` refuses to pass until reality matches the declared goal and plan
+- **Confidence labeling** — every signal says whether it's proven or a guess, so agents can't treat heuristics as facts
+- **Alert feed into agent context** — Claude Code sees drift warnings in its status line and hooks *during* the session, not after
+- **Cluster detection** — repeated weak signals roll up into a probable drift warning before they become a real problem
+- **Checkpoint/recover flow** — when drift is real, `keel recover` produces a concrete route back instead of letting the agent improvise
+
+**WIP — building toward hard stops:**
+- **Pre-edit blocking** — intercept the agent *before* it writes to a file outside the active plan step (not just warn after)
+- **Automatic session pause** — when drift severity hits a threshold, force the agent to stop and get human confirmation before continuing
+- **Scope lock enforcement** — reject file changes that don't map to the active goal, plan step, or recorded delta
+- **Budget/token guardrails** — detect when an agent is churning (lots of edits, no progress) and interrupt the loop
+- **Cross-agent consistency** — if Claude Code and Codex both touch the same repo, detect conflicting intent
+
+The goal is a system where the agent literally *cannot* keep writing code that doesn't match the plan — not just a warning it can ignore, but a wall it has to stop at.
+
 ## Why
 
 AI coding agents are powerful but forgetful. They lose track of goals mid-session, silently change scope, present heuristics as proof, and declare "done" before the work actually matches the plan. KEEL is the guardrail layer — it watches the repo, detects drift in real-time, and keeps the agent (and you) aligned.
@@ -165,27 +186,6 @@ src/keel/
 ├── rules/        # Drift rule catalog
 └── utils/        # Agent install, statusline, text
 ```
-
-## Guardrails — What's Working Now, What's WIP
-
-KEEL is being built to create **hard stops** that prevent AI agents from causing further damage once drift is detected. Some guardrails are already in place. Others are work in progress.
-
-**Working now:**
-- **Real-time drift detection** — the companion catches scope creep, plan drift, and goal drift as files change
-- **Done-gate blocking** — `keel done` refuses to pass until reality matches the declared goal and plan
-- **Confidence labeling** — every signal says whether it's proven or a guess, so agents can't treat heuristics as facts
-- **Alert feed into agent context** — Claude Code sees drift warnings in its status line and hooks *during* the session, not after
-- **Cluster detection** — repeated weak signals roll up into a probable drift warning before they become a real problem
-- **Checkpoint/recover flow** — when drift is real, `keel recover` produces a concrete route back instead of letting the agent improvise
-
-**WIP — building toward hard stops:**
-- **Pre-edit blocking** — intercept the agent *before* it writes to a file outside the active plan step (not just warn after)
-- **Automatic session pause** — when drift severity hits a threshold, force the agent to stop and get human confirmation before continuing
-- **Scope lock enforcement** — reject file changes that don't map to the active goal, plan step, or recorded delta
-- **Budget/token guardrails** — detect when an agent is churning (lots of edits, no progress) and interrupt the loop
-- **Cross-agent consistency** — if Claude Code and Codex both touch the same repo, detect conflicting intent
-
-The goal is a system where the agent literally *cannot* keep writing code that doesn't match the plan — not just a warning it can ignore, but a wall it has to stop at.
 
 ## Known Issues
 
