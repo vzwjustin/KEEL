@@ -10,8 +10,8 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T19:33:09.225167-05:00'
-  last_seen_at: '2026-03-25T03:54:45.039909+00:00'
-  count: 85
+  last_seen_at: '2026-03-25T03:56:39.514561+00:00'
+  count: 88
   evidence:
   - .gitignore
   - AGENTS.md
@@ -28,20 +28,19 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable plan drift cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T22:17:06.685256-05:00.
-    Latest related event: 2026-03-24T22:21:34.198457-05:00. Recent signals repeatedly
-    touched .gitignore, README, tests, .claude.'
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T03:53:50.980901+00:00.
+    Latest related event: 2026-03-25T03:56:18.599540+00:00. Recent signals repeatedly
+    touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T19:59:48.771032-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 50
+  last_seen_at: '2026-03-25T03:56:18.699034+00:00'
+  count: 51
   evidence:
   - KEE-DRF-009
   - .gitignore
-  - README
-  - tests
-  - .claude
+  - AGENTS
+  - ARCHITECTURE
   next_action: Checkpoint or replan now before these repeated drift signals turn into
     a larger alignment break.
   teaching: "Repeated weak signals are a pattern, not noise. The drift detector is\
@@ -75,19 +74,19 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable unknown-scope growth cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T22:17:06.685256-05:00.
-    Latest related event: 2026-03-24T22:21:33.808949-05:00. Recent signals repeatedly
-    touched .gitignore, README, tests.'
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T03:53:50.980901+00:00.
+    Latest related event: 2026-03-25T03:56:18.599540+00:00. Recent signals repeatedly
+    touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:18:17.312276-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 60
+  last_seen_at: '2026-03-25T03:56:18.699034+00:00'
+  count: 61
   evidence:
   - KEE-DRF-019
   - .gitignore
-  - README
-  - tests
+  - AGENTS
+  - ARCHITECTURE
   next_action: Checkpoint or replan now before these repeated drift signals turn into
     a larger alignment break.
   teaching: "Repeated weak signals are a pattern, not noise. The drift detector is\
@@ -102,8 +101,8 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-25T03:54:45.039909+00:00'
-  count: 96
+  last_seen_at: '2026-03-25T03:56:39.514561+00:00'
+  count: 99
   evidence:
   - .gitignore
   - AGENTS.md
@@ -125,8 +124,8 @@ alerts:
   severity: warning
   confidence: deterministic
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-25T03:54:45.039909+00:00'
-  count: 53
+  last_seen_at: '2026-03-25T03:56:39.514561+00:00'
+  count: 56
   evidence:
   - .keel/session/current-brief.md
   - .gitignore
@@ -171,8 +170,8 @@ alerts:
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T20:41:41.059048-05:00'
-  last_seen_at: '2026-03-25T03:54:45.039909+00:00'
-  count: 91
+  last_seen_at: '2026-03-25T03:56:39.514561+00:00'
+  count: 94
   evidence:
   - .gitignore
   - AGENTS.md
