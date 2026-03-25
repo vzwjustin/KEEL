@@ -6,6 +6,8 @@ KEEL keeps AI agents (Claude Code, Codex, Cursor, etc.) honest while they work o
 
 No cloud. No MCP runtime dependency. Just YAML artifacts in `.keel/` and a CLI.
 
+> **Early alpha / proof of concept.** The core ideas work and the companion loop is real, but expect rough edges, breaking changes, and missing features. Feedback and contributions welcome.
+
 ## The Companion — Why KEEL Exists
 
 The companion is what makes KEEL fundamentally different from a linter or a one-shot audit tool. It's a **persistent, real-time awareness loop** that runs alongside your AI agent and catches drift *as it happens*, not after.
