@@ -64,11 +64,29 @@ AI coding agents are powerful but forgetful. They lose track of goals mid-sessio
 
 ## Quick Start
 
+**Install from source** (current, pre-PyPI):
+
 ```bash
-# Install from source
+git clone https://github.com/vzwjustin/KEEL.git
+cd KEEL
+
+# With pip
 pip install -e .
 
-# Set up any repo
+# Or with pipx (keeps keel isolated from your other projects)
+pipx install -e .
+```
+
+**Once `keel-cli` is published to PyPI** (coming soon):
+
+```bash
+pipx install keel-cli   # recommended
+# or: pip install keel-cli
+```
+
+**Set up any repo:**
+
+```bash
 cd your-project/
 keel install    # bootstraps .claude/, .codex/, hooks, companion
 keel start      # scan, goal, plan, baseline — one command
@@ -138,10 +156,35 @@ Each signal carries a confidence level (`deterministic`, `inferred-high`, `infer
 ## Claude Code Integration
 
 After `keel install`, Claude Code gets:
-- **Status line** showing drift state, companion health, and current goal
-- **PostToolUse hook** that syncs real-time drift notifications
-- **Skills** for session alignment and drift recovery
-- **Preflight hook** that loads the current brief into context
+
+### Status Line
+
+The status line appears at the top of every Claude Code response and shows:
+
+```
+claude-sonnet-4 │ my-project ████████░░ 80% │ drifting │ ~ drifting │ ● companion
+```
+
+- **Model + folder** — which Claude model is active and which project you're in
+- **Context bar** — how much of the context window is used (green → yellow → red)
+- **State** — `on track`, `drifting`, `needs plan`, `needs goal`, `blocked`, etc.
+- **Drift visual** — `= on course` (no drift) or `~ drifting` (drift detected)
+- **Companion dot** — `● companion` (alive and fresh) or `○ companion` (dead or stale)
+
+### Hooks
+
+Three hooks are installed into `.claude/settings.json`:
+
+| Hook | Trigger | What it does |
+|------|---------|--------------|
+| **keel_scope_guard** | `PreToolUse` (Write/Edit) | Hard stop — blocks file edits outside the active plan step. If the file isn't in scope and no delta covers it, the edit is rejected before it runs. |
+| **keel_notify** | `PostToolUse` (Write/Edit/Bash) | Injects a system message if the companion detected drift since the last tool call. The agent sees the warning *during* the session, not after. |
+| **keel_preflight** | Session start / `UserPromptSubmit` | Runs a one-shot awareness pass (`keel watch --once`) and loads the current brief into context so every response starts with fresh KEEL state. |
+
+### Skills
+
+- `keel-session` — re-enters KEEL context at the start of a session (reads alerts, brief, and next step)
+- `keel-drift` — explains active drift and provides a concrete recovery route
 
 ## Codex Integration
 
