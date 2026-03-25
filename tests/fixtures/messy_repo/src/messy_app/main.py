@@ -1,4 +1,7 @@
-def main() -> int:
-    # TODO: split this into smaller commands
+def greet() -> None:
     print("hello")
+
+
+def main() -> int:
+    greet()
     return 0
