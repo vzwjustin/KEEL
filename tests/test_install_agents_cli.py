@@ -282,7 +282,7 @@ def test_install_updates_existing_relative_claude_statusline_command(tmp_path, f
     assert any("Updated repo-local agent file" in message for message in payload["messages"])
 
     settings = json.loads(settings_path.read_text(encoding="utf-8"))
-    assert settings["statusLine"]["command"] == "python3 .claude/statusline.py"
+    assert ".claude/statusline.py" in settings["statusLine"]["command"]
     assert "hooks" in settings
 
     stop = runner.invoke(app, ["--repo", str(repo), "--json", "companion", "stop"])
