@@ -1,5 +1,5 @@
 events:
-- seen_at: '2026-03-25T03:53:50.980901+00:00'
+- seen_at: '2026-03-25T04:04:53.548552+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -24,7 +24,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:53:50.980901+00:00'
+- seen_at: '2026-03-25T04:04:53.548552+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -41,7 +41,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:53:50.980901+00:00'
+- seen_at: '2026-03-25T04:04:53.548552+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -64,7 +64,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:53:50.980901+00:00'
+- seen_at: '2026-03-25T04:04:53.548552+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -89,7 +89,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:53:50.980901+00:00'
+- seen_at: '2026-03-25T04:04:53.548552+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -114,7 +114,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:22.995787+00:00'
+- seen_at: '2026-03-25T04:06:07.194455+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -139,7 +139,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:22.995787+00:00'
+- seen_at: '2026-03-25T04:06:07.194455+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -156,7 +156,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:22.995787+00:00'
+- seen_at: '2026-03-25T04:06:07.194455+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -179,7 +179,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:22.995787+00:00'
+- seen_at: '2026-03-25T04:06:07.194455+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -204,7 +204,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:22.995787+00:00'
+- seen_at: '2026-03-25T04:06:07.194455+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -229,7 +229,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:44.961668+00:00'
+- seen_at: '2026-03-25T04:06:45.071987+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -254,7 +254,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:44.961668+00:00'
+- seen_at: '2026-03-25T04:06:45.071987+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -271,7 +271,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:44.961668+00:00'
+- seen_at: '2026-03-25T04:06:45.071987+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -294,7 +294,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:44.961668+00:00'
+- seen_at: '2026-03-25T04:06:45.071987+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -319,7 +319,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:54:44.961668+00:00'
+- seen_at: '2026-03-25T04:06:45.071987+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -344,7 +344,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:18.599540+00:00'
+- seen_at: '2026-03-25T04:06:51.058444+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -369,7 +369,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:18.599540+00:00'
+- seen_at: '2026-03-25T04:06:51.058444+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -386,7 +386,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:18.599540+00:00'
+- seen_at: '2026-03-25T04:06:51.058444+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -409,7 +409,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:18.599540+00:00'
+- seen_at: '2026-03-25T04:06:51.058444+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -434,7 +434,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:18.599540+00:00'
+- seen_at: '2026-03-25T04:06:51.058444+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -459,7 +459,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:34.485151+00:00'
+- seen_at: '2026-03-25T04:07:12.102805+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -484,7 +484,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:34.485151+00:00'
+- seen_at: '2026-03-25T04:07:12.102805+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -501,7 +501,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:34.485151+00:00'
+- seen_at: '2026-03-25T04:07:12.102805+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -524,7 +524,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:34.485151+00:00'
+- seen_at: '2026-03-25T04:07:12.102805+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -549,7 +549,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:34.485151+00:00'
+- seen_at: '2026-03-25T04:07:12.102805+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -574,7 +574,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:39.379498+00:00'
+- seen_at: '2026-03-25T04:07:26.677869+00:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -599,7 +599,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:39.379498+00:00'
+- seen_at: '2026-03-25T04:07:26.677869+00:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -616,7 +616,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:39.379498+00:00'
+- seen_at: '2026-03-25T04:07:26.677869+00:00'
   code: KEE-DRF-014
   layer: session drift
   severity: warning
@@ -639,7 +639,7 @@ events:
   - README.md
   - TASKS.md
   cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:39.379498+00:00'
+- seen_at: '2026-03-25T04:07:26.677869+00:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -664,7 +664,122 @@ events:
   - README.md
   - TASKS.md
   cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
-- seen_at: '2026-03-25T03:56:39.379498+00:00'
+- seen_at: '2026-03-25T04:07:26.677869+00:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  changed_files:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
+- seen_at: '2026-03-25T04:08:40.185439+00:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  changed_files:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
+- seen_at: '2026-03-25T04:08:40.185439+00:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
+- seen_at: '2026-03-25T04:08:40.185439+00:00'
+  code: KEE-DRF-014
+  layer: session drift
+  severity: warning
+  confidence: deterministic
+  summary: The current brief is stale
+  evidence:
+  - .keel/session/current-brief.md
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  changed_files:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
+- seen_at: '2026-03-25T04:08:40.185439+00:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  - WORKLOG.md
+  changed_files:
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
+  - README.md
+  - TASKS.md
+  cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
+- seen_at: '2026-03-25T04:08:40.185439+00:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -690,19 +805,8 @@ events:
   - TASKS.md
   cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
 cluster_emissions:
-  cluster-e5d8cb4bd5:
-    emitted_at: '2026-03-25T03:53:50.980901+00:00'
-    cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
-    related_codes:
-    - KEE-DRF-001
-    - KEE-DRF-002
-    - KEE-DRF-014
-    touched_areas:
-    - .gitignore
-    - AGENTS
-    - ARCHITECTURE
   cluster-52afc26d75:
-    emitted_at: '2026-03-25T03:56:18.599540+00:00'
+    emitted_at: '2026-03-25T04:04:53.548552+00:00'
     cluster_key: plan drift:.gitignore|AGENTS|ARCHITECTURE
     related_codes:
     - KEE-DRF-009
@@ -711,10 +815,21 @@ cluster_emissions:
     - AGENTS
     - ARCHITECTURE
   cluster-738c72b8f3:
-    emitted_at: '2026-03-25T03:56:18.599540+00:00'
+    emitted_at: '2026-03-25T04:04:53.548552+00:00'
     cluster_key: unknown-scope growth:.gitignore|AGENTS|ARCHITECTURE
     related_codes:
     - KEE-DRF-019
+    touched_areas:
+    - .gitignore
+    - AGENTS
+    - ARCHITECTURE
+  cluster-e5d8cb4bd5:
+    emitted_at: '2026-03-25T04:04:53.548552+00:00'
+    cluster_key: session drift:.gitignore|AGENTS|ARCHITECTURE
+    related_codes:
+    - KEE-DRF-001
+    - KEE-DRF-002
+    - KEE-DRF-014
     touched_areas:
     - .gitignore
     - AGENTS
