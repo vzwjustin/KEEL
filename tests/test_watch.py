@@ -6,26 +6,14 @@ import yaml
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+from tests.conftest import keel_bootstrap
 
 
 def test_watch_once_runs_awareness_and_updates_reports(fixture_repo) -> None:
     repo = fixture_repo("multi_entry_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path", json=True)
 
     time.sleep(1)
     notes = repo / "docs" / "notes.md"

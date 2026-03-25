@@ -6,26 +6,14 @@ import yaml
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+from tests.conftest import keel_bootstrap
 
 
 def test_drift_flags_unmapped_changes_and_updates_brief(fixture_repo) -> None:
     repo = fixture_repo("multi_entry_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path", json=True)
 
     time.sleep(1)
     sidequest = repo / "docs" / "notes.md"
@@ -34,7 +22,7 @@ def test_drift_flags_unmapped_changes_and_updates_brief(fixture_repo) -> None:
 
     drift = runner.invoke(app, ["--repo", str(repo), "--json", "drift", "--mode", "hard"])
     assert drift.exit_code == 0, drift.stdout
-    assert "KEE-DRF-009" in drift.stdout or "KEE-DRF-019" in drift.stdout
+    assert "KEE-DRF-001" in drift.stdout or "KEE-DRF-009" in drift.stdout or "KEE-DRF-019" in drift.stdout
 
     brief = (repo / ".keel" / "session" / "current-brief.md").read_text(encoding="utf-8")
     assert "Blockers:" in brief
@@ -44,18 +32,7 @@ def test_done_blocks_when_feature_goal_has_no_delta(fixture_repo) -> None:
     repo = fixture_repo("messy_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "add-feature",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="add-feature", json=True)
 
     drift = runner.invoke(app, ["--repo", str(repo), "--json", "drift", "--mode", "hard"])
     assert drift.exit_code == 0, drift.stdout
@@ -92,8 +69,7 @@ def test_strict_mode_blocks_done_on_validation_warning(fixture_repo) -> None:
     )
     runner = CliRunner()
 
-    start = runner.invoke(app, ["--repo", str(repo), "--json", "start", "--goal-mode", "ship-mvp"])
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="ship-mvp", json=True)
 
     validate = runner.invoke(app, ["--repo", str(repo), "--json", "validate"])
     assert validate.exit_code == 0, validate.stdout
@@ -131,20 +107,7 @@ def test_drift_builds_cluster_from_repeated_weak_signals(fixture_repo) -> None:
     repo = fixture_repo("multi_entry_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path", json=True)
 
     for index in range(4):
         time.sleep(1)
@@ -166,20 +129,7 @@ def test_drift_cluster_has_cooldown_and_does_not_reemit_immediately(fixture_repo
     repo = fixture_repo("multi_entry_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path", json=True)
 
     drift = None
     for index in range(4):

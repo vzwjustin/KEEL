@@ -11,6 +11,7 @@ import yaml
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+from tests.conftest import keel_bootstrap
 
 PYTHON = sys.executable
 
@@ -76,20 +77,7 @@ def test_drift_dismiss_clears_cluster_and_alert_feed(fixture_repo) -> None:
     repo = fixture_repo("messy_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path", json=True)
 
     time.sleep(1)
     changed = repo / "docs" / "drift-cluster.md"
@@ -125,19 +113,7 @@ def test_command_local_json_flags_work_after_command_name(fixture_repo) -> None:
     repo = fixture_repo("messy_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path")
 
     base = [PYTHON, "-m", "keel.cli.main", "--repo", str(repo)]
     env = os.environ.copy()

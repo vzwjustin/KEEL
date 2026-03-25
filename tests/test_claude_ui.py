@@ -18,7 +18,10 @@ def test_statusline_and_context_render_from_alerts(fixture_repo) -> None:
     repo = fixture_repo("multi_entry_repo")
     cli = [PYTHON, "-m", "keel", "--repo", str(repo)]
 
-    subprocess.run(cli + ["start", "--goal-mode", "understand", "--success-criterion", "Map the runtime path"], check=True)
+    subprocess.run(cli + ["init"], check=True)
+    subprocess.run(cli + ["scan"], check=True)
+    subprocess.run(cli + ["baseline"], check=True)
+    subprocess.run(cli + ["goal", "--goal-mode", "understand", "--success-criterion", "Map the runtime path"], check=True)
     time.sleep(1)
     note = repo / "docs" / "notes.md"
     note.parent.mkdir(parents=True, exist_ok=True)

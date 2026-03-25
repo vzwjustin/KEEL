@@ -65,8 +65,11 @@ AI coding agents are powerful but forgetful. They lose track of goals mid-sessio
 ## Quick Start
 
 ```bash
-# Install from source
-pip install -e .
+# Install from source (recommended — installs keel as a global tool)
+uv tool install .
+
+# Or with pip if uv isn't available
+pip install --user -e .
 
 # Set up any repo
 cd your-project/

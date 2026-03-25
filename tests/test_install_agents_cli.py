@@ -6,6 +6,7 @@ import time
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+from tests.conftest import keel_bootstrap
 
 
 def test_install_command_installs_assets_and_starts_companion(tmp_path, fixture_repo) -> None:
@@ -83,19 +84,7 @@ def test_install_detects_stale_active_session_and_offers_recover_or_replan(tmp_p
     claude_home = tmp_path / "claude-home"
     repo = fixture_repo("messy_repo")
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path")
 
     drift_note = repo / "docs" / "drift-notes.md"
     drift_note.parent.mkdir(parents=True, exist_ok=True)
@@ -295,19 +284,7 @@ def test_install_ignores_editable_install_egg_info_drift(tmp_path, fixture_repo)
     claude_home = tmp_path / "claude-home"
     repo = fixture_repo("messy_repo")
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "start",
-            "--goal-mode",
-            "understand",
-            "--success-criterion",
-            "Map the runtime path",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="understand", success_criterion="Map the runtime path")
 
     install = runner.invoke(
         app,

@@ -1,7 +1,11 @@
 .PHONY: install dev-install install-agent-assets install-codex-assets install-claude-assets test
 
 install:
-	python3 -m pip install -e .
+	@if command -v uv >/dev/null 2>&1; then \
+		uv tool install . ; \
+	else \
+		python3 -m pip install --user -e . ; \
+	fi
 
 dev-install: install
 	python3 scripts/install_agent_assets.py

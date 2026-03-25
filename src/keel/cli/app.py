@@ -42,9 +42,7 @@ from keel.models import (
     ValidationArtifact,
 )
 from keel.planner import build_plan
-from keel.questions import generate_questions
 from keel.recover import build_recovery
-from keel.research import run_research
 from keel.reporters import render_artifact, render_result
 from keel.rules import CONFIDENCE_EXPLANATIONS, ERROR_CODES
 from keel.session import (
@@ -61,8 +59,6 @@ from keel.session import (
     stop_companion,
     write_companion_heartbeat,
 )
-from keel.align import align_context
-from keel.guide import build_guidance
 from keel.trace import build_trace
 from keel.utils import install_agent_assets
 from keel.validators import run_validation
@@ -129,6 +125,11 @@ def _load_preferred_report(paths, session: SessionState, model_type, directory, 
 def _refresh_brief(paths) -> None:
     session = SessionService(paths).load()
     refresh_current_brief(paths, session)
+    # Mirror the brief into .planning/KEEL-STATUS.md for GSD agents
+    brief_file = paths.current_brief_file
+    if brief_file.exists():
+        from keel.bridge.gsd import write_keel_brief_to_planning
+        write_keel_brief_to_planning(paths.root, brief_file.read_text(encoding="utf-8"))
 
 
 def _install_session_handoff(paths, config, session: SessionState) -> dict[str, object] | None:
@@ -247,239 +248,7 @@ def _collect_list(prompt_text: str) -> list[str]:
     return items
 
 
-def _should_launch_start_wizard(
-    *,
-    forced: Optional[bool],
-    json_output: bool,
-    goal_statement: Optional[str],
-    scope: Optional[List[str]],
-    out_of_scope: Optional[List[str]],
-    constraint: Optional[List[str]],
-    success_criterion: Optional[List[str]],
-    risk: Optional[List[str]],
-    assumption: Optional[List[str]],
-    unresolved_question: Optional[List[str]],
-    research_query: Optional[str],
-    research_source: Optional[List[str]],
-) -> bool:
-    if forced is not None:
-        return forced
-    if json_output or not sys.stdin.isatty():
-        return False
-    return not any(
-        [
-            goal_statement,
-            scope,
-            out_of_scope,
-            constraint,
-            success_criterion,
-            risk,
-            assumption,
-            unresolved_question,
-            research_query,
-            research_source,
-        ]
-    )
 
-
-def _run_start_wizard(
-    goal_mode: GoalMode,
-    goal_statement: Optional[str],
-    scope: Optional[List[str]],
-    out_of_scope: Optional[List[str]],
-    constraint: Optional[List[str]],
-    success_criterion: Optional[List[str]],
-    risk: Optional[List[str]],
-    assumption: Optional[List[str]],
-    unresolved_question: Optional[List[str]],
-    allow_research: bool,
-    research_query: Optional[str],
-    research_source: Optional[List[str]],
-) -> dict:
-    console.print("[bold]KEEL First-Run Wizard[/bold]")
-    console.print("We’ll lock repo reality, define the goal, and set the next aligned move.\n")
-
-    mode_value = typer.prompt("Goal mode", default=goal_mode.value)
-    selected_mode = GoalMode(mode_value)
-    statement = typer.prompt(
-        "Goal statement",
-        default=goal_statement or "",
-        show_default=False,
-    ).strip() or None
-
-    console.print("Enter scope items one per line. Leave blank to finish.")
-    scopes = scope or _collect_list("Scope")
-
-    console.print("Enter out-of-scope items one per line. Leave blank to finish.")
-    out_of_scopes = out_of_scope or _collect_list("Out of scope")
-
-    console.print("Enter constraints one per line. Leave blank to finish.")
-    constraints = constraint or _collect_list("Constraint")
-
-    console.print("Enter success criteria one per line. Leave blank to finish.")
-    success_criteria = success_criterion or _collect_list("Success criterion")
-
-    console.print("Enter risks one per line. Leave blank to finish.")
-    risks = risk or _collect_list("Risk")
-
-    console.print("Enter assumptions one per line. Leave blank to finish.")
-    assumptions = assumption or _collect_list("Assumption")
-
-    console.print("Enter unresolved questions one per line. Leave blank to finish.")
-    unresolved_questions = unresolved_question or _collect_list("Unresolved question")
-
-    research_enabled = allow_research or typer.confirm("Enable bounded research for this start run?", default=False)
-    query = research_query
-    sources = research_source or []
-    if research_enabled:
-        query = (research_query or typer.prompt("Research query", default="", show_default=False)).strip() or None
-        console.print("Add explicit research sources one per line. Leave blank to finish.")
-        sources = research_source or _collect_list("Research source")
-
-    return {
-        "goal_mode": selected_mode,
-        "goal_statement": statement,
-        "scope": scopes,
-        "out_of_scope": out_of_scopes,
-        "constraint": constraints,
-        "success_criterion": success_criteria,
-        "risk": risks,
-        "assumption": assumptions,
-        "unresolved_question": unresolved_questions,
-        "allow_research": research_enabled,
-        "research_query": query,
-        "research_source": sources,
-    }
-
-
-def _execute_start_flow(
-    *,
-    state: AppState,
-    paths,
-    config,
-    session,
-    goal_mode: GoalMode,
-    goal_statement: Optional[str],
-    scope: Optional[List[str]],
-    out_of_scope: Optional[List[str]],
-    constraint: Optional[List[str]],
-    success_criterion: Optional[List[str]],
-    risk: Optional[List[str]],
-    assumption: Optional[List[str]],
-    unresolved_question: Optional[List[str]],
-    allow_research: bool,
-    research_query: Optional[str],
-    research_source: Optional[List[str]],
-) -> None:
-    scan_artifact = scan_repository(paths.root, config)
-    save_artifact(paths, paths.scans_dir, "scan", scan_artifact)
-
-    baseline_artifact = build_baseline(scan_artifact)
-    save_artifact(paths, paths.baselines_dir, "baseline", baseline_artifact)
-
-    goal_artifact = build_goal(
-        repo_root=".",
-        mode=goal_mode,
-        goal_statement=goal_statement,
-        scope=_split(scope),
-        out_of_scope=_split(out_of_scope),
-        constraints=_split(constraint),
-        success_criteria=_split(success_criterion),
-        risks=_split(risk),
-        assumptions=_split(assumption),
-        unresolved_questions=_split(unresolved_question),
-    )
-    save_artifact(paths, paths.goals_dir, "goal", goal_artifact)
-
-    research_artifact = run_research(
-        repo_root=".",
-        config=config,
-        enabled=allow_research and config.research_enabled,
-        query=research_query,
-        sources=_split(research_source),
-    )
-    save_artifact(paths, paths.research_artifacts_dir, "research", research_artifact)
-
-    question_artifact = generate_questions(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-    )
-    save_artifact(paths, paths.questions_dir, "questions", question_artifact)
-
-    alignment_artifact = align_context(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-        questions=question_artifact,
-    )
-    save_artifact(paths, paths.alignments_dir, "alignment", alignment_artifact)
-
-    plan_artifact = build_plan(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        alignment=alignment_artifact,
-        questions=question_artifact,
-    )
-    save_artifact(paths, paths.plans_dir, "plan", plan_artifact)
-
-    session_service = SessionService(paths)
-    session = session_service.update_from_start_flow(
-        session,
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-        questions=question_artifact,
-        alignment=alignment_artifact,
-        plan=plan_artifact,
-    )
-    session = session_service.record_decision(
-        session,
-        "Ran `keel start` to establish the active baseline, goal, and plan.",
-    )
-    session_service.write_current_brief(
-        goal=goal_artifact,
-        plan=plan_artifact,
-        baseline=baseline_artifact,
-        alignment=alignment_artifact,
-        research=research_artifact,
-        unresolved_questions=[question.question for question in question_artifact.questions],
-        decisions=session_service.load_decisions(),
-        blockers=[mismatch.summary for mismatch in alignment_artifact.mismatches[:3]],
-        must_not_change=goal_artifact.out_of_scope[:2] + goal_artifact.constraints[:2],
-    )
-
-    render_result(
-        console,
-        "Start",
-        [
-            f"scan: {scan_artifact.artifact_id}",
-            f"baseline: {baseline_artifact.artifact_id}",
-            f"goal: {goal_artifact.goal_statement}",
-            f"questions: {len(question_artifact.questions)}",
-            f"next: {plan_artifact.current_next_step}",
-            f"brief: {paths.current_brief_file.relative_to(paths.root)}",
-        ],
-        state.json_output,
-        {
-            "scan_id": scan_artifact.artifact_id,
-            "baseline_id": baseline_artifact.artifact_id,
-            "goal_id": goal_artifact.artifact_id,
-            "research_id": research_artifact.artifact_id,
-            "questions_id": question_artifact.artifact_id,
-            "alignment_id": alignment_artifact.artifact_id,
-            "plan_id": plan_artifact.artifact_id,
-            "next_step": plan_artifact.current_next_step,
-            "brief": str(paths.current_brief_file),
-        },
-    )
 
 
 @app.callback()
@@ -495,6 +264,12 @@ def main_callback(
 def init(ctx: typer.Context) -> None:
     state = _ctx(ctx)
     paths, config, session = ensure_project(state.repo)
+    from keel.bridge.gsd import gsd_present
+    gsd_notice = "GSD detected — KEEL will read .planning/ for phase context" if gsd_present(state.repo) else None
+    if not config.research_enabled:
+        console.print("[dim]research: disabled (set research_enabled: true in .keel/config.yaml to enable)[/dim]")
+    if gsd_notice:
+        console.print(f"[dim]{gsd_notice}[/dim]")
     render_result(
         console,
         "Init",
@@ -570,7 +345,53 @@ def goal(
     unresolved_question: Annotated[Optional[List[str]], typer.Option("--unresolved-question")] = None,
 ) -> None:
     state = _ctx(ctx)
-    paths, _, _ = ensure_project(state.repo)
+    paths, _, session = ensure_project(state.repo)
+
+    # Guard: if only question flags were passed (no --goal-statement) and a goal
+    # already exists, do NOT silently overwrite it with a generic default.
+    only_questions = (
+        goal_statement is None
+        and not scope and not out_of_scope and not constraint
+        and not success_criterion and not risk and not assumption
+        and unresolved_question
+        and session.active_goal_id
+    )
+    if only_questions:
+        existing = load_model_by_artifact_id(paths.goals_dir, session.active_goal_id)
+        if existing:
+            # Append questions to the existing goal instead of replacing it
+            updated_questions = list(existing.unresolved_questions or []) + list(_split(unresolved_question) or [])
+            artifact = build_goal(
+                repo_root=".",
+                mode=existing.mode,
+                goal_statement=existing.goal_statement,
+                scope=existing.scope or [],
+                out_of_scope=existing.out_of_scope or [],
+                constraints=existing.constraints or [],
+                success_criteria=existing.success_criteria or [],
+                risks=existing.risks or [],
+                assumptions=existing.assumptions or [],
+                unresolved_questions=updated_questions,
+            )
+            _save_and_render(paths, artifact, paths.goals_dir, "goal", state,
+                             [f"mode: {artifact.mode.value}", f"goal: {artifact.goal_statement}",
+                              f"added questions: {len(_split(unresolved_question) or [])}"])
+            from keel.session.service import SessionService
+            svc = SessionService(paths)
+            s = svc.load()
+            s.active_goal_id = artifact.artifact_id
+            svc.save(s)
+            _refresh_brief(paths)
+            return
+
+    # If no goal statement given, try to pull from the active GSD phase
+    if goal_statement is None:
+        from keel.bridge.gsd import sync_goal_from_gsd
+        gsd_goal = sync_goal_from_gsd(state.repo)
+        if gsd_goal:
+            goal_statement = gsd_goal
+            console.print(f"[dim]Using GSD phase goal: {gsd_goal}[/dim]")
+
     artifact = build_goal(
         repo_root=".",
         mode=goal_mode,
@@ -604,88 +425,10 @@ def goal(
     _refresh_brief(paths)
 
 
-@app.command()
-def research(
-    ctx: typer.Context,
-    query: Annotated[Optional[str], typer.Option("--query")] = None,
-    source: Annotated[Optional[List[str]], typer.Option("--source")] = None,
-    enabled: Annotated[bool, typer.Option("--enabled/--disabled")] = True,
-) -> None:
-    state = _ctx(ctx)
-    paths, config, _ = ensure_project(state.repo)
-    artifact = run_research(
-        repo_root=".",
-        config=config,
-        enabled=enabled and config.research_enabled,
-        query=query,
-        sources=_split(source),
-    )
-    _save_and_render(
-        paths,
-        artifact,
-        paths.research_artifacts_dir,
-        "research",
-        state,
-        [
-            f"status: {artifact.status}",
-            f"findings: {len(artifact.findings)}",
-            f"unresolved: {len(artifact.unresolved)}",
-        ],
-    )
 
 
-@app.command()
-def questions(ctx: typer.Context) -> None:
-    state = _ctx(ctx)
-    paths, _, session = ensure_project(state.repo)
-    bundle = _latest_bundle(paths)
-    artifact = generate_questions(
-        repo_root=".",
-        scan=bundle["scan"],
-        baseline=bundle["baseline"],
-        goal=bundle["goal"],
-        research=bundle["research"],
-    )
-    _save_and_render(
-        paths,
-        artifact,
-        paths.questions_dir,
-        "questions",
-        state,
-        [
-            f"questions: {len(artifact.questions)}",
-            f"high priority: {sum(1 for question in artifact.questions if question.priority.value == 'high')}",
-        ],
-    )
-    SessionService(paths).sync_questions(session, artifact)
-    _refresh_brief(paths)
 
 
-@app.command()
-def align(ctx: typer.Context) -> None:
-    state = _ctx(ctx)
-    paths, _, _ = ensure_project(state.repo)
-    bundle = _latest_bundle(paths)
-    artifact = align_context(
-        repo_root=".",
-        scan=bundle["scan"],
-        baseline=bundle["baseline"],
-        goal=bundle["goal"],
-        research=bundle["research"],
-        questions=bundle["questions"],
-    )
-    _save_and_render(
-        paths,
-        artifact,
-        paths.alignments_dir,
-        "alignment",
-        state,
-        [
-            f"mismatches: {len(artifact.mismatches)}",
-            f"unresolved decisions: {len(artifact.unresolved_decisions)}",
-            f"focus: {artifact.recommended_focus_area}",
-        ],
-    )
 
 
 @app.command()
@@ -726,19 +469,6 @@ def plan(ctx: typer.Context) -> None:
     _refresh_brief(paths)
 
 
-@app.command()
-def next(ctx: typer.Context) -> None:
-    state = _ctx(ctx)
-    paths, _, session = ensure_project(state.repo)
-    plan_artifact = _load_latest(paths, PlanArtifact, paths.plans_dir)
-    next_step = plan_artifact.current_next_step if plan_artifact else session.current_next_step or "No active next step."
-    render_result(
-        console,
-        "Next",
-        [next_step],
-        state.json_output,
-        {"next_step": next_step, "plan_id": plan_artifact.artifact_id if plan_artifact else None},
-    )
 
 
 @app.command()
@@ -852,9 +582,6 @@ def validate(
     _refresh_brief(paths)
 
 
-@app.command()
-def lint(ctx: typer.Context) -> None:
-    validate(ctx)
 
 
 @app.command()
@@ -1052,26 +779,6 @@ def doctor(ctx: typer.Context) -> None:
     )
 
 
-@app.command()
-def scaffold(ctx: typer.Context) -> None:
-    state = _ctx(ctx)
-    paths, _, _ = ensure_project(state.repo)
-    render_result(
-        console,
-        "Scaffold",
-        [
-            f"prompts: {paths.prompts_dir.relative_to(paths.root)}",
-            f"templates: {paths.templates_dir.relative_to(paths.root)}",
-            f"specs: {paths.specs_root.relative_to(paths.root)}",
-        ],
-        state.json_output,
-        {
-            "status": "ok",
-            "prompts_dir": str(paths.prompts_dir),
-            "templates_dir": str(paths.templates_dir),
-            "specs_root": str(paths.specs_root),
-        },
-    )
 
 
 @app.command()
@@ -1290,32 +997,6 @@ def companion_status_command(ctx: typer.Context) -> None:
     )
 
 
-@app.command()
-def explain(
-    ctx: typer.Context,
-    key: Annotated[str, typer.Argument(help="Error code or confidence label to explain.")] = "KEE-VAL-001",
-) -> None:
-    state = _ctx(ctx)
-    if key in ERROR_CODES:
-        render_result(
-            console,
-            "Explain",
-            [f"{key}: {ERROR_CODES[key]}"],
-            state.json_output,
-            {"kind": "error-code", "key": key, "explanation": ERROR_CODES[key]},
-        )
-        return
-    explanation = CONFIDENCE_EXPLANATIONS.get(key)
-    if explanation:
-        render_result(
-            console,
-            "Explain",
-            [f"{key}: {explanation}"],
-            state.json_output,
-            {"kind": "confidence", "key": key, "explanation": explanation},
-        )
-        return
-    raise typer.Exit(code=1)
 
 
 @app.command()
@@ -1522,290 +1203,7 @@ def check(ctx: typer.Context) -> None:
     )
 
 
-def _run_guide(ctx: typer.Context) -> None:
-    """Shared implementation for guide and tips commands."""
-    import json as json_mod
-
-    state = _ctx(ctx)
-    paths, _, session = ensure_project(state.repo)
-    bundle = load_active_bundle(paths, session)
-    guidance = build_guidance(
-        paths=paths,
-        session=session,
-        goal=bundle["goal"],
-        plan=bundle["plan"],
-        scan=bundle["scan"],
-        drift=bundle["drift"],
-        validation=bundle["validation"],
-    )
-
-    if state.json_output:
-        console.print_json(json_mod.dumps(guidance, default=str))
-        return
-
-    lines: list[str] = []
-    lines.append(f"[bold cyan]Step:[/bold cyan] {guidance['current_step']}")
-    lines.append("")
-
-    lines.append("[bold green]What to do:[/bold green]")
-    for item in guidance["what_to_do"]:
-        lines.append(f"  - {item}")
-    lines.append("")
-
-    lines.append("[bold yellow]What to avoid:[/bold yellow]")
-    for item in guidance["what_to_avoid"]:
-        lines.append(f"  - {item}")
-    lines.append("")
-
-    lines.append(f"[bold magenta]Done when:[/bold magenta] {guidance['done_when']}")
-    lines.append("")
-
-    if guidance["warnings"]:
-        lines.append("[bold red]Warnings:[/bold red]")
-        for item in guidance["warnings"]:
-            lines.append(f"  - {item}")
-        lines.append("")
-
-    context = guidance.get("context", {})
-    if context:
-        ctx_parts: list[str] = []
-        if context.get("goal_mode"):
-            ctx_parts.append(f"mode={context['goal_mode']}")
-        if context.get("languages"):
-            ctx_parts.append(f"languages={', '.join(context['languages'][:3])}")
-        if context.get("scope"):
-            ctx_parts.append(f"scope={', '.join(context['scope'][:2])}")
-        if ctx_parts:
-            lines.append(f"[dim]Context: {' | '.join(ctx_parts)}[/dim]")
-            lines.append("")
-
-    lines.append("[bold blue]Suggested commands:[/bold blue]")
-    for cmd in guidance["suggested_commands"]:
-        lines.append(f"  $ {cmd}")
-
-    console.print(Panel("\n".join(lines), title="KEEL Guide", expand=False))
 
 
-@app.command()
-def guide(ctx: typer.Context) -> None:
-    """Show contextual development guidance for the current step."""
-    _run_guide(ctx)
 
 
-@app.command()
-def tips(ctx: typer.Context) -> None:
-    """Alias for guide -- show contextual development guidance."""
-    _run_guide(ctx)
-
-
-@app.command()
-def start(
-    ctx: typer.Context,
-    goal_mode: Annotated[GoalMode, typer.Option("--goal-mode")] = GoalMode.UNDERSTAND,
-    goal_statement: Annotated[Optional[str], typer.Option("--goal-statement")] = None,
-    scope: Annotated[Optional[List[str]], typer.Option("--scope")] = None,
-    out_of_scope: Annotated[Optional[List[str]], typer.Option("--out-of-scope")] = None,
-    constraint: Annotated[Optional[List[str]], typer.Option("--constraint")] = None,
-    success_criterion: Annotated[Optional[List[str]], typer.Option("--success-criterion")] = None,
-    risk: Annotated[Optional[List[str]], typer.Option("--risk")] = None,
-    assumption: Annotated[Optional[List[str]], typer.Option("--assumption")] = None,
-    unresolved_question: Annotated[Optional[List[str]], typer.Option("--unresolved-question")] = None,
-    allow_research: Annotated[bool, typer.Option("--allow-research/--no-research")] = False,
-    research_query: Annotated[Optional[str], typer.Option("--research-query")] = None,
-    research_source: Annotated[Optional[List[str]], typer.Option("--research-source")] = None,
-    wizard: Annotated[Optional[bool], typer.Option("--wizard/--no-wizard", help="Run the interactive first-run wizard.")] = None,
-) -> None:
-    state = _ctx(ctx)
-    paths, config, session = ensure_project(state.repo)
-
-    if _should_launch_start_wizard(
-        forced=wizard,
-        json_output=state.json_output,
-        goal_statement=goal_statement,
-        scope=scope,
-        out_of_scope=out_of_scope,
-        constraint=constraint,
-        success_criterion=success_criterion,
-        risk=risk,
-        assumption=assumption,
-        unresolved_question=unresolved_question,
-        research_query=research_query,
-        research_source=research_source,
-    ):
-        wizard_values = _run_start_wizard(
-            goal_mode,
-            goal_statement,
-            scope,
-            out_of_scope,
-            constraint,
-            success_criterion,
-            risk,
-            assumption,
-            unresolved_question,
-            allow_research,
-            research_query,
-            research_source,
-        )
-        goal_mode = wizard_values["goal_mode"]
-        goal_statement = wizard_values["goal_statement"]
-        scope = wizard_values["scope"]
-        out_of_scope = wizard_values["out_of_scope"]
-        constraint = wizard_values["constraint"]
-        success_criterion = wizard_values["success_criterion"]
-        risk = wizard_values["risk"]
-        assumption = wizard_values["assumption"]
-        unresolved_question = wizard_values["unresolved_question"]
-        allow_research = wizard_values["allow_research"]
-        research_query = wizard_values["research_query"]
-        research_source = wizard_values["research_source"]
-
-    scan_artifact = scan_repository(paths.root, config)
-    save_artifact(paths, paths.scans_dir, "scan", scan_artifact)
-
-    baseline_artifact = build_baseline(scan_artifact)
-    save_artifact(paths, paths.baselines_dir, "baseline", baseline_artifact)
-
-    goal_artifact = build_goal(
-        repo_root=".",
-        mode=goal_mode,
-        goal_statement=goal_statement,
-        scope=_split(scope),
-        out_of_scope=_split(out_of_scope),
-        constraints=_split(constraint),
-        success_criteria=_split(success_criterion),
-        risks=_split(risk),
-        assumptions=_split(assumption),
-        unresolved_questions=_split(unresolved_question),
-    )
-    save_artifact(paths, paths.goals_dir, "goal", goal_artifact)
-
-    research_artifact = run_research(
-        repo_root=".",
-        config=config,
-        enabled=allow_research and config.research_enabled,
-        query=research_query,
-        sources=_split(research_source),
-    )
-    save_artifact(paths, paths.research_artifacts_dir, "research", research_artifact)
-
-    question_artifact = generate_questions(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-    )
-    save_artifact(paths, paths.questions_dir, "questions", question_artifact)
-
-    alignment_artifact = align_context(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-        questions=question_artifact,
-    )
-    save_artifact(paths, paths.alignments_dir, "alignment", alignment_artifact)
-
-    plan_artifact = build_plan(
-        repo_root=".",
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        alignment=alignment_artifact,
-        questions=question_artifact,
-    )
-    save_artifact(paths, paths.plans_dir, "plan", plan_artifact)
-
-    session_service = SessionService(paths)
-    session = session_service.update_from_start_flow(
-        session,
-        scan=scan_artifact,
-        baseline=baseline_artifact,
-        goal=goal_artifact,
-        research=research_artifact,
-        questions=question_artifact,
-        alignment=alignment_artifact,
-        plan=plan_artifact,
-    )
-    session = session_service.record_decision(
-        session,
-        "Ran `keel start` to establish the active baseline, goal, and plan.",
-    )
-    session_service.write_current_brief(
-        goal=goal_artifact,
-        plan=plan_artifact,
-        baseline=baseline_artifact,
-        alignment=alignment_artifact,
-        research=research_artifact,
-        unresolved_questions=[question.question for question in question_artifact.questions],
-        decisions=session_service.load_decisions(),
-        blockers=[mismatch.summary for mismatch in alignment_artifact.mismatches[:3]],
-        must_not_change=goal_artifact.out_of_scope[:2] + goal_artifact.constraints[:2],
-    )
-
-    render_result(
-        console,
-        "Start",
-        [
-            f"scan: {scan_artifact.artifact_id}",
-            f"baseline: {baseline_artifact.artifact_id}",
-            f"goal: {goal_artifact.goal_statement}",
-            f"questions: {len(question_artifact.questions)}",
-            f"next: {plan_artifact.current_next_step}",
-            f"brief: {paths.current_brief_file.relative_to(paths.root)}",
-        ],
-        state.json_output,
-        {
-            "scan_id": scan_artifact.artifact_id,
-            "baseline_id": baseline_artifact.artifact_id,
-            "goal_id": goal_artifact.artifact_id,
-            "research_id": research_artifact.artifact_id,
-            "questions_id": question_artifact.artifact_id,
-            "alignment_id": alignment_artifact.artifact_id,
-            "plan_id": plan_artifact.artifact_id,
-            "next_step": plan_artifact.current_next_step,
-            "brief": str(paths.current_brief_file),
-        },
-    )
-
-
-@app.command()
-def wizard(
-    ctx: typer.Context,
-    goal_mode: Annotated[GoalMode, typer.Option("--goal-mode")] = GoalMode.UNDERSTAND,
-) -> None:
-    state = _ctx(ctx)
-    paths, config, session = ensure_project(state.repo)
-    wizard_values = _run_start_wizard(
-        goal_mode,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        False,
-        None,
-        None,
-    )
-    _execute_start_flow(
-        state=state,
-        paths=paths,
-        config=config,
-        session=session,
-        goal_mode=wizard_values["goal_mode"],
-        goal_statement=wizard_values["goal_statement"],
-        scope=wizard_values["scope"],
-        out_of_scope=wizard_values["out_of_scope"],
-        constraint=wizard_values["constraint"],
-        success_criterion=wizard_values["success_criterion"],
-        risk=wizard_values["risk"],
-        assumption=wizard_values["assumption"],
-        unresolved_question=wizard_values["unresolved_question"],
-        allow_research=wizard_values["allow_research"],
-        research_query=wizard_values["research_query"],
-        research_source=wizard_values["research_source"],
-    )

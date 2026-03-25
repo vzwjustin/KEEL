@@ -109,6 +109,11 @@ def install_claude(repo_root: Path, destination: Path, install_hook: bool) -> li
         target = destination / "skills"
         copy_tree(source, target)
         installed.append(f"Installed Claude Code skills into {target}")
+    commands_source = repo_root / ".claude" / "commands" / "keel"
+    if commands_source.exists():
+        commands_target = destination / "commands" / "keel"
+        copy_tree(commands_source, commands_target)
+        installed.append(f"Installed Claude Code slash commands into {commands_target}")
     hooks_target = destination / "hooks"
     hooks_target.mkdir(parents=True, exist_ok=True)
     router_path = hooks_target / "keel_statusline_router.py"

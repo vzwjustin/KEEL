@@ -6,26 +6,14 @@ import yaml
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+from tests.conftest import keel_bootstrap
 
 
 def test_recover_generates_recovery_route_and_updates_brief(fixture_repo) -> None:
     repo = fixture_repo("messy_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "--json",
-            "start",
-            "--goal-mode",
-            "add-feature",
-            "--success-criterion",
-            "Ship the intended feature safely",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="add-feature", success_criterion="Ship the intended feature safely", json=True)
 
     time.sleep(1)
     changed = repo / "src" / "messy_app" / "behavior.py"
@@ -54,19 +42,7 @@ def test_recover_surfaces_step_titles_in_terminal_output(fixture_repo) -> None:
     repo = fixture_repo("messy_repo")
     runner = CliRunner()
 
-    start = runner.invoke(
-        app,
-        [
-            "--repo",
-            str(repo),
-            "start",
-            "--goal-mode",
-            "add-feature",
-            "--success-criterion",
-            "Ship the intended feature safely",
-        ],
-    )
-    assert start.exit_code == 0, start.stdout
+    keel_bootstrap(repo, runner, goal_mode="add-feature", success_criterion="Ship the intended feature safely")
 
     time.sleep(1)
     changed = repo / "src" / "messy_app" / "behavior.py"
