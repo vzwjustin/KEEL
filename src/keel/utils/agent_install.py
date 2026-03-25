@@ -7,7 +7,7 @@ from pathlib import Path
 
 from keel.core.paths import resolve_paths
 from keel.session import install_git_hooks, start_companion
-from keel.utils.agent_templates import CLAUDE_STATUSLINE_ROUTER, repo_agent_templates
+from keel.utils.agent_templates import repo_agent_templates
 
 
 def copy_tree(source: Path, destination: Path) -> None:
@@ -103,65 +103,14 @@ def install_codex(repo_root: Path, destination: Path) -> list[str]:
 
 
 def install_claude(repo_root: Path, destination: Path, install_hook: bool) -> list[str]:
+    """Install KEEL slash commands into Claude Code. GSD owns the statusline."""
     installed = []
-    source = repo_root / ".claude" / "skills"
-    if source.exists():
-        target = destination / "skills"
-        copy_tree(source, target)
-        installed.append(f"Installed Claude Code skills into {target}")
     commands_source = repo_root / ".claude" / "commands" / "keel"
     if commands_source.exists():
         commands_target = destination / "commands" / "keel"
         copy_tree(commands_source, commands_target)
         installed.append(f"Installed Claude Code slash commands into {commands_target}")
-    hooks_target = destination / "hooks"
-    hooks_target.mkdir(parents=True, exist_ok=True)
-    router_path = hooks_target / "keel_statusline_router.py"
-    _write_repo_file(router_path, CLAUDE_STATUSLINE_ROUTER, True)
-    installed.append(f"Installed Claude Code statusline router into {router_path}")
-    if install_hook:
-        hook_source = repo_root / ".claude" / "hooks" / "keel_preflight.py"
-        if hook_source.exists():
-            shutil.copy2(hook_source, hooks_target / hook_source.name)
-            installed.append(f"Installed Claude Code hook into {hooks_target / hook_source.name}")
-    installed.extend(_install_claude_global_statusline(destination, router_path))
     return installed
-
-
-def _read_json_file(path: Path) -> dict:
-    if not path.exists():
-        return {}
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return {}
-
-
-def _install_claude_global_statusline(destination: Path, router_path: Path) -> list[str]:
-    settings_path = destination / "settings.json"
-    state_path = destination / "keel" / "statusline-router-state.json"
-    state_path.parent.mkdir(parents=True, exist_ok=True)
-
-    settings = _read_json_file(settings_path)
-    router_command = f"python3 {router_path}"
-    existing_statusline = settings.get("statusLine")
-    current_command = existing_statusline.get("command") if isinstance(existing_statusline, dict) else None
-
-    state_payload = _read_json_file(state_path)
-    if current_command and current_command != router_command:
-        state_payload["previous_statusline"] = existing_statusline
-    state_path.write_text(json.dumps(state_payload, indent=2) + "\n", encoding="utf-8")
-
-    padding = 1
-    if isinstance(existing_statusline, dict):
-        padding = existing_statusline.get("padding", 1)
-    settings["statusLine"] = {
-        "type": "command",
-        "command": router_command,
-        "padding": padding,
-    }
-    settings_path.write_text(json.dumps(settings, indent=2) + "\n", encoding="utf-8")
-    return [f"Installed Claude Code global statusline router in {settings_path}"]
 
 
 def install_agent_assets(

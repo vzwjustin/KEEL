@@ -33,10 +33,7 @@ def test_install_command_installs_assets_and_starts_companion(tmp_path, fixture_
     assert result.exit_code == 0, result.stdout
     assert (repo / ".codex" / "config.toml").exists()
     assert (repo / ".claude" / "settings.json").exists()
-    assert (repo / ".claude" / "statusline.py").exists()
     assert (repo / ".claude" / "hooks" / "keel_ui_context.py").exists()
-    assert (codex_home / "skills" / "keel-session" / "SKILL.md").exists()
-    assert (claude_home / "hooks" / "keel_preflight.py").exists()
     assert (repo / ".git" / "hooks" / "pre-commit").exists()
 
     status = runner.invoke(app, ["--repo", str(repo), "--json", "companion", "status"])

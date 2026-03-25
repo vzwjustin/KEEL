@@ -9,7 +9,7 @@ from keel.session.awareness import (
 from keel.session.alerts import load_active_alerts, update_alert_feed
 from keel.session.companion import companion_status, install_git_hooks, start_companion, stop_companion
 from keel.session.service import SessionService
-from keel.session.ui import build_claude_context, build_claude_system_message, build_statusline_text
+from keel.session.ui import build_claude_context, build_claude_system_message
 
 __all__ = [
     "SessionService",
@@ -21,7 +21,6 @@ __all__ = [
     "write_companion_heartbeat",
     "load_active_alerts",
     "update_alert_feed",
-    "build_statusline_text",
     "build_claude_context",
     "build_claude_system_message",
     "start_companion",

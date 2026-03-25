@@ -59,7 +59,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "python3 /home/user/KEEL/.claude/statusline.py",
+    "command": "python3 /Users/justinadams/Documents/Keel/.claude/statusline.py",
     "padding": 1
   }
 }
