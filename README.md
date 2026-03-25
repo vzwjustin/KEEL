@@ -2,7 +2,7 @@
 
 **Local-first anti-drift companion for AI coding agents.**
 
-KEEL keeps AI agents (Claude Code, Codex, Cursor, etc.) honest while they work on your codebase. It tracks what the agent said it would do, detects when work drifts from the plan, and blocks "done" until reality matches intent.
+KEEL keeps AI agents (Claude Code, Codex) honest while they work on your codebase. It tracks what the agent said it would do, detects when work drifts from the plan, and blocks "done" until reality matches intent.
 
 No cloud. No MCP runtime dependency. Just YAML artifacts in `.keel/` and a CLI.
 
