@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "keel --json watch --once --mode auto >/dev/null 2>&1 || python3 -m keel --json watch --once --mode auto >/dev/null 2>&1 || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "keel --json watch --once --mode auto >/dev/null 2>&1 || python3 -m keel --json watch --once --mode auto >/dev/null 2>&1 || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "keel --json watch --once --mode auto >/dev/null 2>&1 || python3 -m keel --json watch --once --mode auto >/dev/null 2>&1 || true",
+            "async": true,
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "keel-marketplace",
+  "owner": {
+    "name": "KEEL"
+  },
+  "plugins": [
+    {
+      "name": "keel-companion-plugin",
+      "source": "./plugins/keel-companion-plugin",
+      "description": "Reusable KEEL companion hooks and skills for Claude Code."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+artifact_id: scan-20260324-183829
+artifact_type: scan
+created_at: '2026-03-24T18:38:29.673605-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+stats:
+  file_count: 82
+  text_file_count: 75
+  total_bytes: 189450
+languages:
+- name: Markdown
+  detail: 24 matching files detected
+  confidence: deterministic
+  evidence:
+  - 24 files
+  paths: []
+- name: Python
+  detail: 43 matching files detected
+  confidence: deterministic
+  evidence:
+  - 43 files
+  paths: []
+- name: TOML
+  detail: 2 matching files detected
+  confidence: deterministic
+  evidence:
+  - 2 files
+  paths: []
+- name: YAML
+  detail: 6 matching files detected
+  confidence: deterministic
+  evidence:
+  - 6 files
+  paths: []
+build_systems:
+- name: Python packaging
+  detail: Detected via pyproject.toml
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+runtime_surfaces:
+- name: CLI
+  detail: Directory structure suggests a command-line surface
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/__init__.py
+  paths:
+  - src/keel/cli/__init__.py
+- name: API/Server
+  detail: Directory or file naming suggests an API or server surface
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/app.py
+  paths:
+  - src/keel/cli/app.py
+entrypoints:
+- name: __main__.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/__main__.py
+  paths:
+  - src/keel/__main__.py
+- name: app.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/app.py
+  paths:
+  - src/keel/cli/app.py
+- name: main.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/main.py
+  paths:
+  - src/keel/cli/main.py
+modules:
+- name: keel
+  detail: Module boundary inferred from top-level directory under src
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel
+  paths:
+  - src/keel
+- name: .codex
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .codex
+  paths:
+  - .codex
+- name: scripts
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - scripts
+  paths:
+  - scripts
+tests: []
+configs:
+- name: pyproject.toml
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+- name: config.yaml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .keel/config.yaml
+  paths:
+  - .keel/config.yaml
+- name: config.toml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .codex/config.toml
+  paths:
+  - .codex/config.toml
+contracts: []
+findings:
+- finding_id: SCN-003
+  category: tests
+  title: No tests detected
+  detail: KEEL did not find test files or test directories in the scanned portion
+    of the repository.
+  confidence: deterministic
+  severity: warning
+  evidence: []
+  paths: []

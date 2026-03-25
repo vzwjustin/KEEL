@@ -1,0 +1,9 @@
+artifact_id: alignment-20260324-183829
+artifact_type: alignment
+created_at: '2026-03-24T18:38:29.682443-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+mismatches: []
+assumptions: []
+unresolved_decisions: []
+recommended_focus_area: Proceed to the current plan step with routine drift checks.
+confidence_summary: High alignment confidence from current local evidence.

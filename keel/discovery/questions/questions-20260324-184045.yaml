@@ -1,0 +1,14 @@
+artifact_id: questions-20260324-184045
+artifact_type: questions
+created_at: '2026-03-24T18:40:45.958466-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+questions:
+- question_id: QST-001
+  question: Which config is authoritative for multiple pyproject.toml files detected?
+  why_it_matters: Conflicting or duplicated config ownership can invalidate both planning
+    and implementation changes.
+  triggered_by: Duplicate manifest names can signal split ownership or conflicting
+    configuration.
+  unblocks: Alignment and validation confidence.
+  priority: high
+  confidence: inferred-high-confidence

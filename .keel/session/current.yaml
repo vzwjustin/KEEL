@@ -1,0 +1,26 @@
+active_goal_id: goal-20260324-184154
+active_phase_id: PHASE-1
+active_step_id: PH1-STEP1
+completed_step_ids: []
+unresolved_question_ids:
+- QST-001
+latest_decisions:
+- Ran `keel start` to establish the active baseline, goal, and plan.
+- 'Checkpoint: manual checkpoint'
+- KEEL install auto-checkpoint before companion bootstrap
+research_artifact_ids: []
+active_plan_id: plan-20260324-184154
+current_next_step: Confirm the current source of truth
+drift_warnings:
+- KEE-DRF-001
+- KEE-DRF-002
+- KEE-DRF-009
+- KEE-DRF-019
+- KEE-DRF-021
+- KEE-DRF-021
+latest_scan_id: scan-20260324-184154
+latest_baseline_id: baseline-20260324-184154
+latest_alignment_id: alignment-20260324-184154
+latest_trace_id: trace-20260324-215533
+latest_validation_id: validation-20260324-215533
+latest_drift_id: drift-20260324-215533

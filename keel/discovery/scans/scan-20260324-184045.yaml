@@ -1,0 +1,292 @@
+artifact_id: scan-20260324-184045
+artifact_type: scan
+created_at: '2026-03-24T18:40:45.944316-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+stats:
+  file_count: 111
+  text_file_count: 100
+  total_bytes: 206756
+languages:
+- name: Markdown
+  detail: 26 matching files detected
+  confidence: deterministic
+  evidence:
+  - 26 files
+  paths: []
+- name: Python
+  detail: 54 matching files detected
+  confidence: deterministic
+  evidence:
+  - 54 files
+  paths: []
+- name: TOML
+  detail: 4 matching files detected
+  confidence: deterministic
+  evidence:
+  - 4 files
+  paths: []
+- name: YAML
+  detail: 16 matching files detected
+  confidence: deterministic
+  evidence:
+  - 16 files
+  paths: []
+build_systems:
+- name: Python packaging
+  detail: Detected via pyproject.toml
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+- name: Python packaging
+  detail: Detected via pyproject.toml
+  confidence: deterministic
+  evidence:
+  - tests/fixtures/messy_repo/pyproject.toml
+  paths:
+  - tests/fixtures/messy_repo/pyproject.toml
+- name: Python packaging
+  detail: Detected via pyproject.toml
+  confidence: deterministic
+  evidence:
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+  paths:
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+runtime_surfaces:
+- name: API/Server
+  detail: Directory or file naming suggests an API or server surface
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/multi_entry_repo/src/multi_app/server.py
+  paths:
+  - tests/fixtures/multi_entry_repo/src/multi_app/server.py
+- name: CLI
+  detail: Directory structure suggests a command-line surface
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/__init__.py
+  paths:
+  - src/keel/cli/__init__.py
+entrypoints:
+- name: cli.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/messy_repo/src/messy_app/cli.py
+  paths:
+  - tests/fixtures/messy_repo/src/messy_app/cli.py
+- name: main.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/messy_repo/src/messy_app/main.py
+  paths:
+  - tests/fixtures/messy_repo/src/messy_app/main.py
+- name: server.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/multi_entry_repo/src/multi_app/server.py
+  paths:
+  - tests/fixtures/multi_entry_repo/src/multi_app/server.py
+- name: cli.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/multi_entry_repo/src/multi_app/cli.py
+  paths:
+  - tests/fixtures/multi_entry_repo/src/multi_app/cli.py
+- name: main.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/multi_entry_repo/src/multi_app/main.py
+  paths:
+  - tests/fixtures/multi_entry_repo/src/multi_app/main.py
+- name: __main__.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/__main__.py
+  paths:
+  - src/keel/__main__.py
+- name: app.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/app.py
+  paths:
+  - src/keel/cli/app.py
+- name: main.py
+  detail: Likely entrypoint based on file name or executable location
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel/cli/main.py
+  paths:
+  - src/keel/cli/main.py
+modules:
+- name: keel
+  detail: Module boundary inferred from top-level directory under src
+  confidence: inferred-high-confidence
+  evidence:
+  - src/keel
+  paths:
+  - src/keel
+- name: .codex
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .codex
+  paths:
+  - .codex
+- name: .pytest_cache
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - .pytest_cache
+  paths:
+  - .pytest_cache
+- name: scripts
+  detail: Top-level directory may mark a subsystem boundary
+  confidence: inferred-medium-confidence
+  evidence:
+  - scripts
+  paths:
+  - scripts
+tests:
+- name: conftest.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/conftest.py
+  paths:
+  - tests/conftest.py
+- name: test_cli_start.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_cli_start.py
+  paths:
+  - tests/test_cli_start.py
+- name: test_research.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_research.py
+  paths:
+  - tests/test_research.py
+- name: test_scan.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_scan.py
+  paths:
+  - tests/test_scan.py
+- name: test_drift.py
+  detail: Test file or test directory match
+  confidence: deterministic
+  evidence:
+  - tests/test_drift.py
+  paths:
+  - tests/test_drift.py
+configs:
+- name: pyproject.toml
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+- name: pyproject.toml
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - tests/fixtures/messy_repo/pyproject.toml
+  paths:
+  - tests/fixtures/messy_repo/pyproject.toml
+- name: settings.yaml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - tests/fixtures/messy_repo/config/settings.yaml
+  paths:
+  - tests/fixtures/messy_repo/config/settings.yaml
+- name: pyproject.toml
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+  paths:
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+- name: config.yaml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .keel/config.yaml
+  paths:
+  - .keel/config.yaml
+- name: config.toml
+  detail: Likely configuration artifact
+  confidence: inferred-high-confidence
+  evidence:
+  - .codex/config.toml
+  paths:
+  - .codex/config.toml
+contracts: []
+findings:
+- finding_id: SCN-002
+  category: build-system
+  title: Multiple build systems detected
+  detail: The repository contains more than one build or packaging marker and may
+    need a declared source of truth.
+  confidence: inferred-medium-confidence
+  severity: warning
+  evidence:
+  - Python packaging
+  - Python packaging
+  - Python packaging
+  paths:
+  - pyproject.toml
+  - tests/fixtures/messy_repo/pyproject.toml
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+- finding_id: SCN-004
+  category: partial-feature
+  title: TODO/FIXME/HACK markers present
+  detail: Found 3 files with implementation debt markers, which may indicate partial
+    or unstable flows.
+  confidence: deterministic
+  severity: info
+  evidence:
+  - tests/test_scan.py
+  - tests/fixtures/messy_repo/src/messy_app/main.py
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  paths:
+  - tests/test_scan.py
+  - tests/fixtures/messy_repo/src/messy_app/main.py
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+- finding_id: SCN-DUP-pyproject.toml
+  category: duplicate-config
+  title: Multiple pyproject.toml files detected
+  detail: Duplicate manifest names can signal split ownership or conflicting configuration.
+  confidence: inferred-high-confidence
+  severity: warning
+  evidence:
+  - pyproject.toml
+  - tests/fixtures/messy_repo/pyproject.toml
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+  paths:
+  - pyproject.toml
+  - tests/fixtures/messy_repo/pyproject.toml
+  - tests/fixtures/multi_entry_repo/pyproject.toml
+- finding_id: SCN-006
+  category: partial-feature
+  title: Partial-looking file names detected
+  detail: File names such as draft, wip, todo, or temp suggest incomplete implementation
+    areas.
+  confidence: heuristic-low-confidence
+  severity: info
+  evidence:
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py
+  paths:
+  - tests/fixtures/messy_repo/src/messy_app/wip_feature.py

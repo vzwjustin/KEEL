@@ -1,0 +1,386 @@
+[2026-03-24T19:49:45.462583-05:00] starting companion
+╭─────────────────── Watch ───────────────────╮
+│ watching: /Users/justinadams/Documents/Keel │
+│ validation: ok                              │
+│ drift: warning                              │
+│ next: Confirm the current source of truth   │
+╰─────────────────────────────────────────────╯
+Polling every 2.0s. Press Ctrl+C to stop.
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯
+╭──────────── Watch Update ─────────────╮
+│ status: warning                       │
+│ validation: ok                        │
+│ drift: warning                        │
+│ brief: .keel/session/current-brief.md │
+╰───────────────────────────────────────╯

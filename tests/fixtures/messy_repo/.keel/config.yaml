@@ -1,0 +1,32 @@
+strictness: standard
+research_enabled: false
+research_timeout_seconds: 6
+max_scan_files: 4000
+ignored_directories:
+- .git
+- .hg
+- .svn
+- .venv
+- venv
+- node_modules
+- dist
+- build
+- coverage
+- .pytest_cache
+- __pycache__
+authoritative_config_names:
+- pyproject.toml
+- package.json
+- Cargo.toml
+- go.mod
+- docker-compose.yml
+- docker-compose.yaml
+- Makefile
+output_format: text
+non_authoritative_path_parts:
+- fixtures
+- testdata
+- samples
+- examples
+- vendor
+- third_party

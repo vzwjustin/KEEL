@@ -1,0 +1,121 @@
+artifact_id: recovery-20260324-195231
+artifact_type: recovery
+created_at: '2026-03-24T19:52:31.625330-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+divergence_at: '2026-03-24T19:49:45.662634-05:00'
+divergence_reason: Repeated drift started clustering around session drift with codes
+  KEE-DRF-001, KEE-DRF-014.
+intent_replay:
+  goal: Build a usable local-first KEEL MVP CLI
+  phase: PHASE-1
+  step: PH1-STEP1
+  next_step: Replay the intended work
+issues:
+- issue_id: KEE-DRF-001
+  kind: drift
+  summary: Repository changed after the latest scan
+  detail: Files outside KEEL state directories were modified after the most recent
+    checkpoint or scan, so the saved flatline may no longer match repo reality.
+  severity: warning
+  confidence: inferred-high-confidence
+  evidence:
+  - .DS_Store
+  - .claude-plugin/marketplace.json
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/skills/keel-session/SKILL.md
+- issue_id: KEE-DRF-009
+  kind: drift
+  summary: Recent file changes are outside the active plan step
+  detail: The active plan step targets src/keel/__main__.py, src/keel/cli/app.py,
+    src/keel, .codex, but unrelated files were modified without matching an active
+    requirement, contract, goal, or delta artifact.
+  severity: warning
+  confidence: inferred-high-confidence
+  evidence:
+  - .DS_Store
+  - .claude-plugin/marketplace.json
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/skills/keel-session/SKILL.md
+- issue_id: KEE-DRF-019
+  kind: drift
+  summary: Touched scope is expanding beyond the planned subsystem set
+  detail: Recent edits span additional top-level areas beyond what the active step
+    suggests.
+  severity: warning
+  confidence: inferred-medium-confidence
+  evidence:
+  - .DS_Store
+  - .claude
+  - .claude-plugin
+  - .codex
+  - ARCHITECTURE.md
+  - Makefile
+- issue_id: KEE-DRF-021
+  kind: drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:49:45.662634-05:00.
+    Latest related event: 2026-03-24T19:52:26.747412-05:00. Recent signals repeatedly
+    touched .DS_Store, .claude-plugin, .claude.'
+  severity: warning
+  confidence: inferred-medium-confidence
+  evidence:
+  - KEE-DRF-001
+  - KEE-DRF-014
+  - .DS_Store
+  - .claude-plugin
+  - .claude
+recovery_modes:
+- mode_id: rewind-plan-only
+  label: rewind plan only
+  summary: Resynchronize the active plan, phase, and current brief before coding further.
+  confidence: inferred-high-confidence
+  matched_codes:
+  - KEE-DRF-009
+  - KEE-DRF-019
+  - KEE-DRF-021
+recommended_mode: rewind-plan-only
+recovery_confidence: inferred-high-confidence
+steps:
+- step_id: REC-001
+  title: Replay the intended work
+  detail: Compare the active goal, current plan, and latest drift findings before
+    changing more code.
+  paths:
+  - /Users/justinadams/Documents/Keel/.keel/session/current.yaml
+  - /Users/justinadams/Documents/Keel/.keel/session/current-brief.md
+  - /Users/justinadams/Documents/Keel/keel/discovery/goals
+  - /Users/justinadams/Documents/Keel/keel/discovery/plans
+- step_id: REC-002
+  title: 'Apply recovery mode: rewind plan only'
+  detail: Resynchronize the active plan, phase, and current brief before coding further.
+  paths:
+  - .claude-plugin/marketplace.json
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  - .codex/skills/keel-drift/SKILL.md
+  - ARCHITECTURE.md
+- step_id: REC-003
+  title: Reconcile durable artifacts
+  detail: 'Update the matching plan, goal, spec, or delta artifacts so KEEL stops
+    seeing the repo and the intent as different stories. Current recommended focus
+    remains: Proceed to the current plan step with routine drift checks..'
+  paths:
+  - /Users/justinadams/Documents/Keel/keel/discovery/goals
+  - /Users/justinadams/Documents/Keel/keel/discovery/plans
+  - /Users/justinadams/Documents/Keel/keel/specs/deltas
+  - /Users/justinadams/Documents/Keel/.keel/session/unresolved-questions.yaml
+- step_id: REC-004
+  title: Prove the recovery worked
+  detail: Re-run validate, drift, and done after the reconciliation so the next session
+    resumes from aligned state.
+  paths:
+  - /Users/justinadams/Documents/Keel/.keel/reports/validation
+  - /Users/justinadams/Documents/Keel/.keel/reports/drift
+brief_path: /Users/justinadams/Documents/Keel/.keel/session/current-brief.md

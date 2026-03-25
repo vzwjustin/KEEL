@@ -1,0 +1,15 @@
+required_checks:
+  - goal-has-success-criteria
+  - plan-exists
+  - current-brief-updated
+  - validation-clean-or-acknowledged
+strictness_overrides:
+  relaxed:
+    block_on_high_priority_questions: false
+  standard:
+    block_on_high_priority_questions: true
+  strict:
+    block_on_high_priority_questions: true
+  paranoid:
+    block_on_high_priority_questions: true
+    require_delta_for_behavior_change: true

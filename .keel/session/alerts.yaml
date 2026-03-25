@@ -1,0 +1,161 @@
+alerts:
+- alert_id: ALT-bf4dfd0110cf
+  key: bf4dfd0110cf
+  source: drift
+  rule: KEE-DRF-009
+  summary: Recent file changes are outside the active plan step
+  detail: The active plan step targets src/keel/__main__.py, src/keel/cli/app.py,
+    src/keel, .codex, but unrelated files were modified without matching an active
+    requirement, contract, goal, or delta artifact.
+  severity: warning
+  confidence: inferred-high-confidence
+  first_seen_at: '2026-03-24T19:33:09.225167-05:00'
+  last_seen_at: '2026-03-24T21:55:34.021370-05:00'
+  count: 27
+  evidence:
+  - .gitignore
+  next_action: Either narrow the implementation back to the active step or replan
+    to include the newly touched files.
+- alert_id: ALT-75b2ec22a9c7
+  key: 75b2ec22a9c7
+  source: drift
+  rule: KEE-DRF-021
+  summary: Probable plan drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T20:14:24.132323-05:00.
+    Latest related event: 2026-03-24T20:18:20.996379-05:00. Recent signals repeatedly
+    touched ARCHITECTURE, README, TASKS.'
+  severity: warning
+  confidence: inferred-medium-confidence
+  first_seen_at: '2026-03-24T19:59:48.771032-05:00'
+  last_seen_at: '2026-03-24T20:23:11.054665-05:00'
+  count: 25
+  evidence:
+  - KEE-DRF-009
+  - ARCHITECTURE
+  - README
+  - TASKS
+  next_action: Checkpoint or replan now before these repeated drift signals turn into
+    a larger alignment break.
+- alert_id: ALT-92d94c90c416
+  key: 92d94c90c416
+  source: drift
+  rule: KEE-DRF-021
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T21:55:33.106912-05:00.
+    Latest related event: 2026-03-24T21:55:33.106912-05:00. Recent signals repeatedly
+    touched .gitignore, tests.'
+  severity: warning
+  confidence: inferred-high-confidence
+  first_seen_at: '2026-03-24T20:18:17.312276-05:00'
+  last_seen_at: '2026-03-24T21:55:34.021370-05:00'
+  count: 72
+  evidence:
+  - KEE-DRF-001
+  - KEE-DRF-002
+  - KEE-DRF-014
+  - .gitignore
+  - tests
+  next_action: Checkpoint or replan now before these repeated drift signals turn into
+    a larger alignment break.
+- alert_id: ALT-fc3675e9530b
+  key: fc3675e9530b
+  source: drift
+  rule: KEE-DRF-021
+  summary: Probable unknown-scope growth cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T20:55:36.536128-05:00.
+    Latest related event: 2026-03-24T21:04:26.198007-05:00. Recent signals repeatedly
+    touched .claude, .codex, src.'
+  severity: warning
+  confidence: inferred-high-confidence
+  first_seen_at: '2026-03-24T20:18:17.312276-05:00'
+  last_seen_at: '2026-03-24T21:04:26.435068-05:00'
+  count: 36
+  evidence:
+  - KEE-DRF-019
+  - .claude
+  - .codex
+  - src
+  next_action: Checkpoint or replan now before these repeated drift signals turn into
+    a larger alignment break.
+- alert_id: ALT-ecb57c4ae236
+  key: ecb57c4ae236
+  source: drift
+  rule: KEE-DRF-001
+  summary: Repository changed after the latest scan
+  detail: Files outside KEEL state directories were modified after the most recent
+    checkpoint or scan, so the saved flatline may no longer match repo reality.
+  severity: warning
+  confidence: inferred-high-confidence
+  first_seen_at: '2026-03-24T20:39:37.950982-05:00'
+  last_seen_at: '2026-03-24T21:55:34.021370-05:00'
+  count: 38
+  evidence:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  next_action: Run `keel scan` again or checkpoint the repo once the current step
+    is reconciled.
+- alert_id: ALT-98dc53eb9db5
+  key: 98dc53eb9db5
+  source: drift
+  rule: KEE-DRF-014
+  summary: The current brief is stale
+  detail: Repository changes landed after `.keel/session/current-brief.md` was last
+    refreshed.
+  severity: warning
+  confidence: deterministic
+  first_seen_at: '2026-03-24T20:39:37.950982-05:00'
+  last_seen_at: '2026-03-24T21:55:33.204093-05:00'
+  count: 35
+  evidence:
+  - .keel/session/current-brief.md
+  - .gitignore
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  next_action: Refresh the current brief by running `keel plan`, `keel checkpoint`,
+    or another state-updating command.
+- alert_id: ALT-db4f02698674
+  key: db4f02698674
+  source: drift
+  rule: KEE-DRF-012
+  summary: Recent work does not resemble the declared scope
+  detail: Changed file paths do not line up with the current goal scope keywords,
+    so work may have drifted away from intent.
+  severity: warning
+  confidence: heuristic-low-confidence
+  first_seen_at: '2026-03-24T20:39:37.950982-05:00'
+  last_seen_at: '2026-03-24T21:55:33.204093-05:00'
+  count: 5
+  evidence:
+  - .gitignore
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  next_action: Check whether the goal scope still matches the actual work or needs
+    a focused update.
+- alert_id: ALT-f0a4b6dd2ca2
+  key: f0a4b6dd2ca2
+  source: drift
+  rule: KEE-DRF-019
+  summary: Touched scope is expanding beyond the planned subsystem set
+  detail: Recent edits span additional top-level areas beyond what the active step
+    suggests.
+  severity: warning
+  confidence: inferred-medium-confidence
+  first_seen_at: '2026-03-24T20:41:41.059048-05:00'
+  last_seen_at: '2026-03-24T21:55:34.021370-05:00'
+  count: 33
+  evidence:
+  - .claude
+  - .codex
+  - .gitignore
+  - src
+  - tests
+  next_action: Pause for `keel replan` if this is becoming a subsystem-spanning change
+    instead of a bounded slice.

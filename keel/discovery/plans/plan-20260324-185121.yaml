@@ -1,0 +1,109 @@
+artifact_id: plan-20260324-185121
+artifact_type: plan
+created_at: '2026-03-24T18:51:21.591449-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+focus_area: Proceed to the current plan step with routine drift checks.
+phases:
+- phase_id: PHASE-1
+  title: Lock Reality
+  objective: Reduce ambiguity in the current repo flatline before deeper action.
+  done_definition: Current-state facts are solid enough to drive the next move safely.
+  steps:
+  - step_id: PH1-STEP1
+    title: Confirm the current source of truth
+    detail: Verify the most likely entrypoint, authoritative config, and module boundary
+      before making behavior assumptions.
+    status: pending
+    related_paths:
+    - src/keel/__main__.py
+    - src/keel/cli/app.py
+    - src/keel
+    - .codex
+    - scripts
+    - pyproject.toml
+    assumptions_to_verify: []
+    done_definition: The active runtime path and authoritative files are explicit
+      enough to guide the next phase.
+  - step_id: PH1-STEP2
+    title: Resolve the highest-value open questions
+    detail: Answer the questions that unblock planning or expose hidden drift risk.
+    status: pending
+    related_paths: []
+    assumptions_to_verify: []
+    done_definition: High-priority unknowns are either resolved or consciously deferred
+      with a reason.
+- phase_id: PHASE-2
+  title: Shape The Change
+  objective: Translate the active goal into a bounded change with validation and delta
+    coverage.
+  done_definition: The intended change is captured with clear acceptance and validation
+    links.
+  steps:
+  - step_id: PH2-STEP1
+    title: Define the bounded change
+    detail: Write or update the delta, acceptance criteria, and validation mapping
+      before implementation grows.
+    status: pending
+    related_paths:
+    - src/keel/__main__.py
+    - src/keel/cli/app.py
+    - src/keel
+    - .codex
+    - scripts
+    - pyproject.toml
+    assumptions_to_verify:
+    - keel start produces scan, baseline, questions, alignment, plan, and current
+      brief
+    - keel drift detects layered drift with severity and confidence
+    - pytest passes on the MVP suite
+    done_definition: The intended change is captured with clear acceptance and validation
+      links.
+- phase_id: PHASE-3
+  title: Execute
+  objective: Carry the active slice through implementation and local validation.
+  done_definition: The current change slice is implemented and locally validated.
+  steps:
+  - step_id: PH3-STEP1
+    title: Execute the current slice
+    detail: Change the smallest practical set of files that advances the active goal
+      while staying aligned with the plan.
+    status: pending
+    related_paths:
+    - src/keel/__main__.py
+    - src/keel/cli/app.py
+    - src/keel
+    - .codex
+    - scripts
+    - pyproject.toml
+    assumptions_to_verify: []
+    done_definition: The planned code or documentation slice is implemented and locally
+      reviewed.
+  - step_id: PH3-STEP2
+    title: Validate and reconcile
+    detail: Run tests or alternate validation, then update the brief, worklog, and
+      drift signals.
+    status: pending
+    related_paths:
+    - src/keel/__main__.py
+    - src/keel/cli/app.py
+    - src/keel
+    - .codex
+    - scripts
+    - pyproject.toml
+    assumptions_to_verify: []
+    done_definition: Validation signals are recorded and the session state matches
+      repo reality.
+- phase_id: PHASE-4
+  title: Reconcile
+  objective: Close the loop between goal, plan, validation, and actual repo state.
+  done_definition: Drift checks pass or every remaining issue is explicitly acknowledged.
+  steps:
+  - step_id: PH4-STEP1
+    title: Run anti-drift gates
+    detail: Use validate, trace, drift, and done checks to make sure the slice did
+      not silently diverge.
+    status: pending
+    related_paths: []
+    assumptions_to_verify: []
+    done_definition: No unacknowledged blocker remains in validation or drift outputs.
+current_next_step: Confirm the current source of truth

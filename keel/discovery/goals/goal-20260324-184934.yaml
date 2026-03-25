@@ -1,0 +1,20 @@
+artifact_id: goal-20260324-184934
+artifact_type: goal
+created_at: '2026-03-24T18:49:34.845101-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+mode: ship-mvp
+goal_statement: Build a usable local-first KEEL MVP CLI
+scope:
+- discovery-first onboarding flow
+- persistent anti-drift enforcement
+out_of_scope: []
+constraints:
+- local-first terminal CLI only
+- no MCP dependency in runtime
+success_criteria:
+- keel start produces scan, baseline, questions, alignment, plan, and current brief
+- keel drift detects layered drift with severity and confidence
+- pytest passes on the MVP suite
+risks: []
+assumptions: []
+unresolved_questions: []

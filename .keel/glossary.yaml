@@ -1,0 +1,6 @@
+terms:
+  repo-fact: A statement directly supported by local repository evidence.
+  external-guidance: Information gathered from configured research sources and treated as untrusted until reconciled.
+  inferred: A conclusion derived from repo facts or guidance rather than directly proven.
+  unresolved: A gap KEEL cannot honestly resolve with current local evidence.
+  flatline: A current-state baseline snapshot describing what appears to exist now.

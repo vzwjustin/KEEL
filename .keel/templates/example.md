@@ -1,0 +1,4 @@
+# Example
+
+- Scenario:
+- Expected behavior:

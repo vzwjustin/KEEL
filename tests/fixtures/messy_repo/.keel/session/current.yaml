@@ -1,0 +1,16 @@
+active_goal_id: null
+active_phase_id: null
+active_step_id: null
+completed_step_ids: []
+unresolved_question_ids: []
+latest_decisions: []
+research_artifact_ids: []
+active_plan_id: null
+current_next_step: null
+drift_warnings: []
+latest_scan_id: null
+latest_baseline_id: null
+latest_alignment_id: null
+latest_trace_id: null
+latest_validation_id: null
+latest_drift_id: null

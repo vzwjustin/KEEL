@@ -1,0 +1,8 @@
+{
+  "name": "keel-companion-plugin",
+  "description": "KEEL companion automation for Claude Code with reusable hooks and skills.",
+  "version": "1.0.0",
+  "author": {
+    "name": "KEEL"
+  }
+}

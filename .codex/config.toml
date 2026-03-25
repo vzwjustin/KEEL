@@ -1,0 +1,18 @@
+[project]
+name = "keel"
+path_boundary_mode = "repo-only"
+update_current_brief_on_state_change = true
+checkpoint_before_risky_change = true
+
+[guards]
+prefer_library_calls_over_shell = true
+block_writes_outside_repo = true
+require_delta_for_behavior_change = true
+warn_on_unmapped_changed_files = true
+warn_on_stale_current_brief = true
+
+[session]
+brief_path = ".keel/session/current-brief.md"
+current_state_path = ".keel/session/current.yaml"
+tasks_path = "TASKS.md"
+worklog_path = "WORKLOG.md"

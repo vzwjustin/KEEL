@@ -1,0 +1,217 @@
+artifact_id: drift-20260324-200009
+artifact_type: drift
+created_at: '2026-03-24T20:00:09.214229-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+mode: soft
+findings:
+- code: KEE-DRF-001
+  layer: session drift
+  summary: Repository changed after the latest scan
+  detail: Files outside KEEL state directories were modified after the most recent
+    checkpoint or scan, so the saved flatline may no longer match repo reality.
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Run `keel scan` again or checkpoint the repo once the current
+    step is reconciled.
+  evidence:
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/statusline.py
+  - .codex/skills/keel-drift/SKILL.md
+  - ARCHITECTURE.md
+  - README.md
+  - TASKS.md
+- code: KEE-DRF-014
+  layer: session drift
+  summary: The current brief is stale
+  detail: Repository changes landed after `.keel/session/current-brief.md` was last
+    refreshed.
+  severity: warning
+  confidence: deterministic
+  suggested_action: Refresh the current brief by running `keel plan`, `keel checkpoint`,
+    or another state-updating command.
+  evidence:
+  - .keel/session/current-brief.md
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/statusline.py
+  - .codex/skills/keel-drift/SKILL.md
+- code: KEE-DRF-009
+  layer: plan drift
+  summary: Recent file changes are outside the active plan step
+  detail: The active plan step targets src/keel/__main__.py, src/keel/cli/app.py,
+    src/keel, .codex, but unrelated files were modified without matching an active
+    requirement, contract, goal, or delta artifact.
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Either narrow the implementation back to the active step or replan
+    to include the newly touched files.
+  evidence:
+  - ARCHITECTURE.md
+  - README.md
+  - TASKS.md
+  - WORKLOG.md
+  - docs/AGENT_INTEGRATION.md
+  - docs/CLAUDE_CODE_INTEGRATION.md
+  - plugins/keel-companion-plugin/skills/keel-drift/SKILL.md
+- code: KEE-DRF-019
+  layer: unknown-scope growth
+  summary: Touched scope is expanding beyond the planned subsystem set
+  detail: Recent edits span additional top-level areas beyond what the active step
+    suggests.
+  severity: warning
+  confidence: inferred-medium-confidence
+  suggested_action: Pause for `keel replan` if this is becoming a subsystem-spanning
+    change instead of a bounded slice.
+  evidence:
+  - .claude
+  - .codex
+  - ARCHITECTURE.md
+  - README.md
+  - TASKS.md
+  - WORKLOG.md
+  - docs
+  - plugins
+- code: KEE-DRF-021
+  layer: plan drift
+  summary: Probable plan drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:53:55.630609-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched ARCHITECTURE, README, TASKS.'
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Checkpoint or replan now before these repeated drift signals turn
+    into a larger alignment break.
+  evidence:
+  - KEE-DRF-009
+  - ARCHITECTURE
+  - README
+  - TASKS
+- code: KEE-DRF-021
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:57:43.537719-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched .claude, .codex, ARCHITECTURE.'
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Checkpoint or replan now before these repeated drift signals turn
+    into a larger alignment break.
+  evidence:
+  - KEE-DRF-001
+  - KEE-DRF-014
+  - .claude
+  - .codex
+  - ARCHITECTURE
+- code: KEE-DRF-021
+  layer: unknown-scope growth
+  summary: Probable unknown-scope growth cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:57:43.537719-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched .claude, .codex, ARCHITECTURE.'
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Checkpoint or replan now before these repeated drift signals turn
+    into a larger alignment break.
+  evidence:
+  - KEE-DRF-019
+  - .claude
+  - .codex
+  - ARCHITECTURE
+clusters:
+- cluster_id: cluster-43046617e6
+  layer: plan drift
+  summary: Probable plan drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:53:55.630609-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched ARCHITECTURE, README, TASKS.'
+  severity: warning
+  confidence: inferred-high-confidence
+  event_count: 6
+  related_codes:
+  - KEE-DRF-009
+  touched_areas:
+  - ARCHITECTURE
+  - README
+  - TASKS
+  first_seen_at: '2026-03-24T19:53:55.630609-05:00'
+  last_seen_at: '2026-03-24T20:00:09.214229-05:00'
+  recommended_action: Checkpoint or replan now before these repeated drift signals
+    turn into a larger alignment break.
+  timeline:
+  - '2026-03-24T19:53:55.630609-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+  - '2026-03-24T19:57:43.537719-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+  - '2026-03-24T19:58:50.137347-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+  - '2026-03-24T19:59:48.712064-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+  - '2026-03-24T20:00:00.964062-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+  - '2026-03-24T20:00:09.214229-05:00: KEE-DRF-009 Recent file changes are outside
+    the active plan step'
+- cluster_id: cluster-79652b697d
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:57:43.537719-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched .claude, .codex, ARCHITECTURE.'
+  severity: warning
+  confidence: inferred-high-confidence
+  event_count: 7
+  related_codes:
+  - KEE-DRF-001
+  - KEE-DRF-014
+  touched_areas:
+  - .claude
+  - .codex
+  - ARCHITECTURE
+  first_seen_at: '2026-03-24T19:57:43.537719-05:00'
+  last_seen_at: '2026-03-24T20:00:09.214229-05:00'
+  recommended_action: Checkpoint or replan now before these repeated drift signals
+    turn into a larger alignment break.
+  timeline:
+  - '2026-03-24T19:57:43.537719-05:00: KEE-DRF-014 The current brief is stale'
+  - '2026-03-24T19:58:50.137347-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T19:58:50.137347-05:00: KEE-DRF-014 The current brief is stale'
+  - '2026-03-24T19:59:48.712064-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T20:00:00.964062-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T20:00:09.214229-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+- cluster_id: cluster-58ad931fb8
+  layer: unknown-scope growth
+  summary: Probable unknown-scope growth cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T19:57:43.537719-05:00.
+    Latest related event: 2026-03-24T20:00:09.214229-05:00. Recent signals repeatedly
+    touched .claude, .codex, ARCHITECTURE.'
+  severity: warning
+  confidence: inferred-high-confidence
+  event_count: 5
+  related_codes:
+  - KEE-DRF-019
+  touched_areas:
+  - .claude
+  - .codex
+  - ARCHITECTURE
+  first_seen_at: '2026-03-24T19:57:43.537719-05:00'
+  last_seen_at: '2026-03-24T20:00:09.214229-05:00'
+  recommended_action: Checkpoint or replan now before these repeated drift signals
+    turn into a larger alignment break.
+  timeline:
+  - '2026-03-24T19:57:43.537719-05:00: KEE-DRF-019 Touched scope is expanding beyond
+    the planned subsystem set'
+  - '2026-03-24T19:58:50.137347-05:00: KEE-DRF-019 Touched scope is expanding beyond
+    the planned subsystem set'
+  - '2026-03-24T19:59:48.712064-05:00: KEE-DRF-019 Touched scope is expanding beyond
+    the planned subsystem set'
+  - '2026-03-24T20:00:00.964062-05:00: KEE-DRF-019 Touched scope is expanding beyond
+    the planned subsystem set'
+  - '2026-03-24T20:00:09.214229-05:00: KEE-DRF-019 Touched scope is expanding beyond
+    the planned subsystem set'
+status: warning

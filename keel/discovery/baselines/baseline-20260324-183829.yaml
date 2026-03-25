@@ -1,0 +1,63 @@
+artifact_id: baseline-20260324-183829
+artifact_type: baseline
+created_at: '2026-03-24T18:38:29.677824-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+source_scan_id: scan-20260324-183829
+exists_today:
+- conclusion_id: BAS-EXI-001
+  category: exists
+  title: Languages present
+  detail: Markdown, Python, TOML, YAML
+  confidence: deterministic
+  evidence:
+  - 24 matching files detected
+  - 43 matching files detected
+  - 2 matching files detected
+  - 6 matching files detected
+  paths: []
+- conclusion_id: BAS-EXI-002
+  category: exists
+  title: Runtime surfaces inferred
+  detail: CLI, API/Server
+  confidence: inferred-high-confidence
+  evidence:
+  - Directory structure suggests a command-line surface
+  - Directory or file naming suggests an API or server surface
+  paths:
+  - src/keel/cli/__init__.py
+  - src/keel/cli/app.py
+- conclusion_id: BAS-EXI-003
+  category: exists
+  title: Likely entrypoints found
+  detail: __main__.py, app.py, main.py
+  confidence: inferred-high-confidence
+  evidence:
+  - Likely entrypoint based on file name or executable location
+  - Likely entrypoint based on file name or executable location
+  - Likely entrypoint based on file name or executable location
+  paths:
+  - src/keel/__main__.py
+  - src/keel/cli/app.py
+  - src/keel/cli/main.py
+authoritative:
+- conclusion_id: BAS-AUT-004
+  category: authoritative
+  title: 'Potential source of truth: pyproject.toml'
+  detail: Likely configuration artifact
+  confidence: deterministic
+  evidence:
+  - pyproject.toml
+  paths:
+  - pyproject.toml
+partial: []
+stale: []
+broken_or_ambiguous:
+- conclusion_id: BAS-TES-005
+  category: tests
+  title: No tests detected
+  detail: KEEL did not find test files or test directories in the scanned portion
+    of the repository.
+  confidence: deterministic
+  evidence: []
+  paths: []
+unknowns: []
