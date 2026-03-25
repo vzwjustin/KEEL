@@ -1,0 +1,12 @@
+artifact_id: delta-Keel-gsd-plan-01-01:-fix-req-
+artifact_type: delta
+created_at: '2026-03-25T10:23:13.035310-05:00'
+repo_root: .
+summary: 'GSD plan 01-01: fix REQ-101 TypeError and REQ-103 pre-checkpoint alert suppression'
+impacted_paths:
+- tests/test_drift.py
+- tests/test_services.py
+- src/keel/drift/service.py
+- src/keel/cli/app.py
+acceptance_criteria: []
+validation_mapping: []
