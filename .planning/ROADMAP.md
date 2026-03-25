@@ -16,6 +16,11 @@
 - Plan entrypoints weighted by goal text, not just Python file heuristics
 - GSD bridge logs parse failures instead of silent empty returns
 
+**Plans:** 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Fix REQ-101 (goal TypeError + partial-flag reset) and REQ-103 (suppress KEE-DRF-001 pre-checkpoint)
+- [ ] 01-02-PLAN.md — Fix REQ-102 (entrypoint goal/git-hot scoring) and REQ-104 (bridge stderr warnings + first bridge tests)
+
 **Status:** Not started
 
 ---
