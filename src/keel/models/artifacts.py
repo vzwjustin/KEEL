@@ -260,6 +260,7 @@ class DriftFinding(BaseModel):
     confidence: ConfidenceLevel
     suggested_action: str
     evidence: list[str] = Field(default_factory=list)
+    teaching: Optional[str] = None
 
 
 class DriftCluster(BaseModel):

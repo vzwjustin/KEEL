@@ -1,299 +1,5 @@
 events:
-- seen_at: '2026-03-24T21:48:22.411745-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: session drift:.claude|.codex
-- seen_at: '2026-03-24T21:48:22.411745-05:00'
-  code: KEE-DRF-014
-  layer: session drift
-  severity: warning
-  confidence: deterministic
-  summary: The current brief is stale
-  evidence:
-  - .keel/session/current-brief.md
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: session drift:.claude
-- seen_at: '2026-03-24T21:48:22.411745-05:00'
-  code: KEE-DRF-019
-  layer: unknown-scope growth
-  severity: warning
-  confidence: inferred-medium-confidence
-  summary: Touched scope is expanding beyond the planned subsystem set
-  evidence:
-  - .claude
-  - .codex
-  - src
-  - tests
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: unknown-scope growth:.claude|.codex|src
-- seen_at: '2026-03-24T21:48:36.653876-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: session drift:.claude|.codex
-- seen_at: '2026-03-24T21:48:36.653876-05:00'
-  code: KEE-DRF-014
-  layer: session drift
-  severity: warning
-  confidence: deterministic
-  summary: The current brief is stale
-  evidence:
-  - .keel/session/current-brief.md
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: session drift:.claude
-- seen_at: '2026-03-24T21:48:36.653876-05:00'
-  code: KEE-DRF-019
-  layer: unknown-scope growth
-  severity: warning
-  confidence: inferred-medium-confidence
-  summary: Touched scope is expanding beyond the planned subsystem set
-  evidence:
-  - .claude
-  - .codex
-  - src
-  - tests
-  changed_files:
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  - .codex/skills/keel-drift/SKILL.md
-  cluster_key: unknown-scope growth:.claude|.codex|src
-- seen_at: '2026-03-24T21:51:26.197948-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  changed_files:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: session drift:tests
-- seen_at: '2026-03-24T21:51:26.197948-05:00'
-  code: KEE-DRF-012
-  layer: goal drift
-  severity: warning
-  confidence: heuristic-low-confidence
-  summary: Recent work does not resemble the declared scope
-  evidence:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  - anti
-  - discovery
-  - drift
-  - enforcement
-  - first
-  changed_files:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: goal drift:tests|anti|discovery
-- seen_at: '2026-03-24T21:51:52.617378-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  changed_files:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: session drift:tests
-- seen_at: '2026-03-24T21:51:52.617378-05:00'
-  code: KEE-DRF-012
-  layer: goal drift
-  severity: warning
-  confidence: heuristic-low-confidence
-  summary: Recent work does not resemble the declared scope
-  evidence:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  - anti
-  - discovery
-  - drift
-  - enforcement
-  - first
-  changed_files:
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: goal drift:tests|anti|discovery
-- seen_at: '2026-03-24T21:52:32.486470-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  changed_files:
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  cluster_key: session drift:.claude
-- seen_at: '2026-03-24T21:52:32.486470-05:00'
-  code: KEE-DRF-014
-  layer: session drift
-  severity: warning
-  confidence: deterministic
-  summary: The current brief is stale
-  evidence:
-  - .keel/session/current-brief.md
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  changed_files:
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  cluster_key: session drift:.claude
-- seen_at: '2026-03-24T21:52:32.486470-05:00'
-  code: KEE-DRF-019
-  layer: unknown-scope growth
-  severity: warning
-  confidence: inferred-medium-confidence
-  summary: Touched scope is expanding beyond the planned subsystem set
-  evidence:
-  - .claude
-  - .codex
-  - src
-  - tests
-  changed_files:
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
-  - .claude/skills/keel-session/SKILL.md
-  - .claude/statusline.py
-  cluster_key: unknown-scope growth:.claude|.codex|src
-- seen_at: '2026-03-24T21:55:33.106912-05:00'
-  code: KEE-DRF-001
-  layer: session drift
-  severity: warning
-  confidence: inferred-high-confidence
-  summary: Repository changed after the latest scan
-  evidence:
-  - .gitignore
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  changed_files:
-  - .gitignore
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: session drift:.gitignore|tests
-- seen_at: '2026-03-24T21:55:33.106912-05:00'
+- seen_at: '2026-03-24T22:17:42.113561-05:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -302,29 +8,12 @@ events:
   evidence: []
   changed_files:
   - .gitignore
+  - README.md
   - tests/test_claude_ui.py
   - tests/test_install_agents_cli.py
   - tests/test_installer.py
-  cluster_key: session drift:.gitignore|tests
-- seen_at: '2026-03-24T21:55:33.106912-05:00'
-  code: KEE-DRF-014
-  layer: session drift
-  severity: warning
-  confidence: deterministic
-  summary: The current brief is stale
-  evidence:
-  - .keel/session/current-brief.md
-  - .gitignore
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  changed_files:
-  - .gitignore
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
-  cluster_key: session drift:.gitignore|tests
-- seen_at: '2026-03-24T21:55:33.106912-05:00'
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.113561-05:00'
   code: KEE-DRF-009
   layer: plan drift
   severity: warning
@@ -332,13 +21,32 @@ events:
   summary: Recent file changes are outside the active plan step
   evidence:
   - .gitignore
+  - README.md
   changed_files:
   - .gitignore
+  - README.md
   - tests/test_claude_ui.py
   - tests/test_install_agents_cli.py
   - tests/test_installer.py
-  cluster_key: plan drift:.gitignore
-- seen_at: '2026-03-24T21:55:33.106912-05:00'
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:17:42.113561-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.113561-05:00'
   code: KEE-DRF-012
   layer: goal drift
   severity: warning
@@ -346,20 +54,989 @@ events:
   summary: Recent work does not resemble the declared scope
   evidence:
   - .gitignore
+  - README.md
   - tests/test_claude_ui.py
   - tests/test_install_agents_cli.py
   - tests/test_installer.py
   - anti
   - discovery
   - drift
-  - enforcement
   changed_files:
   - .gitignore
+  - README.md
   - tests/test_claude_ui.py
   - tests/test_install_agents_cli.py
   - tests/test_installer.py
-  cluster_key: goal drift:.gitignore|tests|anti
-- seen_at: '2026-03-24T21:55:33.960435-05:00'
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.429823-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.429823-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.429823-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:17:42.429823-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:42.429823-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:54.225280-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:54.225280-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:54.225280-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:17:54.225280-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:17:54.225280-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:01.811744-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:01.811744-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:01.811744-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:18:01.811744-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:01.811744-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:06.991866-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:06.991866-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:06.991866-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:18:06.991866-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:06.991866-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:17.849510-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:17.849510-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:17.849510-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:18:17.849510-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:17.849510-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:39.464627-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:39.464627-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:39.464627-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:18:39.464627-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:39.464627-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:49.926078-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:49.926078-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:49.926078-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:18:49.926078-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:18:49.926078-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:07.512776-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:07.512776-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:07.512776-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:19:07.512776-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:07.512776-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:09.180609-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:09.180609-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:09.180609-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:19:09.180609-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:09.180609-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:22.020152-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:22.020152-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:22.020152-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:19:22.020152-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:22.020152-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:35.427668-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:35.427668-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:35.427668-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:19:35.427668-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:19:35.427668-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:25.884131-05:00'
   code: KEE-DRF-001
   layer: session drift
   severity: warning
@@ -384,7 +1061,7 @@ events:
   - .claude/skills/keel-session/SKILL.md
   - .claude/statusline.py
   cluster_key: session drift:.claude
-- seen_at: '2026-03-24T21:55:33.960435-05:00'
+- seen_at: '2026-03-24T22:21:25.884131-05:00'
   code: KEE-DRF-002
   layer: session drift
   severity: info
@@ -401,14 +1078,19 @@ events:
   - .claude/skills/keel-session/SKILL.md
   - .claude/statusline.py
   cluster_key: session drift:.claude|.codex|.gitignore
-- seen_at: '2026-03-24T21:55:33.960435-05:00'
-  code: KEE-DRF-009
-  layer: plan drift
+- seen_at: '2026-03-24T22:21:25.884131-05:00'
+  code: KEE-DRF-014
+  layer: session drift
   severity: warning
-  confidence: inferred-high-confidence
-  summary: Recent file changes are outside the active plan step
+  confidence: deterministic
+  summary: The current brief is stale
   evidence:
-  - .gitignore
+  - .keel/session/current-brief.md
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
   changed_files:
   - .claude/hooks/keel_notify.py
   - .claude/hooks/keel_preflight.py
@@ -418,8 +1100,27 @@ events:
   - .claude/skills/keel-drift/SKILL.md
   - .claude/skills/keel-session/SKILL.md
   - .claude/statusline.py
-  cluster_key: plan drift:.gitignore
-- seen_at: '2026-03-24T21:55:33.960435-05:00'
+  cluster_key: session drift:.claude
+- seen_at: '2026-03-24T22:21:25.884131-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:21:25.884131-05:00'
   code: KEE-DRF-019
   layer: unknown-scope growth
   severity: warning
@@ -429,6 +1130,307 @@ events:
   - .claude
   - .codex
   - .gitignore
+  - README.md
+  - src
+  - tests
+  changed_files:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  cluster_key: unknown-scope growth:.claude|.codex|.gitignore
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-014
+  layer: session drift
+  severity: warning
+  confidence: deterministic
+  summary: The current brief is stale
+  evidence:
+  - .keel/session/current-brief.md
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:26.008998-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-014
+  layer: session drift
+  severity: warning
+  confidence: deterministic
+  summary: The current brief is stale
+  evidence:
+  - .keel/session/current-brief.md
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: session drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .gitignore
+  - README.md
+  - tests
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: unknown-scope growth:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:33.808949-05:00'
+  code: KEE-DRF-012
+  layer: goal drift
+  severity: warning
+  confidence: heuristic-low-confidence
+  summary: Recent work does not resemble the declared scope
+  evidence:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  - anti
+  - discovery
+  - drift
+  changed_files:
+  - .gitignore
+  - README.md
+  - tests/test_claude_ui.py
+  - tests/test_install_agents_cli.py
+  - tests/test_installer.py
+  cluster_key: goal drift:.gitignore|README|tests
+- seen_at: '2026-03-24T22:21:34.198457-05:00'
+  code: KEE-DRF-001
+  layer: session drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Repository changed after the latest scan
+  evidence:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  changed_files:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  cluster_key: session drift:.claude
+- seen_at: '2026-03-24T22:21:34.198457-05:00'
+  code: KEE-DRF-002
+  layer: session drift
+  severity: info
+  confidence: deterministic
+  summary: Git working tree is not clean
+  evidence: []
+  changed_files:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  cluster_key: session drift:.claude|.codex|.gitignore
+- seen_at: '2026-03-24T22:21:34.198457-05:00'
+  code: KEE-DRF-009
+  layer: plan drift
+  severity: warning
+  confidence: inferred-high-confidence
+  summary: Recent file changes are outside the active plan step
+  evidence:
+  - .gitignore
+  - README.md
+  changed_files:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+  cluster_key: plan drift:.gitignore|README
+- seen_at: '2026-03-24T22:21:34.198457-05:00'
+  code: KEE-DRF-019
+  layer: unknown-scope growth
+  severity: warning
+  confidence: inferred-medium-confidence
+  summary: Touched scope is expanding beyond the planned subsystem set
+  evidence:
+  - .claude
+  - .codex
+  - .gitignore
+  - README.md
   - src
   - tests
   changed_files:

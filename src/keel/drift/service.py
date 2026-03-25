@@ -573,6 +573,7 @@ def _terminology_drift(paths: KeelPaths, changed_files: list[str], findings: lis
                     confidence=ConfidenceLevel.HEURISTIC_LOW,
                     suggested_action="Choose one canonical term in the glossary or artifacts and normalize the active specs and brief.",
                     evidence=changed_files[:5],
+                    teaching="Using different words for the same concept fragments understanding. Specs, code, and docs should use the same vocabulary.",
                 )
             )
             return
@@ -623,6 +624,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_HIGH,
                 suggested_action="Run `keel scan` again or checkpoint the repo once the current step is reconciled.",
                 evidence=changed_files[:8],
+                teaching="Every change to the repo after a scan means your baseline picture is stale. Working from stale context is how agents build on wrong assumptions.",
             )
         )
     if _git_has_changes(paths.root):
@@ -636,6 +638,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.DETERMINISTIC,
                 suggested_action="Use `keel checkpoint` before or after the next meaningful change slice.",
                 evidence=[],
+                teaching="Uncommitted changes are invisible to checkpoints and recovery. If drift happens now, there's no clean state to rewind to.",
             )
         )
     if paths.current_brief_file.exists() and changed_files:
@@ -656,6 +659,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.DETERMINISTIC,
                     suggested_action="Refresh the current brief by running `keel plan`, `keel checkpoint`, or another state-updating command.",
                     evidence=[".keel/session/current-brief.md"] + changed_files[:5],
+                    teaching="A stale brief means the agent is making decisions based on outdated context. Refresh it so the next action is grounded in reality.",
                 )
             )
     if goal and goal.mode in {
@@ -676,6 +680,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_HIGH,
                 suggested_action="Run `keel delta` to record the intended change and validation mapping.",
                 evidence=[goal.mode.value],
+                teaching="When you change behavior without recording a delta, the done-gate can't verify the change was intentional. This is how accidental breakage ships.",
             )
         )
     if checkpoint_time is None and changed_files:
@@ -697,6 +702,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.INFERRED_HIGH,
                     suggested_action="Run `keel checkpoint` before proceeding further so replans and recovery stay grounded.",
                     evidence=(risk_changes or changed_files)[:8],
+                    teaching="Broad changes without a checkpoint mean there's no recovery anchor. If something goes wrong, you can't get back to a known-good state.",
                 )
             )
     if plan and session.active_step_id and all(
@@ -712,6 +718,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.DETERMINISTIC,
                 suggested_action="Run `keel next` or `keel replan` to resynchronize the active step.",
                 evidence=[session.active_step_id],
+                teaching="The plan says you should be on a step that no longer exists. The agent is navigating by a map that doesn't match the territory.",
             )
         )
     relevant_high_priority_questions = []
@@ -732,6 +739,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.DETERMINISTIC,
                 suggested_action="Resolve the highest-priority questions or record why they are consciously deferred.",
                 evidence=[question.question_id for question in relevant_high_priority_questions[:5]],
+                teaching="Completing all plan steps without completing the goal means the plan was wrong or incomplete. Don't let the checklist substitute for the actual objective.",
             )
         )
 
@@ -750,6 +758,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.INFERRED_HIGH,
                     suggested_action="Either capture a new implementation goal or roll the discovery session forward with a fresh plan.",
                     evidence=code_changes[:8],
+                    teaching="The goal describes one thing but the code is doing another. This gap widens silently until the PR review catches it \u2014 or doesn't.",
                 )
             )
 
@@ -774,6 +783,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.INFERRED_MEDIUM,
                     suggested_action="Confirm whether behavior changed. If yes, update the goal and delta before calling the slice done.",
                     evidence=behavior_change_signals[:8] or [delta.artifact_id for delta in deltas[:4]],
+                    teaching="Refactors should not change behavior. If contracts or examples changed during a refactor, something slipped that tests might not catch.",
                 )
             )
     if goal and goal.mode in {
@@ -797,6 +807,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.INFERRED_HIGH,
                     suggested_action="Update tests, examples, or explicit success criteria before calling this work aligned.",
                     evidence=code_changes[:8],
+                    teaching="Code changed but nothing validates the change \u2014 no tests, no examples, no success criteria. This is how untested behavior ships.",
                 )
             )
 
@@ -820,6 +831,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.INFERRED_HIGH,
                     suggested_action="Either narrow the implementation back to the active step or replan to include the newly touched files.",
                     evidence=off_plan[:8],
+                    teaching="Working outside the active plan step means scope is growing without the plan tracking it. This is the #1 way agents silently derail.",
                 )
             )
     entrypoint_families = {_entrypoint_family(path) for path in entrypoint_candidates}
@@ -854,6 +866,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_HIGH,
                 suggested_action="Confirm that the active step truly includes an entrypoint change, or replan before proceeding.",
                 evidence=changed_entrypoints[:8],
+                teaching="Spec artifacts changed but the code didn't follow. The spec and implementation are now telling different stories.",
             )
         )
 
@@ -870,6 +883,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_HIGH,
                 suggested_action="Add a delta and note the requirement or contract impact before closing the phase.",
                 evidence=spec_changes[:8],
+                teaching="When runtime entrypoints change without the goal or plan knowing, the whole execution model might shift under you.",
             )
         )
     if (
@@ -889,6 +903,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_MEDIUM,
                 suggested_action="Confirm whether the change should be spec-neutral. If not, update the relevant requirement, contract, example, or delta.",
                 evidence=[path for path in code_changes[:8] if not artifact_reference_map.get(path)],
+                teaching="Duplicate implementations are a sign that the agent lost track of existing code. This creates maintenance debt and conflicting behavior.",
             )
         )
     changed_top_level = {Path(path).parts[0] for path in changed_files if Path(path).parts}
@@ -904,6 +919,7 @@ def detect_drift(
                 confidence=ConfidenceLevel.INFERRED_MEDIUM,
                 suggested_action="Pause for `keel replan` if this is becoming a subsystem-spanning change instead of a bounded slice.",
                 evidence=sorted(changed_top_level)[:8],
+                teaching="Touching more subsystems than planned means the blast radius is growing. Each new subsystem multiplies the chance of unintended side effects.",
             )
         )
 
@@ -950,6 +966,7 @@ def detect_drift(
                     confidence=ConfidenceLevel.HEURISTIC_LOW,
                     suggested_action="Check whether the goal scope still matches the actual work or needs a focused update.",
                     evidence=changed_files[:8] + sorted(scope_keywords)[:6],
+                    teaching="The work doesn't look like what was declared. Either the goal needs updating or the work needs redirecting \u2014 ignoring this gap is how projects drift.",
                 )
             )
 
@@ -973,6 +990,7 @@ def detect_drift(
                 confidence=cluster.confidence,
                 suggested_action=cluster.recommended_action,
                 evidence=cluster.related_codes + cluster.touched_areas,
+                teaching="Repeated weak signals are a pattern, not noise. The drift detector is seeing the same problem over and over \u2014 it's time to stop and address it.",
             )
         )
 

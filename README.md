@@ -44,6 +44,11 @@ KEEL is being built to create **hard stops** that prevent AI agents from causing
 - **Alert feed into agent context** — Claude Code sees drift warnings in its status line and hooks *during* the session, not after
 - **Cluster detection** — repeated weak signals roll up into a probable drift warning before they become a real problem
 - **Checkpoint/recover flow** — `keel recover` automatically creates a checkpoint the moment it detects drift, freezing the current state as a recovery anchor before producing a concrete route back — the agent can't lose the "last known good" point
+- **Development guide** — `keel guide` gives contextual coaching for the current step: what to do, what to avoid, when you're done — adapts to your phase, goal mode, and active warnings
+- **Teaching drift** — every drift rule includes a plain-language explanation of *why* it matters, so agents learn spec-driven development instead of just getting flagged
+- **Repo-aware planning** — `keel plan` generates steps specific to your actual codebase: real file paths, real unknowns, real entrypoints — not a generic template
+- **Step advancement** — `keel advance` marks the current step done, auto-checkpoints, and advances to the next step in the plan
+- **Auto-replan detection** — the companion watches for accumulating drift warnings and suggests `keel replan` when the plan no longer matches reality
 
 **WIP — building toward hard stops:**
 - **Pre-edit blocking** — intercept the agent *before* it writes to a file outside the active plan step (not just warn after)
@@ -112,6 +117,8 @@ That's it. The companion is now watching your repo in the background.
 | `keel check` | Quick health check of KEEL state |
 | `keel status` | Show current session state |
 | `keel install` | Bootstrap agent integrations + companion |
+| `keel guide` / `keel tips` | Contextual development coaching for the current step |
+| `keel advance` | Mark current step done and move to the next one |
 | `keel doctor` | Diagnose KEEL installation issues |
 | `keel export` | Export session state as JSON |
 

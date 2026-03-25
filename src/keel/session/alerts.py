@@ -41,6 +41,8 @@ def _upsert_alert(alerts: list[dict], item: dict) -> None:
             alert["summary"] = item["summary"]
             alert["detail"] = item["detail"]
             alert["next_action"] = item["next_action"]
+            if "teaching" in item:
+                alert["teaching"] = item["teaching"]
             return
     alerts.append(item)
 
@@ -73,6 +75,7 @@ def update_alert_feed(
                 "count": 1,
                 "evidence": finding.evidence[:6],
                 "next_action": finding.suggested_action,
+                **({"teaching": finding.teaching} if finding.teaching else {}),
             },
         )
     for finding in validation.findings:

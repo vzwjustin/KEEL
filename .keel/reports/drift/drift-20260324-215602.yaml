@@ -1,0 +1,164 @@
+artifact_id: drift-20260324-215602
+artifact_type: drift
+created_at: '2026-03-24T21:56:02.314463-05:00'
+repo_root: /Users/justinadams/Documents/Keel
+mode: soft
+findings:
+- code: KEE-DRF-001
+  layer: session drift
+  summary: Repository changed after the latest scan
+  detail: Files outside KEEL state directories were modified after the most recent
+    checkpoint or scan, so the saved flatline may no longer match repo reality.
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Run `keel scan` again or checkpoint the repo once the current
+    step is reconciled.
+  evidence:
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/skills/keel-drift/SKILL.md
+  - .claude/skills/keel-session/SKILL.md
+  - .claude/statusline.py
+- code: KEE-DRF-002
+  layer: session drift
+  summary: Git working tree is not clean
+  detail: Uncommitted changes can hide drift between the active plan and the current
+    repository state.
+  severity: info
+  confidence: deterministic
+  suggested_action: Use `keel checkpoint` before or after the next meaningful change
+    slice.
+  evidence: []
+- code: KEE-DRF-014
+  layer: session drift
+  summary: The current brief is stale
+  detail: Repository changes landed after `.keel/session/current-brief.md` was last
+    refreshed.
+  severity: warning
+  confidence: deterministic
+  suggested_action: Refresh the current brief by running `keel plan`, `keel checkpoint`,
+    or another state-updating command.
+  evidence:
+  - .keel/session/current-brief.md
+  - .claude/hooks/keel_notify.py
+  - .claude/hooks/keel_preflight.py
+  - .claude/hooks/keel_ui_context.py
+  - .claude/settings.json
+  - .claude/settings.local.json
+- code: KEE-DRF-009
+  layer: plan drift
+  summary: Recent file changes are outside the active plan step
+  detail: The active plan step targets src/keel/__main__.py, src/keel/cli/app.py,
+    src/keel, .codex, but unrelated files were modified without matching an active
+    requirement, contract, goal, or delta artifact.
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Either narrow the implementation back to the active step or replan
+    to include the newly touched files.
+  evidence:
+  - .gitignore
+- code: KEE-DRF-019
+  layer: unknown-scope growth
+  summary: Touched scope is expanding beyond the planned subsystem set
+  detail: Recent edits span additional top-level areas beyond what the active step
+    suggests.
+  severity: warning
+  confidence: inferred-medium-confidence
+  suggested_action: Pause for `keel replan` if this is becoming a subsystem-spanning
+    change instead of a bounded slice.
+  evidence:
+  - .claude
+  - .codex
+  - .gitignore
+  - src
+  - tests
+- code: KEE-DRF-021
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T21:48:22.411745-05:00.
+    Latest related event: 2026-03-24T21:56:02.314463-05:00. Recent signals repeatedly
+    touched .claude, .codex.'
+  severity: warning
+  confidence: inferred-high-confidence
+  suggested_action: Checkpoint or replan now before these repeated drift signals turn
+    into a larger alignment break.
+  evidence:
+  - KEE-DRF-014
+  - KEE-DRF-001
+  - .claude
+  - .codex
+- code: KEE-DRF-021
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T21:55:33.106912-05:00.
+    Latest related event: 2026-03-24T21:55:33.106912-05:00. Recent signals repeatedly
+    touched .gitignore, tests.'
+  severity: warning
+  confidence: inferred-medium-confidence
+  suggested_action: Checkpoint or replan now before these repeated drift signals turn
+    into a larger alignment break.
+  evidence:
+  - KEE-DRF-001
+  - KEE-DRF-002
+  - KEE-DRF-014
+  - .gitignore
+  - tests
+clusters:
+- cluster_id: cluster-815a702512
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T21:48:22.411745-05:00.
+    Latest related event: 2026-03-24T21:56:02.314463-05:00. Recent signals repeatedly
+    touched .claude, .codex.'
+  severity: warning
+  confidence: inferred-high-confidence
+  event_count: 7
+  related_codes:
+  - KEE-DRF-014
+  - KEE-DRF-001
+  touched_areas:
+  - .claude
+  - .codex
+  first_seen_at: '2026-03-24T21:48:22.411745-05:00'
+  last_seen_at: '2026-03-24T21:56:02.314463-05:00'
+  recommended_action: Checkpoint or replan now before these repeated drift signals
+    turn into a larger alignment break.
+  timeline:
+  - '2026-03-24T21:48:36.653876-05:00: KEE-DRF-014 The current brief is stale'
+  - '2026-03-24T21:52:32.486470-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T21:52:32.486470-05:00: KEE-DRF-014 The current brief is stale'
+  - '2026-03-24T21:55:33.960435-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T21:56:02.314463-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T21:56:02.314463-05:00: KEE-DRF-014 The current brief is stale'
+- cluster_id: cluster-9545835475
+  layer: session drift
+  summary: Probable session drift cluster built from repeated weak signals
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T21:55:33.106912-05:00.
+    Latest related event: 2026-03-24T21:55:33.106912-05:00. Recent signals repeatedly
+    touched .gitignore, tests.'
+  severity: warning
+  confidence: inferred-medium-confidence
+  event_count: 3
+  related_codes:
+  - KEE-DRF-001
+  - KEE-DRF-002
+  - KEE-DRF-014
+  touched_areas:
+  - .gitignore
+  - tests
+  first_seen_at: '2026-03-24T21:55:33.106912-05:00'
+  last_seen_at: '2026-03-24T21:55:33.106912-05:00'
+  recommended_action: Checkpoint or replan now before these repeated drift signals
+    turn into a larger alignment break.
+  timeline:
+  - '2026-03-24T21:55:33.106912-05:00: KEE-DRF-001 Repository changed after the latest
+    scan'
+  - '2026-03-24T21:55:33.106912-05:00: KEE-DRF-002 Git working tree is not clean'
+  - '2026-03-24T21:55:33.106912-05:00: KEE-DRF-014 The current brief is stale'
+status: warning

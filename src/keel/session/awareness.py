@@ -138,7 +138,14 @@ def latest_repo_change_at(paths: KeelPaths, config: KeelConfig) -> Optional[str]
     return datetime.fromtimestamp(latest_timestamp).astimezone().isoformat()
 
 
-def _write_drift_notification(paths: KeelPaths, drift: object, alerts: list[dict]) -> None:
+def _write_drift_notification(
+    paths: KeelPaths,
+    drift: object,
+    alerts: list[dict],
+    *,
+    replan_suggested: bool = False,
+    replan_reason: str = "",
+) -> None:
     """Write a one-shot notification file when new drift findings appear."""
     if not hasattr(drift, "findings") or not drift.findings:
         return
@@ -151,11 +158,14 @@ def _write_drift_notification(paths: KeelPaths, drift: object, alerts: list[dict
     from keel.session.ui import _vibe
     top = drift_alerts[0]
     message = _vibe(top.get("summary", "drifting"))
+    if replan_suggested:
+        message = f"{message}\n\u26a0\ufe0f {replan_reason}"
     save_yaml(paths.pending_notification_file, {
         "type": "drift",
         "message": message,
         "created_at": now_iso(),
         "alert_count": len(drift_alerts),
+        "replan_suggested": replan_suggested,
     })
 
 
@@ -239,7 +249,49 @@ def run_awareness_pass(
         drift_warnings=[finding.code for finding in drift.findings],
     )
     alerts = update_alert_feed(paths=paths, drift=drift, validation=validation)
-    _write_drift_notification(paths, drift, alerts)
+
+    # Auto-replan detection: count warning-or-higher drift findings
+    warning_or_higher = {"warning", "error", "blocker"}
+    high_severity_count = sum(
+        1 for finding in drift.findings if finding.severity.value in warning_or_higher
+    )
+    replan_suggested = False
+    replan_reason = ""
+    if high_severity_count >= 5:
+        # Check if a replan has happened in the last 10 minutes
+        session_service = SessionService(paths)
+        recent_decisions = session_service.load_decisions(limit=50)
+        now = datetime.now().astimezone()
+        replan_recent = False
+        for line in recent_decisions:
+            if "replan" in line.lower():
+                replan_recent = True
+                break
+        # Also check raw decisions log for timestamps within 10 minutes
+        if replan_recent:
+            raw_lines = []
+            if paths.decisions_log_file.exists():
+                raw_lines = [
+                    line.strip()
+                    for line in paths.decisions_log_file.read_text(encoding="utf-8").splitlines()
+                    if line.strip() and "replan" in line.lower()
+                ]
+            replan_recent = False
+            for raw_line in raw_lines:
+                parts = raw_line.split(" ", 1)
+                if len(parts) == 2:
+                    try:
+                        decision_time = datetime.fromisoformat(parts[0])
+                        if (now - decision_time).total_seconds() < 600:
+                            replan_recent = True
+                            break
+                    except (ValueError, TypeError):
+                        continue
+        if not replan_recent:
+            replan_suggested = True
+            replan_reason = "5+ drift warnings without replan \u2014 consider running keel replan"
+
+    _write_drift_notification(paths, drift, alerts, replan_suggested=replan_suggested, replan_reason=replan_reason)
     brief_path = refresh_current_brief(paths, session, validation=validation, drift=drift)
 
     overall_status = "clear"
@@ -266,4 +318,6 @@ def run_awareness_pass(
         "current_next_step": session.current_next_step,
         "alerts_count": len(alerts),
         "recent_alerts": alerts,
+        "replan_suggested": replan_suggested,
+        "replan_reason": replan_reason,
     }

@@ -15,6 +15,7 @@ from keel.models import (
     ScanArtifact,
     SessionState,
 )
+from keel.models.artifacts import PlanPhase, PlanStep
 
 
 class SessionService:
@@ -163,6 +164,41 @@ class SessionService:
             handle.write(f"{now_iso()} {summary}\n")
         session.latest_decisions = self.load_decisions()
         return self.save(session)
+
+    def advance_step(self, session: SessionState, plan: PlanArtifact) -> tuple[SessionState, str]:
+        if not plan or not plan.phases:
+            session.current_next_step = "No plan phases available."
+            return self.save(session), "No plan phases available."
+
+        # Mark current step as completed
+        if session.active_step_id and session.active_step_id not in session.completed_step_ids:
+            session.completed_step_ids.append(session.active_step_id)
+
+        # Build a flat list of (phase, step) pairs
+        all_steps: list[tuple[PlanPhase, PlanStep]] = []
+        for phase in plan.phases:
+            for step in phase.steps:
+                all_steps.append((phase, step))
+
+        # Find the next uncompleted step
+        next_phase = None
+        next_step = None
+        for phase, step in all_steps:
+            if step.step_id not in session.completed_step_ids:
+                next_phase = phase
+                next_step = step
+                break
+
+        if next_step is None:
+            # All steps complete
+            session.active_step_id = None
+            session.current_next_step = "All plan steps complete \u2014 run keel done"
+            return self.save(session), "All plan steps complete \u2014 run keel done"
+
+        session.active_step_id = next_step.step_id
+        session.active_phase_id = next_phase.phase_id
+        session.current_next_step = next_step.title
+        return self.save(session), f"Advanced to: {next_step.title}"
 
     def add_checkpoint(self, note: str, session: SessionState, *, kind: str = "manual") -> None:
         payload = load_yaml(self.paths.checkpoints_file)

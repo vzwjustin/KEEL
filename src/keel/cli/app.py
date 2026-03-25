@@ -10,6 +10,7 @@ from typing import Annotated, List, Optional
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
 
 from keel.baseline import build_baseline
 from keel.config import load_config
@@ -60,10 +61,11 @@ from keel.session import (
     stop_companion,
     write_companion_heartbeat,
 )
+from keel.align import align_context
+from keel.guide import build_guidance
 from keel.trace import build_trace
 from keel.utils import install_agent_assets
 from keel.validators import run_validation
-from keel.align import align_context
 
 app = typer.Typer(add_completion=False, help="KEEL: a local-first discovery and anti-drift CLI.")
 companion_app = typer.Typer(help="Manage the local KEEL companion process.")
@@ -761,6 +763,59 @@ def checkpoint(
 @app.command()
 def replan(ctx: typer.Context) -> None:
     plan(ctx)
+
+
+@app.command()
+def advance(ctx: typer.Context) -> None:
+    state = _ctx(ctx)
+    paths, _, session = ensure_project(state.repo)
+    plan_artifact = _load_latest(paths, PlanArtifact, paths.plans_dir)
+    if not plan_artifact:
+        render_result(
+            console,
+            "Advance",
+            ["No active plan found. Run keel start or keel plan first."],
+            state.json_output,
+            {"status": "error", "message": "No active plan found."},
+        )
+        raise typer.Exit(code=1)
+
+    old_step_id = session.active_step_id
+    old_phase_id = session.active_phase_id
+    service = SessionService(paths)
+    session, message = service.advance_step(session, plan_artifact)
+
+    service.add_checkpoint(f"Completed step: {old_step_id}", session, kind="advance")
+    service.record_decision(session, f"Advanced plan: completed {old_step_id}, now at {session.active_step_id or 'done'}")
+    refresh_current_brief(paths, session)
+
+    # Determine new phase title for display
+    new_phase_title = None
+    if session.active_phase_id:
+        for phase in plan_artifact.phases:
+            if phase.phase_id == session.active_phase_id:
+                new_phase_title = phase.title
+                break
+
+    render_result(
+        console,
+        "Advance",
+        [
+            f"completed: {old_step_id}",
+            f"phase: {new_phase_title or 'complete'}",
+            f"next: {session.current_next_step or message}",
+        ],
+        state.json_output,
+        {
+            "status": "advanced",
+            "completed_step_id": old_step_id,
+            "completed_phase_id": old_phase_id,
+            "active_step_id": session.active_step_id,
+            "active_phase_id": session.active_phase_id,
+            "current_next_step": session.current_next_step,
+            "message": message,
+        },
+    )
 
 
 @app.command()
@@ -1465,6 +1520,82 @@ def check(ctx: typer.Context) -> None:
             "drift": drift_artifact.model_dump(mode="json", exclude_none=True),
         },
     )
+
+
+def _run_guide(ctx: typer.Context) -> None:
+    """Shared implementation for guide and tips commands."""
+    import json as json_mod
+
+    state = _ctx(ctx)
+    paths, _, session = ensure_project(state.repo)
+    bundle = load_active_bundle(paths, session)
+    guidance = build_guidance(
+        paths=paths,
+        session=session,
+        goal=bundle["goal"],
+        plan=bundle["plan"],
+        scan=bundle["scan"],
+        drift=bundle["drift"],
+        validation=bundle["validation"],
+    )
+
+    if state.json_output:
+        console.print_json(json_mod.dumps(guidance, default=str))
+        return
+
+    lines: list[str] = []
+    lines.append(f"[bold cyan]Step:[/bold cyan] {guidance['current_step']}")
+    lines.append("")
+
+    lines.append("[bold green]What to do:[/bold green]")
+    for item in guidance["what_to_do"]:
+        lines.append(f"  - {item}")
+    lines.append("")
+
+    lines.append("[bold yellow]What to avoid:[/bold yellow]")
+    for item in guidance["what_to_avoid"]:
+        lines.append(f"  - {item}")
+    lines.append("")
+
+    lines.append(f"[bold magenta]Done when:[/bold magenta] {guidance['done_when']}")
+    lines.append("")
+
+    if guidance["warnings"]:
+        lines.append("[bold red]Warnings:[/bold red]")
+        for item in guidance["warnings"]:
+            lines.append(f"  - {item}")
+        lines.append("")
+
+    context = guidance.get("context", {})
+    if context:
+        ctx_parts: list[str] = []
+        if context.get("goal_mode"):
+            ctx_parts.append(f"mode={context['goal_mode']}")
+        if context.get("languages"):
+            ctx_parts.append(f"languages={', '.join(context['languages'][:3])}")
+        if context.get("scope"):
+            ctx_parts.append(f"scope={', '.join(context['scope'][:2])}")
+        if ctx_parts:
+            lines.append(f"[dim]Context: {' | '.join(ctx_parts)}[/dim]")
+            lines.append("")
+
+    lines.append("[bold blue]Suggested commands:[/bold blue]")
+    for cmd in guidance["suggested_commands"]:
+        lines.append(f"  $ {cmd}")
+
+    console.print(Panel("\n".join(lines), title="KEEL Guide", expand=False))
+
+
+@app.command()
+def guide(ctx: typer.Context) -> None:
+    """Show contextual development guidance for the current step."""
+    _run_guide(ctx)
+
+
+@app.command()
+def tips(ctx: typer.Context) -> None:
+    """Alias for guide -- show contextual development guidance."""
+    _run_guide(ctx)
 
 
 @app.command()
