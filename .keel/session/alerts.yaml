@@ -10,10 +10,14 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T19:33:09.225167-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 82
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 101
   evidence:
   - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - LICENSE
+  - Makefile
   - README.md
   next_action: Either narrow the implementation back to the active step or replan
     to include the newly touched files.
@@ -24,20 +28,19 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable plan drift cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T22:17:06.685256-05:00.
-    Latest related event: 2026-03-24T22:21:34.198457-05:00. Recent signals repeatedly
-    touched .gitignore, README, tests, .claude.'
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
+    touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T19:59:48.771032-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 50
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 53
   evidence:
   - KEE-DRF-009
   - .gitignore
-  - README
-  - tests
-  - .claude
+  - AGENTS
+  - ARCHITECTURE
   next_action: Checkpoint or replan now before these repeated drift signals turn into
     a larger alignment break.
   teaching: "Repeated weak signals are a pattern, not noise. The drift detector is\
@@ -47,18 +50,21 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable session drift cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T22:21:25.884131-05:00.
-    Latest related event: 2026-03-24T22:21:34.198457-05:00. Recent signals repeatedly
-    touched .claude.'
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
+    touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:18:17.312276-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 129
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 132
   evidence:
   - KEE-DRF-001
+  - KEE-DRF-002
   - KEE-DRF-014
-  - .claude
+  - .gitignore
+  - AGENTS
+  - ARCHITECTURE
   next_action: Checkpoint or replan now before these repeated drift signals turn into
     a larger alignment break.
   teaching: "Repeated weak signals are a pattern, not noise. The drift detector is\
@@ -68,19 +74,19 @@ alerts:
   source: drift
   rule: KEE-DRF-021
   summary: Probable unknown-scope growth cluster built from repeated weak signals
-  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-24T22:17:06.685256-05:00.
-    Latest related event: 2026-03-24T22:21:33.808949-05:00. Recent signals repeatedly
-    touched .gitignore, README, tests.'
+  detail: 'Drift signals have been building for about 10 minutes. First trigger: 2026-03-25T04:04:53.548552+00:00.
+    Latest related event: 2026-03-25T04:13:09.714578+00:00. Recent signals repeatedly
+    touched .gitignore, AGENTS, ARCHITECTURE.'
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:18:17.312276-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 60
+  last_seen_at: '2026-03-25T04:13:09.932779+00:00'
+  count: 63
   evidence:
   - KEE-DRF-019
   - .gitignore
-  - README
-  - tests
+  - AGENTS
+  - ARCHITECTURE
   next_action: Checkpoint or replan now before these repeated drift signals turn into
     a larger alignment break.
   teaching: "Repeated weak signals are a pattern, not noise. The drift detector is\
@@ -95,15 +101,15 @@ alerts:
   severity: warning
   confidence: inferred-high-confidence
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 93
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 112
   evidence:
-  - .claude/hooks/keel_notify.py
-  - .claude/hooks/keel_preflight.py
-  - .claude/hooks/keel_ui_context.py
-  - .claude/settings.json
-  - .claude/settings.local.json
-  - .claude/skills/keel-drift/SKILL.md
+  - .gitignore
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
   next_action: Run `keel scan` again or checkpoint the repo once the current step
     is reconciled.
   teaching: Every change to the repo after a scan means your baseline picture is stale.
@@ -118,15 +124,15 @@ alerts:
   severity: warning
   confidence: deterministic
   first_seen_at: '2026-03-24T20:39:37.950982-05:00'
-  last_seen_at: '2026-03-24T22:21:34.132513-05:00'
-  count: 50
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 69
   evidence:
   - .keel/session/current-brief.md
   - .gitignore
-  - README.md
-  - tests/test_claude_ui.py
-  - tests/test_install_agents_cli.py
-  - tests/test_installer.py
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
   next_action: Refresh the current brief by running `keel plan`, `keel checkpoint`,
     or another state-updating command.
   teaching: A stale brief means the agent is making decisions based on outdated context.
@@ -164,15 +170,15 @@ alerts:
   severity: warning
   confidence: inferred-medium-confidence
   first_seen_at: '2026-03-24T20:41:41.059048-05:00'
-  last_seen_at: '2026-03-24T22:21:34.340514-05:00'
-  count: 88
+  last_seen_at: '2026-03-25T04:15:14.517602+00:00'
+  count: 107
   evidence:
-  - .claude
-  - .codex
   - .gitignore
-  - README.md
-  - src
-  - tests
+  - AGENTS.md
+  - ARCHITECTURE.md
+  - CLAUDE.md
+  - LICENSE
+  - Makefile
   next_action: Pause for `keel replan` if this is becoming a subsystem-spanning change
     instead of a bounded slice.
   teaching: Touching more subsystems than planned means the blast radius is growing.

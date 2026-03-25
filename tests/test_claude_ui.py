@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -10,10 +11,12 @@ from pathlib import Path
 from keel.session import build_claude_context, build_claude_system_message, build_statusline_text
 from keel.utils.agent_templates import CLAUDE_STATUSLINE_ROUTER
 
+PYTHON = sys.executable
+
 
 def test_statusline_and_context_render_from_alerts(fixture_repo) -> None:
     repo = fixture_repo("multi_entry_repo")
-    cli = ["/Applications/Xcode.app/Contents/Developer/usr/bin/python3", "-m", "keel", "--repo", str(repo)]
+    cli = [PYTHON, "-m", "keel", "--repo", str(repo)]
 
     subprocess.run(cli + ["start", "--goal-mode", "understand", "--success-criterion", "Map the runtime path"], check=True)
     time.sleep(1)
@@ -71,7 +74,7 @@ def test_claude_statusline_script_outputs_keel_summary(fixture_repo) -> None:
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
     result = subprocess.run(
-        ["/Applications/Xcode.app/Contents/Developer/usr/bin/python3", str(Path(__file__).resolve().parent.parent / ".claude" / "statusline.py")],
+        [PYTHON, str(Path(__file__).resolve().parent.parent / ".claude" / "statusline.py")],
         input=payload,
         text=True,
         capture_output=True,
@@ -86,7 +89,7 @@ def test_claude_statusline_script_handles_no_stdin_payload(fixture_repo) -> None
     env = dict(os.environ)
     env.pop("PYTHONPATH", None)
     result = subprocess.run(
-        ["/Applications/Xcode.app/Contents/Developer/usr/bin/python3", str(Path(__file__).resolve().parent.parent / ".claude" / "statusline.py")],
+        [PYTHON, str(Path(__file__).resolve().parent.parent / ".claude" / "statusline.py")],
         text=True,
         capture_output=True,
         check=True,
@@ -130,7 +133,7 @@ def test_claude_global_statusline_router_combines_previous_and_keel_output(tmp_p
     (repo / ".claude" / "statusline.py").write_text("print('KEEL CLEAR | next: none | companion: fresh')\n", encoding="utf-8")
 
     result = subprocess.run(
-        ["/Applications/Xcode.app/Contents/Developer/usr/bin/python3", str(router_path)],
+        [PYTHON, str(router_path)],
         text=True,
         capture_output=True,
         check=True,

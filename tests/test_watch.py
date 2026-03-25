@@ -68,4 +68,4 @@ def test_watch_json_requires_once(fixture_repo) -> None:
     result = runner.invoke(app, ["--repo", str(repo), "--json", "watch"])
 
     assert result.exit_code != 0
-    assert "--once" in result.stdout
+    assert "--once" in result.output

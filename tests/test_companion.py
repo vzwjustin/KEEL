@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -10,6 +11,8 @@ import yaml
 from typer.testing import CliRunner
 
 from keel.cli.app import app
+
+PYTHON = sys.executable
 
 
 def test_companion_start_status_stop_cycle(fixture_repo) -> None:
@@ -136,7 +139,7 @@ def test_command_local_json_flags_work_after_command_name(fixture_repo) -> None:
     )
     assert start.exit_code == 0, start.stdout
 
-    base = ["/Applications/Xcode.app/Contents/Developer/usr/bin/python3", "-m", "keel.cli.main", "--repo", str(repo)]
+    base = [PYTHON, "-m", "keel.cli.main", "--repo", str(repo)]
     env = os.environ.copy()
     env["PYTHONPATH"] = str(Path(__file__).resolve().parent.parent / "src")
 

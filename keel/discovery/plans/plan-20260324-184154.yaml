@@ -21,6 +21,7 @@ phases:
     - .codex
     - .pytest_cache
     - pyproject.toml
+    - tests
     assumptions_to_verify: []
     done_definition: The active runtime path and authoritative files are explicit
       enough to guide the next phase.
